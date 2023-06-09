@@ -1,93 +1,164 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@keyframes rotThis{
-  from{
-      transform: rotate(0deg);
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background-color: white;
+}
+@keyframes rotThis {
+  from {
+    transform: rotate(0deg);
   }
-  to{
-      transform: rotate(-0.3deg);
+  to {
+    transform: rotate(-0.3deg);
   }
 }
-@keyframes lap{
-  from{
-      transform: rotate(0deg);
+@keyframes lap {
+  from {
+    transform: rotate(0deg);
   }
-  to{
-      transform: rotate(-0.3deg) translateX(3px);
-  }
-}
-@keyframes appear{
-  from{
-      opacity: 0;
-  }
-  to{
-      opacity: 1;
+  to {
+    transform: rotate(-0.3deg) translateX(3px);
   }
 }
-*{
-  font-family: 'Hanken Grotesk';
-}
-@keyframes appear-2{
-  from{
-    transform: translateX(600px);
+@keyframes appear {
+  from {
+    opacity: 0;
   }
-  to{
-    transform: translateX(0px);
+  to {
+    opacity: 1;
   }
 }
-@keyframes appear-3{
-  from{
+* {
+  font-family: "Hanken Grotesk";
+}
+@keyframes appear-2 {
+  from {
+    transform: translateX(500px);
+  }
+  to {
+    transform: translateX(100px);
+  }
+}
+@keyframes appear-3 {
+  from {
     transform: translateX(-200px);
   }
-  to{
+  to {
     transform: translateX(50px);
   }
 }
-@keyframes grow{
+@keyframes escribir{
+	0% {
+		transform: translate(0);
+	}
+
+	20% {
+		transform: translate(-10px, 10px);
+	}
+
+	40% {
+		transform: translate(-20px, -20px);
+	}
+
+	60% {
+		transform: translate(10px, 10px);
+	}
+
+	80% {
+		transform: translate(20px, -20px);
+	}
+
+	100% {
+		transform: translate(0);
+	}
+  
+}
+@keyframes volar{
   from{
-    transform: scale(1);
-  }to{
-    transform: scale(1.5);
+    transform: translateY(0px);
+  }
+  to{
+    transform: translateY(200px);
+  }
+}
+@keyframes volar-reverse{
+  from{
+    transform: translateY(200px);
+  }
+  to{
+    transform: translateY(-50px);
   }
 }
 @layer utilities {
-
   .clip-path {
-
     clip-path: polygon(0 0, 59% 0, 35% 100%, 0 100%);
   }
-  .appears{
+  .appears {
     animation: appear 1s infinite;
     animation-direction: alternate;
   }
-  .rotthis{
+  .rotthis {
     animation: rotThis 700ms infinite;
     animation-direction: alternate;
   }
-  .lapiz{
+  .lapiz {
     animation: lap 700ms infinite;
     animation-direction: alternate;
   }
-  .rotthis-2{
+  .rotthis-2 {
     animation: rotThis 1s infinite;
     animation-direction: alternate;
   }
-  .lapiz-2{
+  .lapiz-2 {
     animation: lap 2s infinite;
     animation-direction: alternate;
   }
-  .appear-2{
+  .appear-2 {
     animation: appear-2 10s infinite;
     animation-direction: alternate;
   }
-  .appear-3{
+  .appear-3 {
     animation: appear-3 10s infinite;
     animation-direction: alternate;
   }
-  .grow{
-    animation: grow 600ms infinite;
+  .escribir{
+    animation: escribir 3s infinite;
+    animation-direction: alternate;
+  }
+  .escribir-reverse{
+    animation: escribir 10s infinite;
+    animation-direction: alternate-reverse;
+  }
+  .volar{
+    animation: volar 3s infinite;
+    animation-direction: alternate;
+  }
+  .volar-reverse{
+    animation: volar-reverse 3s infinite;
     animation-direction: alternate;
   }
 
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  background-color: #F60954;
+  height: 1rem;
+  width: 1rem; 
+  border-radius: 100%;
+  transition: all 0.3s ease;
+
+}
+input[type="range"] {
+  scroll-behavior: smooth;
+}
+.parentsvg:hover{
+  background-color: #F60954;
+  color:white;
+  border-radius: 0.5rem;
+}
+.parentsvg:hover svg{
+  fill: white;
 }

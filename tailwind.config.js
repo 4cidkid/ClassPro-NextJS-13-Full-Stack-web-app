@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         main: "#F60954",
+        second: '#f2f2f2',
       },
       backgroundImage: {
         wavy: "url('/img/wavyback.svg')",
@@ -18,5 +19,10 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }) {
+      addVariant('child', '& > *');
+      addVariant('child-hover', '& > *:hover');
+  }
+  ],
 };
