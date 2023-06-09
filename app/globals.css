@@ -1,7 +1,93 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@keyframes rotThis{
+  from{
+      transform: rotate(0deg);
+  }
+  to{
+      transform: rotate(-0.3deg);
+  }
+}
+@keyframes lap{
+  from{
+      transform: rotate(0deg);
+  }
+  to{
+      transform: rotate(-0.3deg) translateX(3px);
+  }
+}
+@keyframes appear{
+  from{
+      opacity: 0;
+  }
+  to{
+      opacity: 1;
+  }
+}
 *{
   font-family: 'Hanken Grotesk';
+}
+@keyframes appear-2{
+  from{
+    transform: translateX(600px);
+  }
+  to{
+    transform: translateX(0px);
+  }
+}
+@keyframes appear-3{
+  from{
+    transform: translateX(-200px);
+  }
+  to{
+    transform: translateX(50px);
+  }
+}
+@keyframes grow{
+  from{
+    transform: scale(1);
+  }to{
+    transform: scale(1.5);
+  }
+}
+@layer utilities {
+
+  .clip-path {
+
+    clip-path: polygon(0 0, 59% 0, 35% 100%, 0 100%);
+  }
+  .appears{
+    animation: appear 1s infinite;
+    animation-direction: alternate;
+  }
+  .rotthis{
+    animation: rotThis 700ms infinite;
+    animation-direction: alternate;
+  }
+  .lapiz{
+    animation: lap 700ms infinite;
+    animation-direction: alternate;
+  }
+  .rotthis-2{
+    animation: rotThis 1s infinite;
+    animation-direction: alternate;
+  }
+  .lapiz-2{
+    animation: lap 2s infinite;
+    animation-direction: alternate;
+  }
+  .appear-2{
+    animation: appear-2 10s infinite;
+    animation-direction: alternate;
+  }
+  .appear-3{
+    animation: appear-3 10s infinite;
+    animation-direction: alternate;
+  }
+  .grow{
+    animation: grow 600ms infinite;
+    animation-direction: alternate;
+  }
+
 }

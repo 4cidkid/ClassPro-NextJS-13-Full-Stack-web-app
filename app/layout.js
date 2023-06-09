@@ -20,10 +20,10 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={inter.className}>
-        <header>
+        <header className="relative">
           <div
             id="header-container"
-            className="px-[135px] pt-[34px] flex items-center justify-between"
+            className="px-[135px] pt-[34px] flex items-center justify-between text-white"
           >
             <div className="flex items-center gap-5">
               <div id="logo">
@@ -47,8 +47,8 @@ export default function RootLayout({ children }) {
               </nav>
             </div>
             <div className="flex items-center text-xl font-bold gap-8">
-              <Link href={"#"}>Login</Link>
-              <Link href={"#"} className="bg-main rounded text-white px-5 py-2">
+              <Link href={"#"} className="text-black">Login</Link>
+              <Link href={"#"} className="bg-main rounded-lg text-white px-5 py-2">
                 Sign up
               </Link>
             </div>
