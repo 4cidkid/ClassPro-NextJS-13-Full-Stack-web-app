@@ -112,9 +112,21 @@ body {
     filter: blur(4px);
   }
 }
+@keyframes rotate{
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(1deg);
+  }
+}
 @layer utilities {
   .clip-path {
     clip-path: polygon(0 0, 59% 0, 35% 100%, 0 100%);
+  }
+  .rotate{
+    animation: rotate 1s infinite;
+    animation-direction: alternate;
   }
   .appears {
     animation: appear 1s infinite;

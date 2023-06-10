@@ -1,7 +1,9 @@
 "use client";
 import Image from "next/image";
-import Connectad from "../public/connected.jsx";
-import HeroImage from "../public/heroImage.jsx";
+import Connectad from "../public/licenced/connected.jsx";
+import HeroImage from "../public/licenced/heroImage.jsx";
+import HowItWorkImage from "../public/licenced/howItWorks.jsx";
+import PerfectTeacher from '../public/licenced/perfectTeacher.jsx'
 import {
   ArrowRight,
   ChevronLeft,
@@ -19,6 +21,7 @@ export default function Home() {
       <Services></Services>
       <Connected></Connected>
       <Teachers></Teachers>
+      <HowItWorks></HowItWorks>
     </>
   );
 }
@@ -244,12 +247,12 @@ const Services = () => {
         </div>
       </div>
       <div className="services-list flex justify-center flex-col items-center mx-[135px] gap-4 mt-5 pb-14 bg-white rounded-xl shadow-lg">
-        <div className="pt-14 w-[70%] text-center flex flex-col items-center font-bold text-3xl">
+        <div className="pt-14 w-[90%] text-center flex flex-col items-center font-bold text-4xl">
           <h2 className="text-gray-900 ">
             Unlock Your Full Potential: Connect with{" "}
             <strong className="text-main">Expert Teachers Today!</strong>
           </h2>
-          <p className="text-xl font-medium opacity-[0.6] ">
+          <p className="text-2xl font-medium opacity-[0.6] ">
             Empowering Students to Achieve Academic Excellence Through
             Personalized Tutoring.
           </p>
@@ -371,13 +374,12 @@ const Services = () => {
 };
 const Connected = () => {
   return (
-    <section id="connected" className="bg-second pt-5">
+    <section id="connected" className="bg-second py-5">
       <div className="mx-[135px] bg-white rounded-xl shadow-lg">
         <div className="py-10 px-12 flex justify-between items-center">
           <div className="w-[40%] flex flex-col gap-3">
-            <h3 className="text-2xl font-bold">
-              Access the Power of Online Learning with Classpro: 4 Compelling
-              Reasons to Get Connected
+            <h3 className="text-4xl font-bold">
+              Access the Power of Online Learning with Classpro
             </h3>
             <p className="text-sm">
               ClassPro opens the doors to your full learning potential. Our
@@ -416,7 +418,6 @@ const Teachers = () => {
   const [izquier, setIzquier] = useState("");
   const [derech, setDerech] = useState("");
 
-  const [who, setWho] = useState("");
   const attributes = {
     left: `absolute translate-x-[-8rem] top-0 scale-90 blur-sm -rotate-12 blur ${
       izquier == true && izquier != "" ? "z-[3]" : "z-[0]"
@@ -428,10 +429,10 @@ const Teachers = () => {
   };
   return (
     <section id="teachers" className="bg-second py-24">
-      <div className="bg-white mx-[135px] px-16">
+      <div className="bg-white mx-[135px] px-16 shadow-md rounded-xl">
         <div className="py-12 flex justify-around items-center">
           <div className="w-[30%] flex flex-col gap-4">
-            <h4 className="text-2xl font-bold">
+            <h4 className="text-4xl font-bold">
               Look at This Top Rated Teachers!
             </h4>
             <p>
@@ -606,6 +607,60 @@ const Teachers = () => {
               }}
             ></ChevronRight>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+const HowItWorks = () => {
+  return (
+    <section id="howItWorks" className="bg-second">
+      <div
+        id="container-works"
+        className="flex flex-col items-center bg-white mx-[135px] p-12 shadow-md rounded-xl"
+      >
+        <h5 className="text-4xl font-bold text-center">How It Works!</h5>
+        <div className="w-[90%] flex items-center justify-evenly gap-5">
+          <HowItWorkImage class="w-[40%]"></HowItWorkImage>
+          <div className="flex items-center gap-6 w-[40%]">
+            <p className="text-6xl font-black text-main">1</p>
+            <div className="flex flex-col gap-3">
+              <p className="text-3xl font-semibold">Sign up!</p>
+              <p className="text-base font-medium">
+                Unlock your learning potential with ClassPro! Join our vibrant
+                community of students and connect with expert teachers for
+                personalized step-by-step guidance. Register now and embark on a
+                transformative educational journey!
+              </p>
+              <Link
+                href={"#"}
+                className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold"
+              >
+                Sign up
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="w-[90%] flex items-center justify-evenly gap-5">
+          <div className="flex items-center gap-6 w-[40%]">
+            <p className="text-6xl font-black text-main">2</p>
+            <div className="flex flex-col gap-3">
+              <p className="text-3xl font-semibold">Find The Perfect Teacher</p>
+              <p className="text-base font-medium">
+                Discover your ideal mentor at ClassPro! Explore our extensive
+                network of skilled teachers and find the perfect match for your
+                learning goals. Take the next step towards academic excellence
+                today!
+              </p>
+              <Link
+                href={"#"}
+                className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold"
+              >
+                Find Teachers
+              </Link>
+            </div>
+          </div>
+          <PerfectTeacher class="w-[40%]" group={{rotate:'rotate',rotthis:'rotthis',volar:'volar', volarR:'volar-reverse',appear:'appears'}}></PerfectTeacher>
         </div>
       </div>
     </section>
