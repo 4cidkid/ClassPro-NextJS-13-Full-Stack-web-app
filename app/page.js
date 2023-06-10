@@ -3,7 +3,7 @@ import Image from "next/image";
 import Connectad from "../public/licenced/connected.jsx";
 import HeroImage from "../public/licenced/heroImage.jsx";
 import HowItWorkImage from "../public/licenced/howItWorks.jsx";
-import PerfectTeacher from '../public/licenced/perfectTeacher.jsx'
+import PerfectTeacher from "../public/licenced/perfectTeacher.jsx";
 import {
   ArrowRight,
   ChevronLeft,
@@ -87,34 +87,20 @@ const Hero = () => {
 const Services = () => {
   //this controlls input price range
   const [inputOne, setInputOne] = useState({ one: 5, two: 100 });
-  //smooth scroll for the range input and set the value from input one p.s: thanks chatgpt, but i think that this dosn't work lol
+  const [priceRange, setPriceRange] = useState('$0 - $100')
+  const [selectPrice, setSelectPrice] = useState(false)
   const smoothScrollOne = (event) => {
-    const range = event.target;
-    const value = range.value;
-    const element = range.parentElement;
-    const scrollTarget =
-      (element.scrollWidth * (value - range.min)) / (range.max - range.min);
-
-    element.scrollTo({
-      left: scrollTarget,
-      behavior: "smooth",
-    });
+    const input = event.target;
+    const value = input.value;
     setInputOne((prev) => {
       return { one: value, two: prev.two };
     });
   };
   //set te value of input two
   const smoothScrollTwo = (event) => {
-    const range = event.target;
-    const value = range.value;
-    const element = range.parentElement;
-    const scrollTarget =
-      (element.scrollWidth * (value - range.min)) / (range.max - range.min);
+    const input = event.target;
+    const value = input.value;
 
-    element.scrollTo({
-      left: scrollTarget,
-      behavior: "smooth",
-    });
     setInputOne((prev) => {
       return { one: prev.one, two: value };
     });
@@ -138,7 +124,7 @@ const Services = () => {
           <div className="relative flex flex-col py-5">
             <div
               id="range"
-              className="transition-transform scale-0  absolute bottom-[130%] flex flex-col gap-2 items-center justify-center p-10  left-1/2  -translate-x-1/2  w-[300px] h-[200px] bg-white before:absolute before:content-[''] before:left-1/2 before:top-[100%]  before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-white before:rotate-180 shadow-2xl"
+              className={`${selectPrice?'scale-1':'scale-0'} transition-transform absolute bottom-[130%] flex flex-col gap-2 items-center justify-center p-10  left-1/2  -translate-x-1/2  w-[300px] h-[200px] bg-white before:absolute before:content-[''] before:left-1/2 before:top-[100%]  before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-white before:rotate-180 shadow-2xl`}
             >
               <label className="font-bold text-xl">Select The Price</label>
               <div className="flex w-full justify-evenly gap-3">
@@ -185,13 +171,8 @@ const Services = () => {
               <button
                 className="bg-main p-2 font-bold text-lg text-white rounded-xl"
                 onClick={(e) => {
-                  let rangePrice =
-                    e.currentTarget.parentElement.parentElement.querySelector(
-                      "#price-range"
-                    );
-                  e.currentTarget.parentElement.classList.remove("scale-1");
-                  e.currentTarget.parentElement.classList.add("scale-0");
-                  rangePrice.innerText = `$${inputOne.one} - $${inputOne.two}`;
+                  setPriceRange(`$${inputOne.one} - $${inputOne.two}`)
+                  setSelectPrice(false)
                 }}
               >
                 Set Price Range
@@ -204,33 +185,10 @@ const Services = () => {
               id="price-range"
               className="text-xl"
               onClick={(e) => {
-                const classesList = Array.from(
-                  e.currentTarget.parentElement.children[0].classList
-                );
-                let classIs;
-                classesList.filter((clase) => {
-                  if (clase == "scale-0") {
-                    classIs = true;
-                  }
-                });
-                if (classIs) {
-                  e.currentTarget.parentElement.children[0].classList.remove(
-                    "scale-0"
-                  );
-                  e.currentTarget.parentElement.children[0].classList.add(
-                    "scale-1"
-                  );
-                } else {
-                  e.currentTarget.parentElement.children[0].classList.remove(
-                    "scale-1"
-                  );
-                  e.currentTarget.parentElement.children[0].classList.add(
-                    "scale-0"
-                  );
-                }
+                setSelectPrice((prev) => !prev)
               }}
             >
-              $0 - $100
+              {priceRange}
             </button>
           </div>
           <p className="font-bold text-2xl text-[#A1A1A1]">|</p>
@@ -484,7 +442,7 @@ const Teachers = () => {
                 slider.center === "slider-left" ? attributes.left : ""
               } ${slider.center === "slider-right" ? attributes.right : ""} ${
                 slider.center === "slider-center" ? attributes.center : ""
-              } transition-transform duration-[300ms]  w-[350px] rounded-xl bg-white flex flex-col items-center gap-6 `}
+              } transition-transform duration-[300ms]  w-[350px] rounded-xl bg-white flex flex-col items-center gap-6 select-none `}
               onTransitionEnd={() => {
                 setIzquier("");
                 setDerech("");
@@ -517,7 +475,7 @@ const Teachers = () => {
                 slider.right === "slider-left" ? attributes.left : ""
               } ${slider.right === "slider-right" ? attributes.right : ""} ${
                 slider.right === "slider-center" ? attributes.center : ""
-              }  transition-transform duration-[300ms]  w-[350px] rounded-xl  bg-white flex flex-col items-center gap-6  `}
+              }  transition-transform duration-[300ms]  w-[350px] rounded-xl  bg-white flex flex-col items-center gap-6 select-none `}
               onTransitionEnd={() => {
                 setIzquier("");
                 setDerech("");
@@ -550,7 +508,7 @@ const Teachers = () => {
                 slider.left === "slider-left" ? attributes.left : ""
               } ${slider.left === "slider-right" ? attributes.right : ""} ${
                 slider.left === "slider-center" ? attributes.center : ""
-              } transition-transform duration-[300ms]  w-[350px] rounded-xl z-[0] bg-white flex flex-col items-center gap-6`}
+              } transition-transform duration-[300ms]  w-[350px] rounded-xl z-[0] bg-white flex flex-col items-center gap-6 select-none `}
               onTransitionEnd={() => {
                 setIzquier("");
                 setDerech("");
@@ -660,7 +618,16 @@ const HowItWorks = () => {
               </Link>
             </div>
           </div>
-          <PerfectTeacher class="w-[40%]" group={{rotate:'rotate',rotthis:'rotthis',volar:'volar', volarR:'volar-reverse',appear:'appears'}}></PerfectTeacher>
+          <PerfectTeacher
+            class="w-[40%]"
+            group={{
+              rotate: "rotate",
+              rotthis: "rotthis",
+              volar: "volar",
+              volarR: "volar-reverse",
+              appear: "appears",
+            }}
+          ></PerfectTeacher>
         </div>
       </div>
     </section>
