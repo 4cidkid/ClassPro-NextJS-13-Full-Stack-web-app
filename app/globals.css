@@ -147,14 +147,28 @@ body {
     transform: translateX(-3px);
   }
 }
-@keyframes mover{
-  from{
+@keyframes mover {
+  from {
     transform: translateX(0px);
   }
-  to{
+  to {
     transform: translateX(70px);
   }
 }
+
+
+@keyframes disappear{
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0;
+  }
+}
+
+
+
+
 @layer utilities {
   .clip-path {
     clip-path: polygon(0 0, 59% 0, 35% 100%, 0 100%);
@@ -224,13 +238,19 @@ body {
     animation: moverBrazo 800ms infinite;
     animation-direction: alternate-reverse;
   }
-  .move{
+  .move {
     animation: mover 3s infinite;
     animation-direction: alternate;
   }
-  .moveR{
+  .moveR {
     animation: mover 3s infinite;
     animation-direction: alternate-reverse;
+  }
+  .disappear{
+    animation: disappear 600ms ease;
+  }
+  .appear-tutor{
+    animation: disappear 600ms reverse;
   }
 }
 input[type="range"]::-webkit-slider-thumb {

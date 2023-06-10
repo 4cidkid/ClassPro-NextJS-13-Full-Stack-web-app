@@ -17,7 +17,7 @@ import {
   ChevronRight,
 } from "react-feather";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function Home() {
   return (
     <>
@@ -26,13 +26,14 @@ export default function Home() {
       <Connected></Connected>
       <Teachers></Teachers>
       <HowItWorks></HowItWorks>
+      <BecameTutor></BecameTutor>
     </>
   );
 }
 
 const Hero = () => {
   return (
-    <section id="hero" className="h-fit pb-32 ">
+    <section id="hero" className="h-fit pb-24">
       <div className="w-full h-[90vh] absolute top-0 bg-main z-[-2] clip-path"></div>
       <div
         id="hero-container"
@@ -42,7 +43,7 @@ const Hero = () => {
         <div className="w-3/6 text-white pr-12 flex flex-col gap-5">
           <div className="flex items-center">
             <h1 className="text-5xl font-bold whitespace-nowrap">
-              Discover the <strong>Perfect Mentor</strong>
+              Discover the <strong>Perfect Tutor</strong>
             </h1>
             <img
               src="/img/emojis/writing-hand.png"
@@ -51,7 +52,7 @@ const Hero = () => {
             ></img>
           </div>
           <p className="text-xl pr-5">
-            Discover boundless potential with passionate teachers on ClassPro,
+            Discover boundless potential with passionate tutors on ClassPro,
             realizing your dreams through transformative education and opening
             doors to a world of endless possibilities.
           </p>
@@ -110,7 +111,7 @@ const Services = () => {
     });
   };
   return (
-    <section id="services" className="bg-second pb-10">
+    <section id="services" className="bg-second pb-24">
       <div className="services-container flex justify-center">
         <div className="w-[50%] flex items-center justify-between bg-white rounded-full shadow-md -mt-12 border-second border-2">
           <div className="flex flex-col py-5 pl-5">
@@ -210,11 +211,11 @@ const Services = () => {
           </button>
         </div>
       </div>
-      <div className="services-list flex justify-center flex-col items-center mx-[135px] gap-4 mt-5 pb-14 bg-white rounded-xl shadow-lg">
-        <div className="pt-14 w-[90%] text-center flex flex-col items-center font-bold text-4xl">
+      <div className="services-list flex justify-center flex-col items-center mx-[135px] gap-4 mt-5 px-12 py-16 bg-white rounded-xl shadow-lg">
+        <div className="w-[90%] text-center flex flex-col items-center font-bold text-4xl">
           <h2 className="text-gray-900 ">
             Unlock Your Full Potential: Connect with{" "}
-            <strong className="text-main">Expert Teachers Today!</strong>
+            <strong className="text-main">Expert Tutors Today!</strong>
           </h2>
           <p className="text-2xl font-medium opacity-[0.6] ">
             Empowering Students to Achieve Academic Excellence Through
@@ -250,7 +251,7 @@ const Services = () => {
             <div className="w-[75%]">
               <strong className="text-lg">Seamless Communication</strong>
               <p className="text-sm">
-                Stay connected with your teachers through a built-in messaging
+                Stay connected with your tutors through a built-in messaging
                 system, facilitating easy and efficient communication for
                 scheduling lessons, asking questions, and receiving feedback.
               </p>
@@ -291,7 +292,7 @@ const Services = () => {
               <strong className="text-lg">Personalized Matching</strong>
               <p className="text-sm">
                 Our app utilizes advanced algorithms to match students with the
-                most suitable teachers based on their individual needs,
+                most suitable tutors based on their individual needs,
                 preferences, and learning styles.
               </p>
             </div>
@@ -323,9 +324,9 @@ const Services = () => {
               <path d="M6 3.447h-1v-1.447h19v16h-7.731l2.731 4h-1.311l-2.736-4h-1.953l-2.736 4h-1.264l2.732-4h-2.732v-1h8v-1h3v1h3v-14h-17v.447zm2.242 17.343c-.025.679-.576 1.21-1.256 1.21-.64 0-1.179-.497-1.254-1.156l-.406-4.034-.317 4.019c-.051.656-.604 1.171-1.257 1.171-.681 0-1.235-.531-1.262-1.21l-.262-6.456-.308.555c-.241.437-.8.638-1.265.459-.404-.156-.655-.538-.655-.951 0-.093.012-.188.039-.283l1.134-4.098c.17-.601.725-1.021 1.351-1.021h4.096c.511 0 1.012-.178 1.285-.33.723-.403 2.439-1.369 3.136-1.793.394-.243.949-.147 1.24.217.32.396.286.95-.074 1.297l-3.048 2.906c-.375.359-.595.849-.617 1.381-.061 1.397-.3 8.117-.3 8.117zm-5.718-10.795c-.18 0-.34.121-.389.294-.295 1.04-1.011 3.666-1.134 4.098l1.511-2.593c.172-.295.623-.18.636.158l.341 8.797c.01.278.5.287.523.002 0 0 .269-3.35.308-3.944.041-.599.449-1.017.992-1.017.547.002.968.415 1.029 1.004.036.349.327 3.419.385 3.938.043.378.505.326.517.022 0 0 .239-6.725.3-8.124.033-.791.362-1.523.925-2.061l3.045-2.904c-.661.492-2.393 1.468-3.121 1.873-.396.221-1.07.457-1.772.457h-4.096zm16.476 1.005h-5v-1h5v1zm2-2h-7v-1h7v1zm-15.727-4.994c-1.278 0-2.315 1.038-2.315 2.316 0 1.278 1.037 2.316 2.315 2.316s2.316-1.038 2.316-2.316c0-1.278-1.038-2.316-2.316-2.316zm0 1c.726 0 1.316.59 1.316 1.316 0 .726-.59 1.316-1.316 1.316-.725 0-1.315-.59-1.315-1.316 0-.726.59-1.316 1.315-1.316zm15.727 1.994h-7v-1h7v1z" />
             </svg>
             <div className="w-[75%]">
-              <strong className="text-lg">Extensive Teacher Profiles</strong>
+              <strong className="text-lg">Extensive Tutor Profiles</strong>
               <p className="text-sm">
-                Gain insights into teachers' qualifications, expertise, teaching
+                Gain insights into tutors' qualifications, expertise, teaching
                 styles, and reviews from previous students to make an informed
                 decision.
               </p>
@@ -338,19 +339,19 @@ const Services = () => {
 };
 const Connected = () => {
   return (
-    <section id="connected" className="bg-second py-5">
+    <section id="connected" className="bg-second pb-24">
       <div className="mx-[135px] bg-white rounded-xl shadow-lg">
-        <div className="py-10 px-12 flex justify-between items-center">
+        <div className="px-12 py-16 flex justify-between items-center">
           <div className="w-[40%] flex flex-col gap-3">
             <h3 className="text-4xl font-bold">
               Access the Power of Online Learning with Classpro
             </h3>
             <p className="text-sm">
               ClassPro opens the doors to your full learning potential. Our
-              platform connects you with exceptional teachers who are experts in
+              platform connects you with exceptional tutors who are experts in
               their fields. Whether you're seeking guidance in mathematics,
               science, languages, or any other subject, ClassPro has a diverse
-              range of qualified teachers ready to help you succeed.
+              range of qualified tutors ready to help you succeed.
             </p>
             <ul className="w-full list-disc pl-5 text-sm gap-2 flex flex-col">
               <li>User-friendly interface</li>
@@ -392,12 +393,12 @@ const Teachers = () => {
     center: "relative z-[2] top-0 unblur",
   };
   return (
-    <section id="teachers" className="bg-second py-24">
-      <div className="bg-white mx-[135px] px-16 shadow-md rounded-xl">
-        <div className="py-12 flex justify-around items-center">
+    <section id="teachers" className="bg-second pb-24">
+      <div className="bg-white mx-[135px] px-12 py-16 shadow-md rounded-xl">
+        <div className=" flex justify-around items-center">
           <div className="w-[30%] flex flex-col gap-4">
             <h4 className="text-4xl font-bold">
-              Look at This Top Rated Teachers!
+              Look at This Top Rated Tutors!
             </h4>
             <p>
               They are passionate, knowledgeable, and dedicated to igniting the
@@ -532,7 +533,7 @@ const Teachers = () => {
                     <p className="text-2xl font-bold opacity-[0.7]">
                       Emily Thompson
                     </p>
-                    <p className="text-lg font-semibold">Math Teacher</p>
+                    <p className="text-lg font-semibold">Math Tutor</p>
                     <p className="text-sm font-normal opacity-[0.5] text">
                       Dedicated math educator fostering student growth and
                       enthusiasm through engaging instruction and personalized
@@ -576,12 +577,13 @@ const Teachers = () => {
     </section>
   );
 };
+
 const HowItWorks = () => {
   return (
-    <section id="howItWorks" className="bg-second">
+    <section id="howItWorks" className="bg-second pb-24">
       <div
         id="container-works"
-        className="flex flex-col items-center bg-white mx-[135px] p-12 shadow-md rounded-xl gap-6"
+        className="flex flex-col items-center bg-white mx-[135px] px-12 py-16 shadow-md rounded-xl gap-6"
       >
         <h5 className="text-4xl font-bold text-center">How It Works!</h5>
         <div className="w-[90%] flex items-center justify-evenly gap-5">
@@ -592,7 +594,7 @@ const HowItWorks = () => {
               <p className="text-3xl font-semibold">Sign up!</p>
               <p className="text-base font-medium">
                 Unlock your learning potential with ClassPro! Join our vibrant
-                community of students and connect with expert teachers for
+                community of students and connect with expert tutors for
                 personalized step-by-step guidance. Register now and embark on a
                 transformative educational journey!
               </p>
@@ -603,10 +605,10 @@ const HowItWorks = () => {
           <div className="flex items-center gap-6 w-[40%]">
             <p className="text-6xl font-black text-main">2</p>
             <div className="flex flex-col gap-3">
-              <p className="text-3xl font-semibold">Find The Perfect Teacher</p>
+              <p className="text-3xl font-semibold">Find The Perfect Tutor</p>
               <p className="text-base font-medium">
-                Discover your ideal mentor at ClassPro! Explore our extensive
-                network of skilled teachers and find the perfect match for your
+                Discover your ideal tutor at ClassPro! Explore our extensive
+                network of skilled tutors and find the perfect match for your
                 learning goals. Take the next step towards academic excellence
                 today!
               </p>
@@ -643,8 +645,8 @@ const HowItWorks = () => {
               <p className="text-3xl font-semibold">View Class Schedules</p>
               <p className="text-base font-medium">
                 Check the availability and schedule of classes offered by each
-                teacher. Find a time slot that fits your schedule and aligns
-                with your learning needs.
+                tutor. Find a time slot that fits your schedule and aligns with
+                your learning needs.
               </p>
             </div>
           </div>
@@ -656,9 +658,9 @@ const HowItWorks = () => {
               <p className="text-3xl font-semibold">Book a Trial Class</p>
               <p className="text-base font-medium">
                 Take advantage of the opportunity to book a trial class with
-                your preferred teacher. Experience their teaching style
-                firsthand and determine if it's the right fit for you before
-                committing to regular lessons.
+                your preferred tutor. Experience their teaching style firsthand
+                and determine if it's the right fit for you before committing to
+                regular lessons.
               </p>
             </div>
           </div>
@@ -694,9 +696,9 @@ const HowItWorks = () => {
               <p className="text-3xl font-semibold">Attend Your Online Class</p>
               <p className="text-base font-medium">
                 Take advantage of the opportunity to book a trial class with
-                your preferred teacher. Experience their teaching style
-                firsthand and determine if it's the right fit for you before
-                committing to regular lessons.
+                your preferred tutor. Experience their teaching style firsthand
+                and determine if it's the right fit for you before committing to
+                regular lessons.
               </p>
             </div>
           </div>
@@ -729,14 +731,104 @@ const HowItWorks = () => {
             }}
           ></Progress>
         </div>
-        <div className="flex flex-col gap-5 items-center">
+        <div className="flex flex-col gap-5 items-center mt-5">
           <h4 className="text-4xl font-bold">Why Wait?</h4>
+          <p className="px-[250px] text-center font-medium">
+            Don't delay your learning journey any longer.{" "}
+            <strong className="text-main">
+              Start exploring our vast network of expert tutors today
+            </strong>{" "}
+            and{" "}
+            <strong className="text-main">
+              unlock a world of knowledge and skills.
+            </strong>{" "}
+            Whether you're seeking academic assistance or looking to develop new
+            talents, we have the perfect tutors waiting for you. Don't miss out
+            on the opportunity{" "}
+            <strong className="text-main">
+              to connect with dedicated mentors who will provide personalized
+              guidance and support.
+            </strong>{" "}
+            Sign up now and embark on your educational adventure!
+          </p>
           <Link
             href={"#"}
             className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold"
           >
-            Find Teachers Today!
+            Find tutors Today!
           </Link>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const BecameTutor = () => {
+  const images = [
+    "https://images.pexels.com/photos/5303549/pexels-photo-5303549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/4145190/pexels-photo-4145190.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/4491461/pexels-photo-4491461.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/4144222/pexels-photo-4144222.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/7516363/pexels-photo-7516363.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/7516347/pexels-photo-7516347.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/5905718/pexels-photo-5905718.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  ];
+  const [imageSrc,setImageSrc] = useState({img:'https://images.pexels.com/photos/5303549/pexels-photo-5303549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',contador:0})
+  const [animation,setAnimation] = useState(false)
+  const [show, setShow] = useState(false);
+  console.log(imageSrc)
+  useEffect(() => {
+    const toggleShow = () => {
+      setImageSrc((prev) => {
+        return {img:images[prev.contador===6?0:prev.contador+1],contador:prev.contador===6?0:prev.contador+1}
+      })
+      setShow((prev) => !prev);
+
+    };
+    const intervalId = setInterval(toggleShow,5000);
+    return () => clearInterval(intervalId)
+  });
+  useEffect(() => {});
+  return (
+    <section id="becameTutor" className="bg-second pb-24">
+      <div
+        id="container-became"
+        className="bg-white mx-[135px] px-12 py-16 flex justify-evenly rounded-xl shadow-md items-center"
+      >
+        <div className="w-[40%] flex flex-col gap-5">
+          <h5 className="text-4xl font-bold">Want to Became a Tutor?</h5>
+          <p className="font-medium">
+            Empower students worldwide. Set your schedule, teach from anywhere,
+            and make a positive impact. Connect with motivated learners, track
+            progress, and create personalized experiences. Join now, inspire
+            students, and make a global difference in just 50 words!
+          </p>
+          <Link
+            href={"#"}
+            className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold flex"
+          >
+            Became a Tutor <ArrowRight></ArrowRight>
+          </Link>
+        </div>
+        <div className="w-[40%] h-[300px]">
+          {show?
+                  <img
+                  style={{ boxShadow: "12px 12px 0px 2px #f60954" }}
+                  className={`${show? 'appear-tutor': 'dissapear ' } transition-opacity duration-1000 opacity-1 relative w-full h-full rounded-xl object-cover`}
+                  alt="teacher"
+                  src={imageSrc.img}
+                ></img>: undefined  
+        }
+        {show===false?
+                  <img
+                  style={{ boxShadow: "12px 12px 0px 2px #f60954" }}
+                  className={`${show===false? 'appear-tutor': 'dissapear ' } transition-opacity duration-1000 opacity-1 relative w-full h-full rounded-xl object-cover`}
+                  alt="teacher"
+                  src={imageSrc.img}
+                ></img>
+              : undefined
+              }
         </div>
       </div>
     </section>
