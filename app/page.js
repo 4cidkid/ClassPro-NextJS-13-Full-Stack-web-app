@@ -4,6 +4,10 @@ import Connectad from "../public/licenced/connected.jsx";
 import HeroImage from "../public/licenced/heroImage.jsx";
 import HowItWorkImage from "../public/licenced/howItWorks.jsx";
 import PerfectTeacher from "../public/licenced/perfectTeacher.jsx";
+import OnlineClasses from "@/public/licenced/onlineClasses.jsx";
+import Schedule from "@/public/licenced/schedule.jsx";
+import Attend from "@/public/licenced/attend.jsx";
+import Progress from "@/public/licenced/progress.jsx";
 import {
   ArrowRight,
   ChevronLeft,
@@ -87,8 +91,8 @@ const Hero = () => {
 const Services = () => {
   //this controlls input price range
   const [inputOne, setInputOne] = useState({ one: 5, two: 100 });
-  const [priceRange, setPriceRange] = useState('$0 - $100')
-  const [selectPrice, setSelectPrice] = useState(false)
+  const [priceRange, setPriceRange] = useState("$0 - $100");
+  const [selectPrice, setSelectPrice] = useState(false);
   const smoothScrollOne = (event) => {
     const input = event.target;
     const value = input.value;
@@ -124,7 +128,9 @@ const Services = () => {
           <div className="relative flex flex-col py-5">
             <div
               id="range"
-              className={`${selectPrice?'scale-1':'scale-0'} transition-transform absolute bottom-[130%] flex flex-col gap-2 items-center justify-center p-10  left-1/2  -translate-x-1/2  w-[300px] h-[200px] bg-white before:absolute before:content-[''] before:left-1/2 before:top-[100%]  before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-white before:rotate-180 shadow-2xl`}
+              className={`${
+                selectPrice ? "scale-1" : "scale-0"
+              } transition-transform absolute bottom-[130%] flex flex-col gap-2 items-center justify-center p-10  left-1/2  -translate-x-1/2  w-[300px] h-[200px] bg-white before:absolute before:content-[''] before:left-1/2 before:top-[100%]  before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-white before:rotate-180 shadow-2xl`}
             >
               <label className="font-bold text-xl">Select The Price</label>
               <div className="flex w-full justify-evenly gap-3">
@@ -171,8 +177,8 @@ const Services = () => {
               <button
                 className="bg-main p-2 font-bold text-lg text-white rounded-xl"
                 onClick={(e) => {
-                  setPriceRange(`$${inputOne.one} - $${inputOne.two}`)
-                  setSelectPrice(false)
+                  setPriceRange(`$${inputOne.one} - $${inputOne.two}`);
+                  setSelectPrice(false);
                 }}
               >
                 Set Price Range
@@ -185,7 +191,7 @@ const Services = () => {
               id="price-range"
               className="text-xl"
               onClick={(e) => {
-                setSelectPrice((prev) => !prev)
+                setSelectPrice((prev) => !prev);
               }}
             >
               {priceRange}
@@ -575,7 +581,7 @@ const HowItWorks = () => {
     <section id="howItWorks" className="bg-second">
       <div
         id="container-works"
-        className="flex flex-col items-center bg-white mx-[135px] p-12 shadow-md rounded-xl"
+        className="flex flex-col items-center bg-white mx-[135px] p-12 shadow-md rounded-xl gap-6"
       >
         <h5 className="text-4xl font-bold text-center">How It Works!</h5>
         <div className="w-[90%] flex items-center justify-evenly gap-5">
@@ -590,12 +596,6 @@ const HowItWorks = () => {
                 personalized step-by-step guidance. Register now and embark on a
                 transformative educational journey!
               </p>
-              <Link
-                href={"#"}
-                className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold"
-              >
-                Sign up
-              </Link>
             </div>
           </div>
         </div>
@@ -610,16 +610,10 @@ const HowItWorks = () => {
                 learning goals. Take the next step towards academic excellence
                 today!
               </p>
-              <Link
-                href={"#"}
-                className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold"
-              >
-                Find Teachers
-              </Link>
             </div>
           </div>
           <PerfectTeacher
-            class="w-[40%]"
+            class="w-[40%] h-[110%]"
             group={{
               rotate: "rotate",
               rotthis: "rotthis",
@@ -628,6 +622,121 @@ const HowItWorks = () => {
               appear: "appears",
             }}
           ></PerfectTeacher>
+        </div>
+        <div className="w-[90%] flex items-center justify-evenly gap-5">
+          <Schedule
+            class="w-[40%]"
+            group={{
+              rotate: "rotate",
+              rotthis: "rotthis",
+              volar: "volar",
+              volarR: "volar-reverse",
+              appear: "appears",
+              moveX: "moveX",
+              moverBrazo: "moverBrazo",
+              move: "move",
+            }}
+          ></Schedule>
+          <div className="flex items-center gap-6 w-[40%]">
+            <p className="text-6xl font-black text-main">3</p>
+            <div className="flex flex-col gap-3">
+              <p className="text-3xl font-semibold">View Class Schedules</p>
+              <p className="text-base font-medium">
+                Check the availability and schedule of classes offered by each
+                teacher. Find a time slot that fits your schedule and aligns
+                with your learning needs.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="w-[90%] flex items-center justify-evenly gap-5">
+          <div className="flex items-center gap-6 w-[40%]">
+            <p className="text-6xl font-black text-main">4</p>
+            <div className="flex flex-col gap-3">
+              <p className="text-3xl font-semibold">Book a Trial Class</p>
+              <p className="text-base font-medium">
+                Take advantage of the opportunity to book a trial class with
+                your preferred teacher. Experience their teaching style
+                firsthand and determine if it's the right fit for you before
+                committing to regular lessons.
+              </p>
+            </div>
+          </div>
+          <OnlineClasses
+            class="w-[40%]"
+            group={{
+              rotate: "rotate",
+              rotthis: "rotthis",
+              volar: "volar",
+              volarR: "volar-reverse",
+              appear: "appears",
+              moveX: "moveX",
+              moverBrazo: "moverBrazo",
+            }}
+          ></OnlineClasses>
+        </div>
+        <div className="w-[90%] flex items-center justify-evenly gap-5">
+          <Attend
+            class="w-[40%]"
+            group={{
+              rotate: "rotate",
+              rotthis: "rotthis",
+              volar: "volar",
+              volarR: "volar-reverse",
+              appear: "appears",
+              moveX: "moveX",
+              moverBrazo: "moverBrazo",
+            }}
+          ></Attend>
+          <div className="flex items-center gap-6 w-[40%]">
+            <p className="text-6xl font-black text-main">5</p>
+            <div className="flex flex-col gap-3">
+              <p className="text-3xl font-semibold">Attend Your Online Class</p>
+              <p className="text-base font-medium">
+                Take advantage of the opportunity to book a trial class with
+                your preferred teacher. Experience their teaching style
+                firsthand and determine if it's the right fit for you before
+                committing to regular lessons.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="w-[90%] flex items-center justify-evenly gap-5">
+          <div className="flex items-center gap-6 w-[40%]">
+            <p className="text-6xl font-black text-main">6</p>
+            <div className="flex flex-col gap-3">
+              <p className="text-3xl font-semibold">Track Your Progress</p>
+              <p className="text-base font-medium">
+                Use ClassPro's progress tracking features to monitor your
+                development and improvement over time. Stay motivated by seeing
+                your accomplishments and set new goals for your educational
+                journey.
+              </p>
+            </div>
+          </div>
+          <Progress
+            class="w-[40%]"
+            group={{
+              rotate: "rotate",
+              rotthis: "rotthis",
+              volar: "volar",
+              volarR: "volar-reverse",
+              appear: "appears",
+              moveX: "moveX",
+              moverBrazo: "moverBrazo",
+              move: "move",
+              moveR: "moveR",
+            }}
+          ></Progress>
+        </div>
+        <div className="flex flex-col gap-5 items-center">
+          <h4 className="text-4xl font-bold">Why Wait?</h4>
+          <Link
+            href={"#"}
+            className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold"
+          >
+            Find Teachers Today!
+          </Link>
         </div>
       </div>
     </section>
