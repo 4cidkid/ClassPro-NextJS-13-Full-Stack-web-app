@@ -92,6 +92,26 @@ body {
     transform: translateY(-50px);
   }
 }
+@keyframes unblur{
+  from{
+    filter: blur(4px);
+  }
+  to{
+    filter: blur(0px)
+  }
+}
+@keyframes blur{
+  from{
+    filter: blur(0px);
+  }
+  20%{
+    z-index: 1;
+  }
+  100%{
+    z-index: 1;
+    filter: blur(4px);
+  }
+}
 @layer utilities {
   .clip-path {
     clip-path: polygon(0 0, 59% 0, 35% 100%, 0 100%);
@@ -140,7 +160,15 @@ body {
     animation: volar-reverse 3s infinite;
     animation-direction: alternate;
   }
-
+  .text {
+    overflow-wrap: break-word;
+  }
+  .unblur{
+    animation: unblur 500ms ease;
+  }
+  .blur{
+    animation: blur 500ms ease;
+  }
 }
 input[type="range"]::-webkit-slider-thumb{
   -webkit-appearance: none;
