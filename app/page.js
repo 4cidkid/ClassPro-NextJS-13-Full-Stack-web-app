@@ -1,5 +1,7 @@
 "use client";
 import Image from "next/image";
+import Connectad from "../public/connected.jsx";
+import HeroImage from "../public/heroImage.jsx";
 import {
   ArrowRight,
   ChevronLeft,
@@ -11,6 +13,75 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 export default function Home() {
+  return (
+    <>
+      <Hero></Hero>
+      <Services></Services>
+      <Connected></Connected>
+      <Teachers></Teachers>
+    </>
+  );
+}
+
+const Hero = () => {
+  return (
+    <section id="hero" className="h-fit pb-32 ">
+      <div className="w-full h-[90vh] absolute top-0 bg-main z-[-2] clip-path"></div>
+      <div
+        id="hero-container"
+        className="px-[135px] flex items-center pt-[100px]"
+        style={{ overflowX: "clip" }}
+      >
+        <div className="w-3/6 text-white pr-12 flex flex-col gap-5">
+          <div className="flex items-center">
+            <h1 className="text-5xl font-bold whitespace-nowrap">
+              Discover the <strong>Perfect Mentor</strong>
+            </h1>
+            <img
+              src="/img/emojis/writing-hand.png"
+              width={45}
+              alt="writing hand emoji"
+            ></img>
+          </div>
+          <p className="text-xl pr-5">
+            Discover boundless potential with passionate teachers on ClassPro,
+            realizing your dreams through transformative education and opening
+            doors to a world of endless possibilities.
+          </p>
+          <div className="flex font-bold text-white gap-10 text-2xl">
+            <Link href="#" className="bg-white text-main px-5 py-2 rounded-lg">
+              Find Tutors
+            </Link>
+            <Link href="#" className="flex items-center">
+              Became a Tutor<ArrowRight></ArrowRight>
+            </Link>
+          </div>
+        </div>
+        <div className="relative w-2/4">
+          <div className="absolute top-0 w-full h-full">
+            <div className="z-[-4] absolute top-0 rounded-xl right-0 w-[300px] h-[150px] bg-main text-2xl font-bold text-white items-center shadow-md  flex text-center border-gray-500 appear-2">
+              <div className="w-[70%] h-full rounded-bl-xl rounded-tl-xl">
+                <img
+                  className="object-cover h-full rounded-bl-lg rounded-tl-lg"
+                  src="https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                ></img>
+              </div>
+              <p className="px-2">More than 10.000 Students Are with Us!</p>
+            </div>
+            <div className="z-[-4] absolute rounded-xl -top-0 left-0 w-[100px] h-[100px] bg-[blue] bg-main text-2xl font-bold text-white items-center shadow-2xl  flex text-center border-gray-500 appear-3">
+              <img
+                className="object-cover h-full rounded-lg"
+                src="https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              ></img>
+            </div>
+          </div>
+          <HeroImage></HeroImage>
+        </div>
+      </div>
+    </section>
+  );
+};
+const Services = () => {
   //this controlls input price range
   const [inputOne, setInputOne] = useState({ one: 5, two: 100 });
   //smooth scroll for the range input and set the value from input one p.s: thanks chatgpt, but i think that this dosn't work lol
@@ -45,6 +116,298 @@ export default function Home() {
       return { one: prev.one, two: value };
     });
   };
+  return (
+    <section id="services" className="bg-second pb-10">
+      <div className="services-container flex justify-center">
+        <div className="w-[50%] flex items-center justify-between bg-white rounded-full shadow-md -mt-12 border-second border-2">
+          <div className="flex flex-col py-5 pl-5">
+            <label htmlFor="learn" className="font-bold text-xl text-[#A1A1A1]">
+              What You Want To Learn?
+            </label>
+            <input
+              className="text-xl"
+              name="learn"
+              type="text"
+              placeholder="Ex: Math"
+            ></input>
+          </div>
+          <p className="font-bold text-2xl text-[#A1A1A1]">|</p>
+          <div className="relative flex flex-col py-5">
+            <div
+              id="range"
+              className="transition-transform scale-0  absolute bottom-[130%] flex flex-col gap-2 items-center justify-center p-10  left-1/2  -translate-x-1/2  w-[300px] h-[200px] bg-white before:absolute before:content-[''] before:left-1/2 before:top-[100%]  before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-white before:rotate-180 shadow-2xl"
+            >
+              <label className="font-bold text-xl">Select The Price</label>
+              <div className="flex w-full justify-evenly gap-3">
+                <div className="flex flex-col items-center w-2/5">
+                  <label>Min</label>
+                  <input
+                    type="text"
+                    value={`$${inputOne.one}`}
+                    className="w-full rounded-xl border-2"
+                    readOnly
+                  ></input>
+                </div>
+                <div className="flex flex-col items-center w-2/5">
+                  <label>Max</label>
+                  <input
+                    value={`$${inputOne.two}`}
+                    type="text"
+                    className="w-full rounded-xl bg-gray border-2"
+                    readOnly
+                  ></input>
+                </div>
+              </div>
+              <div className="flex relative">
+                <input
+                  className="thumb-bg-main text-main bg-transparent appearance-none"
+                  type="range"
+                  min="5"
+                  max="50"
+                  step={5}
+                  value={inputOne.one}
+                  onInput={smoothScrollOne}
+                ></input>
+                <input
+                  className="thumb-bg-main text-main bg-transparent appearance-none"
+                  type="range"
+                  min="50"
+                  max="100"
+                  step={5}
+                  value={inputOne.two}
+                  onInput={smoothScrollTwo}
+                ></input>
+                <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 w-full h-[3px] z-[-1] bg-black"></div>
+              </div>
+              <button
+                className="bg-main p-2 font-bold text-lg text-white rounded-xl"
+                onClick={(e) => {
+                  let rangePrice =
+                    e.currentTarget.parentElement.parentElement.querySelector(
+                      "#price-range"
+                    );
+                  e.currentTarget.parentElement.classList.remove("scale-1");
+                  e.currentTarget.parentElement.classList.add("scale-0");
+                  rangePrice.innerText = `$${inputOne.one} - $${inputOne.two}`;
+                }}
+              >
+                Set Price Range
+              </button>
+            </div>
+            <label htmlFor="price" className="font-bold text-xl text-[#A1A1A1]">
+              Price Range
+            </label>
+            <button
+              id="price-range"
+              className="text-xl"
+              onClick={(e) => {
+                const classesList = Array.from(
+                  e.currentTarget.parentElement.children[0].classList
+                );
+                let classIs;
+                classesList.filter((clase) => {
+                  if (clase == "scale-0") {
+                    classIs = true;
+                  }
+                });
+                if (classIs) {
+                  e.currentTarget.parentElement.children[0].classList.remove(
+                    "scale-0"
+                  );
+                  e.currentTarget.parentElement.children[0].classList.add(
+                    "scale-1"
+                  );
+                } else {
+                  e.currentTarget.parentElement.children[0].classList.remove(
+                    "scale-1"
+                  );
+                  e.currentTarget.parentElement.children[0].classList.add(
+                    "scale-0"
+                  );
+                }
+              }}
+            >
+              $0 - $100
+            </button>
+          </div>
+          <p className="font-bold text-2xl text-[#A1A1A1]">|</p>
+          <div className="flex flex-col py-5">
+            <label className="font-bold text-xl text-[#A1A1A1]">
+              Level of Classes
+            </label>
+            <input type="text" placeholder="Ex:beginner"></input>
+          </div>
+          <button className="h-full w-[10%]  rounded-tr-full rounded-br-full text-white bg-main">
+            {" "}
+            <Search className="w-full h-full p-4"></Search>
+          </button>
+        </div>
+      </div>
+      <div className="services-list flex justify-center flex-col items-center mx-[135px] gap-4 mt-5 pb-14 bg-white rounded-xl shadow-lg">
+        <div className="pt-14 w-[70%] text-center flex flex-col items-center font-bold text-3xl">
+          <h2 className="text-gray-900 ">
+            Unlock Your Full Potential: Connect with{" "}
+            <strong className="text-main">Expert Teachers Today!</strong>
+          </h2>
+          <p className="text-xl font-medium opacity-[0.6] ">
+            Empowering Students to Achieve Academic Excellence Through
+            Personalized Tutoring.
+          </p>
+        </div>
+        <div className=" w-[90%] justify-center flex flex-wrap child:p-5 gap-[0.33%] child:rounded-xl child:items-center child:gap-5 child:justify-center">
+          <div className="parentsvg basis-[33%] flex transition-all duration-300">
+            <svg
+              className="w-[25%]"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="M17 3v-2c0-.552.447-1 1-1s1 .448 1 1v2c0 .552-.447 1-1 1s-1-.448-1-1zm-12 1c.553 0 1-.448 1-1v-2c0-.552-.447-1-1-1-.553 0-1 .448-1 1v2c0 .552.447 1 1 1zm13 13v-3h-1v4h3v-1h-2zm-5 .5c0 2.481 2.019 4.5 4.5 4.5s4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5-4.5 2.019-4.5 4.5zm11 0c0 3.59-2.91 6.5-6.5 6.5s-6.5-2.91-6.5-6.5 2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5zm-14.237 3.5h-7.763v-13h19v1.763c.727.33 1.399.757 2 1.268v-9.031h-3v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-9v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-3v21h11.031c-.511-.601-.938-1.273-1.268-2z" />
+            </svg>
+            <div className="w-[75%]">
+              <strong className="text-lg">Flexible Scheduling</strong>
+              <p className="text-sm">
+                Enjoy the convenience of scheduling lessons at your preferred
+                time slots, accommodating your busy schedule and ensuring
+                optimal learning opportunities.
+              </p>
+            </div>
+          </div>
+          <div className="parentsvg basis-[33%] flex transition-all duration-300">
+            <svg
+              className="w-[25%]"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="M18.604 16.111c.018.276.048.531.092.758-.583.106-.606-.469-.092-.758zm-4.354.16h.996l-.498-1.43-.498 1.43zm2.75-6.105c3.697 0 7 2.465 7 5.837 0 1.196-.432 2.37-1.193 3.281-.033 1.068.596 2.6 1.162 3.715-1.518-.274-3.676-.88-4.654-1.48-5.387 1.313-9.315-1.984-9.315-5.516 0-3.39 3.326-5.837 7-5.837zm-.437 7.584l-1.44-3.792h-.76l-1.447 3.792h.812l.312-.875h1.422l.313.875h.788zm3.988-2.296l.079-.353-.642-.125-.064.292c-.215-.032-.445-.036-.679-.012l.028-.458h.717v-.608h-.631l.084-.335-.627-.188c-.046.154-.084.304-.123.523h-.715v.608h.638c-.018.196-.026.399-.03.605-.704.259-1.002.751-1.002 1.198 0 .528.416.992 1.074.932.817-.074 1.362-.691 1.682-1.45.332.19.471.511.346.807-.115.275-.455.536-1.104.523v.654c.721.011 1.429-.262 1.707-.923.27-.647-.041-1.352-.738-1.69zm-1.25 1.073c.17-.177.305-.401.407-.626-.147-.013-.306-.009-.462.012.011.22.028.425.055.614zm-10.492 2.703c-1.887-.271-3.571-1.165-4.827-2.478-.182-.189-.315-.636-.019-.819l.302-.078c.235-.199-.221-1.009-.04-1.14.561-.401.295-.893-.051-1.299-.146-.172-.948-1-1.038-.853.067-.226-.146-.772-.274-.987-.217-.362-.502-.585-.617-.982-.046-.158-.046-.64-.139-.751-.038-.045-.327-.167-.317-.233.278-1.655 1.044-3.143 2.149-4.318l.746-.301c.468-.703.495-.158.916-.341.141 0 .301-.578.452-.667.261-.169.062-.169.013-.245-.104-.168 2.191-1.003 2.229-.853.032.127-1.135.734-1.007.716-.296.039-.352.571-.297.568.147-.005 1.074-.704 1.506-.555.423.146 1.183-.336 1.48-.582.149-.125.286-.344.483-.344.909 0 2.268.374 2.579.56.474.283-.204.263-.277.447-.058.142-.19.335-.249.412-.102.133-.399.077-.341-.082.059-.167.348-.231-.086-.271-.445-.041-.568-.341-1.014.034-.134.113-.234.286-.321.433-.123.21-.42.201-.544.396-.12.192.07.512.304.371.062-.038.765.645.674.095-.059-.364.196-.612.201-.887.003-.184.28-.066.206.03-.097.121-.203.534.051.554.096.008.339-.158.425-.084-.096-.002-.315.383-.3.376-.108.048-.233-.021-.15.21.074.228-.408.201-.495.247-.037.02-.417-.114-.408-.028-.131-.109.037-.379-.072-.422-.11.168-.058.512-.294.512-.202 0-.482.229-.604.369-.087.097-.609.308-.666.302.299.031.286.25.261.437-.06.433-.995.032-.956.196.038.158-.107.586-.139.724-.029.125.402.205.378.267.002-.007.583-.199.64-.25l.131-.293c.11-.073.226-.133.35-.179l.149-.258c.05-.02.645-.112.686-.092.149.068.428.353.532.483.036.047.227.117.227.188.069.107-.051.148-.006.223.104.193.132-.401.087-.29 0-.189.142.071.174.049l-.657-.654c-.204-.342.543.183.64.247.096.063.285.629.537.501.158-.08-.004-.139.106-.229l.449-.09c-.357.261.279.602.182.556.16.074.254-.058.354-.021.057.022.663.015.566-.082.151.076.082.748-.044.851-.204.169-1.182.1-1.399-.057-.361-.262-.297.279-.473.352-.344.142-.857-.463-1.218-.482.176.026.015-.445.015-.478-.139-.171-1.02.019-1.252.05-.434.058-.89.052-1.223.324-.234.189-.237.5-.477.651-.156.095-.325.064-.456.189-.234.222-.504.552-.637.845-.054.123.072.416.041.574-.307.967.076 2.308 1.248 2.456.25.032.506.144.759.117 1.332-2.88 4.568-4.92 8.347-4.92.932 0 1.831.124 2.678.354-1.105-4.322-5.012-7.521-9.678-7.521-5.523 0-10 4.477-10 10s4.477 10 10 10l.074-.004c-.509-.533-.931-1.128-1.265-1.766zm4.778-13.035c.068-.008-.089.138-.089.138.027.212.183.327.479.435.36.129.03.375-.176.317-.114-.032-.704-.21-.725.021 0 .138-.56.001-.473-.145.061-.098.041-.319.152-.464.16-.21.313-.096.318.026.002.327.332-.306.514-.328zm-4.532-.292c.08.113.688-.163.591-.146.187-.094.024-.104-.082-.159-.035-.179-.065-.456-.177-.566l.074-.085c-.173-.249-.301.302-.301.302l.09-.026-.042.113c.071.129.019.207.007.277l-.124.077c-.045.055.215.062.217.071.009.028-.313.074-.253.142zm-.396-.286c-.069.071.002.116.073.085.104-.045.244-.044.26-.183l.066-.084c.029-.043-.057-.114-.092-.121l-.124.086-.061.016-.056.072.006.04-.072.089zm2.634 2.107c-.055 0-.369.029-.34.084.178.293.403-.076.34-.084z" />
+            </svg>
+            <div className="w-[75%]">
+              <strong className="text-lg">Seamless Communication</strong>
+              <p className="text-sm">
+                Stay connected with your teachers through a built-in messaging
+                system, facilitating easy and efficient communication for
+                scheduling lessons, asking questions, and receiving feedback.
+              </p>
+            </div>
+          </div>
+          <div className="parentsvg basis-[33%] flex transition-all duration-300">
+            <svg
+              className="w-[25%]"
+              xmlns="http://www.w3.org/2000/svg"
+              clipRule="evenodd"
+              viewBox="0 0 24 24"
+            >
+              <path d="M17 24h-10v-1.342c1.808-.985 2.005-2.205 2-3.658h-8c-.265 0-.52-.105-.707-.293-.188-.187-.293-.442-.293-.707v-17c0-.265.105-.52.293-.707.187-.188.442-.293.707-.293h22c.265 0 .52.105.707.293.188.187.293.442.293.707v17c0 .265-.105.52-.293.707-.187.188-.442.293-.707.293h-8c.004 1.374.155 2.66 2 3.658v1.342zm-3.984-5h-2.044c-.015.802.004 2.003-.719 3h3.493c-.757-1.02-.716-2.25-.73-3zm8.984-5h-20v3h20v-3zm-10 .537c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1zm-10-12.537v10h20v-10h-20z" />
+            </svg>{" "}
+            <div className="w-[75%]">
+              <strong className="text-lg">Virtual Classroom Experience</strong>
+              <p className="text-sm">
+                Engage in interactive and immersive virtual classrooms equipped
+                with innovative tools, allowing for real-time collaboration,
+                screen sharing, document sharing, and multimedia integration.
+              </p>
+            </div>
+          </div>
+          <div className="parentsvg basis-[33%] flex transition-all duration-300">
+            <svg
+              className="w-[25%]"
+              clipRule="evenodd"
+              strokeMiterlimit="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m14.776 18.689 7.012-7.012c.133-.133.217-.329.217-.532 0-.179-.065-.363-.218-.515l-2.423-2.415c-.144-.143-.333-.215-.522-.215s-.378.072-.523.215l-7.027 6.996c-.442 1.371-1.158 3.586-1.265 3.952-.125.433.199.834.573.834.41 0 .696-.099 4.176-1.308zm-2.258-2.392 1.17 1.171c-.704.232-1.275.418-1.729.566zm.968-1.154 5.356-5.331 1.347 1.342-5.346 5.347zm-4.486-1.393c0-.402-.356-.75-.75-.75-2.561 0-2.939 0-5.5 0-.394 0-.75.348-.75.75s.356.75.75.75h5.5c.394 0 .75-.348.75-.75zm5-3c0-.402-.356-.75-.75-.75-2.561 0-7.939 0-10.5 0-.394 0-.75.348-.75.75s.356.75.75.75h10.5c.394 0 .75-.348.75-.75zm0-3c0-.402-.356-.75-.75-.75-2.561 0-7.939 0-10.5 0-.394 0-.75.348-.75.75s.356.75.75.75h10.5c.394 0 .75-.348.75-.75zm0-3c0-.402-.356-.75-.75-.75-2.561 0-7.939 0-10.5 0-.394 0-.75.348-.75.75s.356.75.75.75h10.5c.394 0 .75-.348.75-.75z"
+                fillRule="nonzero"
+              />
+            </svg>{" "}
+            <div className="w-[75%]">
+              <strong className="text-lg">Personalized Matching</strong>
+              <p className="text-sm">
+                Our app utilizes advanced algorithms to match students with the
+                most suitable teachers based on their individual needs,
+                preferences, and learning styles.
+              </p>
+            </div>
+          </div>
+          <div className="parentsvg basis-[33%] flex transition-all duration-300">
+            <svg
+              className="w-[25%]"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="M21 10c1.103 0 2 .897 2 2s-.897 2-2 2h-18c-1.103 0-2-.897-2-2s.897-2 2-2h18zm3 2c0-1.657-1.343-3-3-3h-18c-1.657 0-3 1.343-3 3s1.343 3 3 3h18c1.657 0 3-1.343 3-3zm-9-1h-12c-.552 0-1 .448-1 1s.448 1 1 1h12c.552 0 1-.448 1-1s-.448-1-1-1z" />
+            </svg>
+            <div className="w-[75%]">
+              <strong className="text-lg">Progress Tracking</strong>
+              <p className="text-sm">
+                Keep track of your progress with detailed performance analytics,
+                including lesson history, assessment results, and personalized
+                recommendations.
+              </p>
+            </div>
+          </div>
+          <div className="parentsvg basis-[33%] flex  transition-all duration-300">
+            <svg
+              className="w-[25%]"
+              xmlns="http://www.w3.org/2000/svg"
+              clipRule="evenodd"
+              viewBox="0 0 24 24"
+            >
+              <path d="M6 3.447h-1v-1.447h19v16h-7.731l2.731 4h-1.311l-2.736-4h-1.953l-2.736 4h-1.264l2.732-4h-2.732v-1h8v-1h3v1h3v-14h-17v.447zm2.242 17.343c-.025.679-.576 1.21-1.256 1.21-.64 0-1.179-.497-1.254-1.156l-.406-4.034-.317 4.019c-.051.656-.604 1.171-1.257 1.171-.681 0-1.235-.531-1.262-1.21l-.262-6.456-.308.555c-.241.437-.8.638-1.265.459-.404-.156-.655-.538-.655-.951 0-.093.012-.188.039-.283l1.134-4.098c.17-.601.725-1.021 1.351-1.021h4.096c.511 0 1.012-.178 1.285-.33.723-.403 2.439-1.369 3.136-1.793.394-.243.949-.147 1.24.217.32.396.286.95-.074 1.297l-3.048 2.906c-.375.359-.595.849-.617 1.381-.061 1.397-.3 8.117-.3 8.117zm-5.718-10.795c-.18 0-.34.121-.389.294-.295 1.04-1.011 3.666-1.134 4.098l1.511-2.593c.172-.295.623-.18.636.158l.341 8.797c.01.278.5.287.523.002 0 0 .269-3.35.308-3.944.041-.599.449-1.017.992-1.017.547.002.968.415 1.029 1.004.036.349.327 3.419.385 3.938.043.378.505.326.517.022 0 0 .239-6.725.3-8.124.033-.791.362-1.523.925-2.061l3.045-2.904c-.661.492-2.393 1.468-3.121 1.873-.396.221-1.07.457-1.772.457h-4.096zm16.476 1.005h-5v-1h5v1zm2-2h-7v-1h7v1zm-15.727-4.994c-1.278 0-2.315 1.038-2.315 2.316 0 1.278 1.037 2.316 2.315 2.316s2.316-1.038 2.316-2.316c0-1.278-1.038-2.316-2.316-2.316zm0 1c.726 0 1.316.59 1.316 1.316 0 .726-.59 1.316-1.316 1.316-.725 0-1.315-.59-1.315-1.316 0-.726.59-1.316 1.315-1.316zm15.727 1.994h-7v-1h7v1z" />
+            </svg>
+            <div className="w-[75%]">
+              <strong className="text-lg">Extensive Teacher Profiles</strong>
+              <p className="text-sm">
+                Gain insights into teachers' qualifications, expertise, teaching
+                styles, and reviews from previous students to make an informed
+                decision.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+const Connected = () => {
+  return (
+    <section id="connected" className="bg-second pt-5">
+      <div className="mx-[135px] bg-white rounded-xl shadow-lg">
+        <div className="py-10 px-12 flex justify-between items-center">
+          <div className="w-[40%] flex flex-col gap-3">
+            <h3 className="text-2xl font-bold">
+              Access the Power of Online Learning with Classpro: 4 Compelling
+              Reasons to Get Connected
+            </h3>
+            <p className="text-sm">
+              ClassPro opens the doors to your full learning potential. Our
+              platform connects you with exceptional teachers who are experts in
+              their fields. Whether you're seeking guidance in mathematics,
+              science, languages, or any other subject, ClassPro has a diverse
+              range of qualified teachers ready to help you succeed.
+            </p>
+            <ul className="w-full list-disc pl-5 text-sm gap-2 flex flex-col">
+              <li>User-friendly interface</li>
+              <li>Cutting-edge online learning resources</li>
+              <li>Engaging and effective educational experience</li>
+              <li>Transformative journey towards academic excellence</li>
+            </ul>
+            <Link
+              href={"#"}
+              className="bg-main px-5 py-2 w-fit font-bold text-white rounded-lg"
+            >
+              Join ClassPro
+            </Link>
+          </div>
+          <div className="w-[40%]">
+            <Connectad></Connectad>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+const Teachers = () => {
   const [slider, setSlider] = useState({
     left: "slider-left",
     right: "slider-right",
@@ -63,2187 +426,188 @@ export default function Home() {
     }`,
     center: "relative z-[2] top-0 unblur",
   };
-
   return (
-    <>
-      <section id="hero" className="h-fit pb-32 ">
-        <div className="w-full h-[90vh] absolute top-0 bg-main z-[-2] clip-path"></div>
-        <div
-          id="hero-container"
-          className="px-[135px] flex items-center pt-[100px]"
-          style={{ overflowX: "clip" }}
-        >
-          <div className="w-3/6 text-white pr-12 flex flex-col gap-5">
-            <div className="flex items-center">
-              <h1 className="text-5xl font-bold whitespace-nowrap">
-                Discover the <strong>Perfect Mentor</strong>
-              </h1>
-              <img
-                src="/img/emojis/writing-hand.png"
-                width={45}
-                alt="writing hand emoji"
-              ></img>
-            </div>
-            <p className="text-xl pr-5">
-              Discover boundless potential with passionate teachers on ClassPro,
-              realizing your dreams through transformative education and opening
-              doors to a world of endless possibilities.
+    <section id="teachers" className="bg-second py-24">
+      <div className="bg-white mx-[135px] px-16">
+        <div className="py-12 flex justify-around items-center">
+          <div className="w-[30%] flex flex-col gap-4">
+            <h4 className="text-2xl font-bold">
+              Look at This Top Rated Teachers!
+            </h4>
+            <p>
+              They are passionate, knowledgeable, and dedicated to igniting the
+              spark of learning in every student. With their expertise and
+              unwavering commitment, they inspire, empower, and shape the minds
+              of future generations. Prepare to be amazed by the incredible
+              impact they make on education
             </p>
-            <div className="flex font-bold text-white gap-10 text-2xl">
-              <Link
-                href="#"
-                className="bg-white text-main px-5 py-2 rounded-lg"
-              >
-                Find Tutors
-              </Link>
-              <Link href="#" className="flex items-center">
-                Became a Tutor<ArrowRight></ArrowRight>
-              </Link>
-            </div>
-          </div>
-          <div className="relative w-2/4">
-            <div className="absolute top-0 w-full h-full">
-              <div className="z-[-4] absolute top-0 rounded-xl right-0 w-[300px] h-[150px] bg-main text-2xl font-bold text-white items-center shadow-md  flex text-center border-gray-500 appear-2">
-                <div className="w-[70%] h-full rounded-bl-xl rounded-tl-xl">
-                  <img
-                    className="object-cover h-full rounded-bl-lg rounded-tl-lg"
-                    src="https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  ></img>
-                </div>
-                <p className="px-2">More than 10.000 Students Are with Us!</p>
-              </div>
-              <div className="z-[-4] absolute rounded-xl -top-0 left-0 w-[100px] h-[100px] bg-[blue] bg-main text-2xl font-bold text-white items-center shadow-2xl  flex text-center border-gray-500 appear-3">
-                <img
-                  className="object-cover h-full rounded-lg"
-                  src="https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                ></img>
-              </div>
-            </div>
-            <svg
-              width="596"
-              height="355"
-              viewBox="0 0 596 355"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-full"
+            <Link
+              className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold"
+              href={"#"}
             >
-              <g id="asset 2">
-                <path
-                  id="Vector"
-                  d="M350.793 352.863C350.793 352.863 371.978 296.479 438.673 296.479C505.369 296.479 522.362 352.863 522.362 352.863H350.793Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_2"
-                  d="M522.362 353.165H350.793C350.693 353.165 350.603 353.117 350.546 353.035C350.488 352.954 350.476 352.851 350.512 352.757C350.564 352.616 355.984 338.442 369.505 324.461C377.29 316.363 386.504 309.772 396.684 305.015C409.292 299.15 423.423 296.177 438.679 296.177C453.936 296.177 467.849 299.15 480.025 305.018C489.804 309.741 498.553 316.351 505.761 324.47C518.246 338.454 522.616 352.637 522.673 352.779C522.721 352.939 522.628 353.108 522.468 353.153C522.437 353.162 522.404 353.165 522.371 353.165H522.362ZM351.24 352.561H521.945C521.154 350.195 516.536 337.449 505.287 324.854C493.845 312.047 473.004 296.784 438.673 296.784C404.343 296.784 382.336 312.065 369.94 324.884C357.787 337.44 352.228 350.15 351.24 352.561Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_3"
-                  d="M80.3878 352.576C80.3878 352.576 95.2278 326.348 133.974 326.348C172.719 326.348 199.105 352.576 199.105 352.576H80.3878Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_4"
-                  d="M199.102 352.878H80.3878C80.2821 352.878 80.1824 352.821 80.1281 352.73C80.0737 352.637 80.0737 352.522 80.1281 352.428C80.1673 352.362 83.9664 345.743 92.4706 339.224C100.322 333.211 113.879 326.046 133.977 326.046C154.074 326.046 170.753 333.199 181.224 339.199C192.563 345.704 199.253 352.299 199.319 352.365C199.437 352.483 199.434 352.676 199.316 352.791C199.259 352.845 199.183 352.875 199.105 352.878H199.102ZM80.9253 352.274H198.347C196.535 350.602 190.35 345.13 180.9 339.716C170.5 333.755 153.917 326.65 133.974 326.65C114.03 326.65 100.624 333.736 92.8601 339.682C85.7149 345.154 81.931 350.687 80.9344 352.274H80.9253Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_5"
-                  d="M241.577 143.246C241.577 143.246 256.194 137.252 259.286 140.958C262.378 144.664 264.438 149.711 263.716 150.013C262.994 150.315 243.208 151.558 242.275 150.837C241.342 150.115 241.577 143.246 241.577 143.246Z"
-                  fill="white"
-                />
-                <g id="lapiz" className="lapiz">
-                  <path
-                    id="Vector_6"
-                    d="M247.949 133.853L259.594 153.481H261.037L249.701 133.029L247.949 133.853Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_7"
-                    d="M261.037 153.629H259.594C259.54 153.629 259.491 153.599 259.464 153.553L247.819 133.935C247.798 133.898 247.792 133.853 247.804 133.814C247.816 133.775 247.846 133.741 247.886 133.723L249.637 132.899C249.71 132.866 249.794 132.893 249.833 132.963L261.167 153.411C261.194 153.457 261.194 153.517 261.167 153.562C261.137 153.605 261.089 153.629 261.037 153.629ZM259.678 153.327H260.781L249.637 133.222L248.163 133.917L259.678 153.327Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_8"
-                    d="M245.313 151.374C242.465 151.374 242.208 151.172 242.097 151.072C241.124 150.318 241.221 144.876 241.275 143.225C241.278 143.107 241.354 143.001 241.462 142.956C242.066 142.706 256.32 136.92 259.516 140.753C262.233 144.022 264.429 148.679 264.136 149.901C264.106 150.073 263.991 150.215 263.834 150.287C263.342 150.499 257.281 150.891 253.092 151.111C249.372 151.308 246.928 151.374 245.313 151.374ZM241.873 143.454C241.782 146.641 241.979 150.23 242.477 150.607C243.579 151.196 262.043 150.137 263.562 149.756C263.759 149.065 261.998 144.677 259.063 141.154C256.317 137.87 243.549 142.787 241.873 143.454Z"
-                    fill="#1A1A1A"
-                  />
-                </g>
-                <path
-                  id="Vector_9"
-                  d="M183.337 215.113C165.405 190.705 139.129 189.458 139.129 189.458L115.289 179.196C115.289 179.196 92.9265 213.994 112.402 228.502C131.878 243.011 158.809 242.305 158.809 242.305C151.601 267.561 147.826 301.695 144.691 337.47C148.182 339.48 151.148 340.268 152.567 337.47C152.567 337.47 166.175 307.478 173.514 290.084C174.978 286.622 176.192 283.658 176.999 281.533C176.999 281.545 201.267 239.525 183.337 215.113Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_10"
-                  d="M149.729 339.589C148.394 339.589 146.709 338.985 144.54 337.733C144.435 337.672 144.377 337.551 144.392 337.431C147.376 303.325 151.142 268.262 158.408 242.598C154.935 242.598 130.256 242.178 112.221 228.735C107.712 225.369 105.058 220.649 104.336 214.7C103.765 209.964 104.408 204.438 106.254 198.311C109.385 187.88 114.978 179.118 115.036 179.03C115.114 178.906 115.271 178.858 115.407 178.916L139.198 189.159C139.862 189.199 146.289 189.67 154.615 192.845C166.196 197.26 176.256 204.927 183.579 214.923C201.397 239.175 178.035 280.368 177.27 281.666C176.509 283.667 175.341 286.537 173.792 290.201C166.544 307.387 152.978 337.286 152.842 337.588C152.45 338.469 151.704 339.139 150.786 339.435C150.444 339.537 150.088 339.592 149.729 339.589ZM145.011 337.304C147.554 338.747 149.336 339.242 150.613 338.864C151.368 338.62 151.982 338.062 152.296 337.334C152.428 337.032 165.982 307.152 173.236 289.978C174.788 286.305 175.954 283.431 176.715 281.439L176.736 281.394C180.903 273.773 184.216 265.714 186.611 257.366C190.075 245.072 192.277 227.787 183.093 215.294C175.836 205.395 165.873 197.801 154.403 193.421C145.739 190.101 139.183 189.772 139.117 189.772C139.08 189.772 139.044 189.76 139.011 189.745L115.407 179.586C114.534 180.995 109.669 189.066 106.827 198.51C103.98 208.002 102.666 220.869 112.583 228.264C131.751 242.555 158.532 242.015 158.788 242.006C158.955 242 159.096 242.13 159.103 242.296C159.103 242.326 159.103 242.359 159.09 242.389C151.788 267.987 148.004 303.125 145.011 337.304Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_11"
-                  d="M149.019 240.141C152.691 243.539 188.861 234.216 190.528 228.391L187.87 222.943L145.827 230.974C145.827 230.974 147.373 239.73 149.019 240.141Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_12"
-                  d="M152.564 241.013C150.81 241.013 149.529 240.79 148.94 240.276C147.261 239.745 145.83 231.901 145.67 231.001C145.658 230.92 145.709 230.844 145.791 230.826L187.641 222.831L187.478 222.493H187.496C187.448 222.348 187.496 222.33 187.547 222.3C187.599 222.27 187.659 222.242 187.741 222.372L187.919 222.737L187.991 222.888L190.646 228.321C190.658 228.354 190.658 228.394 190.646 228.427C189.767 231.496 180.164 235.185 171.469 237.611C164.563 239.552 157.037 241.013 152.564 241.013ZM146.002 231.095C146.455 233.603 147.814 239.685 149.058 239.996C149.082 240.002 149.104 240.014 149.122 240.032C150.789 241.574 160.374 240.409 171.418 237.316C182.166 234.312 189.58 230.82 190.368 228.394L188.034 223.613L187.786 223.103L146.002 231.095Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_13"
-                  d="M154.132 180.346C154.132 180.346 156.599 189.295 164.798 190.24C183.742 192.419 218.635 190.995 219.713 217.38C221.331 256.973 222.186 303.334 222.186 303.334C222.186 303.334 219.749 313.496 211.743 307.861C201.267 285.855 187.777 245.987 189.939 229.311C167.447 234.053 139.808 246.515 108.703 233.021C86.5847 215.409 109.252 176.993 109.252 176.993L154.132 180.346Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_14"
-                  d="M216.2 309.88C214.781 309.88 213.232 309.277 211.571 308.124C211.529 308.093 211.492 308.054 211.471 308.006C201.001 286.015 187.677 246.793 189.589 229.71C185.421 230.615 181.112 231.744 176.555 232.951C156.523 238.254 133.82 244.264 108.573 233.313C108.549 233.301 108.525 233.289 108.503 233.271C103.4 229.206 100.253 223.697 99.1416 216.9C98.2628 211.467 98.6765 205.238 100.371 198.344C103.252 186.63 108.917 176.951 108.975 176.854C109.032 176.754 109.141 176.697 109.255 176.706L154.144 180.044C154.271 180.053 154.379 180.141 154.413 180.265C154.437 180.352 156.925 189.018 164.825 189.941C167.431 190.243 170.343 190.472 173.426 190.717C192.687 192.25 219.066 194.339 220.006 217.368C221.606 256.512 222.47 302.875 222.479 303.34C222.482 303.364 222.482 303.391 222.479 303.415C222.434 303.614 221.271 308.302 217.91 309.569C217.363 309.775 216.783 309.88 216.2 309.88ZM211.973 307.674C214.129 309.183 216.052 309.624 217.686 309.005C220.604 307.906 221.763 303.741 221.875 303.309C221.845 301.695 220.969 256.026 219.402 217.392C218.496 194.909 192.412 192.836 173.378 191.321C170.288 191.073 167.371 190.841 164.756 190.539C157.152 189.663 154.334 181.994 153.884 180.63L109.391 177.31C108.642 178.62 103.599 187.687 100.935 198.489C98.3142 209.161 97.5592 223.764 108.824 232.761C133.865 243.612 156.448 237.629 176.374 232.357C181.088 231.107 185.539 229.942 189.851 229.037C190.015 229.003 190.175 229.109 190.208 229.272C190.214 229.302 190.217 229.335 190.211 229.369C188.07 246.084 201.463 285.553 211.982 307.674H211.973Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_15"
-                  d="M561.056 339.728C561.056 339.728 545.676 337.953 550.559 319.475C557.505 321.989 562.382 334.995 561.056 339.728Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_16"
-                  d="M561.056 340.03H561.02C560.775 340.002 554.98 339.281 551.592 334.34C549.07 330.643 548.623 325.617 550.266 319.403C550.287 319.321 550.342 319.249 550.417 319.21C550.496 319.176 550.583 319.176 550.662 319.21C557.949 321.845 562.651 335.17 561.346 339.827C561.304 339.951 561.186 340.033 561.056 340.03ZM550.764 319.88C549.254 325.765 549.716 330.51 552.087 333.99C554.908 338.125 559.667 339.184 560.83 339.387C561.34 337.041 560.479 332.885 558.637 328.895C556.532 324.344 553.679 321.081 550.764 319.88Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_17"
-                  d="M30.0545 306.101C30.0545 306.101 23.6431 293.956 9.54908 304.773C17.4764 312.95 25.7208 311.112 30.0545 306.101Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_18"
-                  d="M20.9463 310.692C16.9661 310.692 12.9586 308.724 9.33166 304.985C9.27126 304.921 9.24408 304.837 9.25012 304.752C9.25616 304.671 9.29844 304.592 9.36186 304.541C14.224 300.81 18.7237 299.362 22.7372 300.237C27.8288 301.351 30.2206 305.778 30.3202 305.972C30.3776 306.08 30.3625 306.216 30.281 306.31C28.0462 308.981 24.7786 310.577 21.2936 310.698L20.9463 310.692ZM10.0051 304.807C13.5535 308.371 17.4462 310.194 21.2785 310.082C24.5189 309.971 27.563 308.513 29.686 306.065C29.1847 305.235 26.8594 301.746 22.6043 300.819C18.8475 300.014 14.6105 301.345 10.0051 304.807Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_19"
-                  d="M33.7599 285.9C33.7599 285.9 21.1094 291.261 30.7037 306.21C39.528 299.005 38.4046 290.642 33.7599 285.9Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_20"
-                  d="M30.7037 306.512H30.6554C30.5709 306.5 30.4954 306.452 30.4501 306.379C27.1281 301.221 26.0772 296.618 27.2912 292.694C28.8314 287.717 33.4489 285.713 33.6331 285.629C33.7478 285.58 33.8807 285.605 33.9683 285.695C36.4446 288.149 37.7643 291.538 37.5922 295.018C37.3657 299.105 35.0494 303.059 30.894 306.449C30.8396 306.491 30.7732 306.512 30.7037 306.512ZM33.6935 286.266C32.8237 286.694 29.1636 288.713 27.865 292.875C26.7325 296.546 27.711 300.88 30.7762 305.757C34.6297 302.528 36.7768 298.815 36.9882 294.979C37.1513 291.744 35.9584 288.587 33.6935 286.266Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_21"
-                  d="M48.5032 341.665C48.5032 341.665 31.3923 327.507 18.3582 341.665C25.5789 348.257 42.3637 348.275 48.5032 341.665Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_22"
-                  d="M33.8505 346.911C27.4784 346.911 21.6167 345.028 18.1679 341.883C18.0441 341.771 18.0351 341.581 18.1468 341.457C24.987 334.029 32.9445 334.425 38.4166 336.063C42.1402 337.226 45.6252 339.046 48.7086 341.43C48.772 341.481 48.8113 341.56 48.8173 341.641C48.8233 341.726 48.7962 341.807 48.7388 341.868C45.7883 345.028 40.2256 346.914 33.8475 346.914L33.8505 346.911ZM18.7901 341.638C25.8929 347.811 41.953 347.832 48.0563 341.69C45.0907 339.453 41.7597 337.745 38.2143 336.634C30.6041 334.358 24.0689 336.042 18.7901 341.638Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_23"
-                  d="M41.5966 325.72C41.5966 325.72 38.0029 311.519 52.553 306.705C56.4185 320.079 41.5966 325.72 41.5966 325.72Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_24"
-                  d="M41.5966 326.022C41.4547 326.025 41.3279 325.931 41.2946 325.792C40.742 323.206 40.748 320.529 41.3158 317.945C42.1704 314.082 44.7978 308.945 52.4473 306.415C52.6043 306.364 52.7765 306.448 52.8308 306.605C52.8308 306.611 52.8338 306.614 52.8338 306.621C54.8723 313.671 51.7255 318.57 48.7237 321.437C46.6762 323.369 44.2965 324.911 41.6963 325.992C41.6661 326.007 41.6329 326.019 41.5966 326.022ZM52.3476 307.1C46.6097 309.08 43.1006 312.769 41.9168 318.063C41.4094 320.447 41.3732 322.91 41.8171 325.306C44.2119 324.247 46.4104 322.792 48.319 320.999C52.4292 317.07 53.7791 312.388 52.3476 307.1Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_25"
-                  d="M41.204 325.75C41.204 325.75 31.7456 309.708 17.5156 321.654C27.5902 333.365 41.2161 325.75 41.2161 325.75H41.204Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_26"
-                  d="M31.2866 328.485C27.1372 328.485 21.8402 327.16 17.2741 321.845C17.2227 321.784 17.1986 321.703 17.2046 321.624C17.2106 321.543 17.2499 321.467 17.3103 321.416C21.5775 317.839 25.8507 316.385 30.0152 317.1C37.103 318.307 41.2886 325.294 41.4638 325.59C41.5483 325.735 41.5 325.919 41.3581 326.004C41.3581 326.004 41.3551 326.004 41.352 326.007C38.7972 327.314 36.0158 328.119 33.1589 328.385C32.5701 328.451 31.9419 328.485 31.2866 328.485ZM17.9354 321.688C22.0063 326.299 27.1009 328.352 33.0804 327.797C35.7531 327.534 38.3563 326.8 40.7722 325.632C39.9236 324.332 35.9403 318.736 29.9004 317.7C26.0047 317.033 21.9791 318.374 17.9354 321.688Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_27"
-                  d="M79.2039 314.803C79.2039 314.803 59.7072 322.847 58.8103 303.542C70.3253 302.009 79.2039 314.803 79.2039 314.803Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_28"
-                  d="M70.7149 316.771C68.3895 316.771 65.9343 316.327 63.8234 314.984C60.5528 312.905 58.765 309.056 58.5083 303.548C58.5083 303.394 58.62 303.267 58.771 303.246C70.3374 301.704 79.361 314.504 79.4516 314.634C79.5029 314.709 79.518 314.803 79.4938 314.891C79.4667 314.978 79.4032 315.051 79.3187 315.084C76.5736 316.146 73.6593 316.72 70.7149 316.771ZM59.1274 303.792C59.4294 308.945 61.1054 312.545 64.1435 314.468C69.3227 317.761 76.9782 315.28 78.7237 314.646C77.2802 312.726 69.1898 302.652 59.1274 303.798V303.792Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_29"
-                  d="M79.204 314.803C79.204 314.803 72.6839 298.296 89.7737 293.443C93.7389 307.505 79.204 314.803 79.204 314.803Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_30"
-                  d="M79.204 315.105C79.1677 315.105 79.1285 315.099 79.0952 315.084C79.0167 315.054 78.9533 314.99 78.9231 314.912C78.8023 314.61 76.0149 307.381 79.1647 301.007C81.022 297.252 84.5644 294.608 89.6922 293.159C89.8523 293.114 90.0184 293.207 90.0637 293.367C92.1504 300.765 89.1154 306.279 86.2042 309.603C84.2533 311.815 81.931 313.671 79.3399 315.081C79.2976 315.099 79.2493 315.108 79.204 315.105ZM89.5624 293.817C84.7667 295.242 81.4538 297.741 79.7083 301.272C77.0387 306.666 78.8718 312.899 79.3701 314.368C81.7709 312.998 83.9332 311.241 85.7663 309.174C89.7737 304.583 91.0542 299.41 89.5624 293.808V293.817Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_31"
-                  d="M66.6138 327.12C66.6138 327.12 66.5504 344.382 86.0683 335.237C79.2825 325.397 69.0449 326.414 66.6138 327.12Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_32"
-                  d="M76.2021 338.213C74.3569 338.264 72.5389 337.775 70.9655 336.812C66.342 333.863 66.3118 327.392 66.3118 327.12C66.3058 326.982 66.3964 326.855 66.5323 326.819C69.7998 325.871 79.7294 325.5 86.325 335.052C86.3763 335.125 86.3914 335.218 86.3672 335.303C86.3431 335.39 86.2857 335.46 86.2042 335.499C82.3568 337.31 79.0137 338.213 76.2021 338.213ZM66.9249 327.347C66.9762 328.527 67.4262 333.83 71.2947 336.293C74.5502 338.369 79.37 337.968 85.6213 335.104C78.6362 325.319 68.5526 327.006 66.9249 327.359V327.347Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_33"
-                  d="M86.0682 335.237C86.0682 335.237 81.8403 318.636 94.7596 314.411C103.077 327.066 86.0682 335.237 86.0682 335.237Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_34"
-                  d="M86.0682 335.538C86.026 335.538 85.9807 335.529 85.9414 335.511C85.8599 335.472 85.7995 335.399 85.7783 335.312C85.123 332.378 84.9509 329.357 85.268 326.366C86.0139 320.115 89.2633 315.877 94.666 314.115C94.7959 314.073 94.9378 314.121 95.0133 314.236C97.2058 317.574 97.8611 320.918 96.9612 324.169C95.0073 331.204 86.5605 335.336 86.2011 335.508C86.1588 335.529 86.1135 335.538 86.0682 335.538ZM94.6328 314.761C83.459 318.603 85.7693 332.342 86.2796 334.79C87.8893 333.933 94.7173 329.997 96.3783 324.006C97.2209 320.993 96.638 317.885 94.6388 314.761H94.6328Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_35"
-                  d="M566.386 260.342C566.386 260.342 551.993 262.922 548.095 277.968C556.771 279.414 565.795 273.797 566.386 260.342Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_36"
-                  d="M550.776 278.494C549.864 278.494 548.955 278.415 548.058 278.264C547.977 278.249 547.901 278.201 547.856 278.131C547.811 278.062 547.796 277.974 547.817 277.893C551.719 262.832 566.202 260.085 566.35 260.046C566.513 260.019 566.67 260.127 566.7 260.293C566.703 260.312 566.707 260.33 566.703 260.348C566.341 268.563 562.971 272.955 560.205 275.195C557.538 277.353 554.207 278.521 550.776 278.494ZM548.472 277.721C552.655 278.324 556.668 277.277 559.809 274.733C563.557 271.715 565.716 266.861 566.066 260.722C563.822 261.259 552.045 264.661 548.472 277.721Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_37"
-                  d="M548.095 277.98C548.095 277.98 526.294 275.137 533.989 252.226C545.38 256.364 549.626 273.725 548.095 277.98Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_38"
-                  d="M548.095 278.282H548.056C547.962 278.282 538.79 276.999 534.39 269.967C531.509 265.358 531.277 259.358 533.702 252.132C533.729 252.057 533.783 251.993 533.856 251.957C533.931 251.924 534.016 251.924 534.091 251.957C540.823 254.402 544.546 261.151 546.171 264.957C548.614 270.691 549.137 276.013 548.385 278.098C548.336 278.213 548.222 278.288 548.095 278.282ZM534.176 252.627C531.917 259.539 532.159 265.268 534.904 269.653C538.751 275.807 546.413 277.398 547.889 277.651C549.176 273.043 544.761 256.717 534.176 252.606V252.627Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_39"
-                  d="M551.655 301.173C551.655 301.173 561.358 285.885 577.186 294.327C564.167 307.206 551.655 301.173 551.655 301.173Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_40"
-                  d="M559.072 302.887C554.566 302.887 551.649 301.505 551.522 301.444C551.444 301.408 551.386 301.339 551.362 301.257C551.338 301.176 551.353 301.085 551.398 301.013C553.229 298.339 555.584 296.063 558.323 294.327C562.409 291.762 569.026 289.631 577.331 294.062C577.412 294.107 577.47 294.188 577.485 294.282C577.5 294.376 577.47 294.472 577.4 294.542C570.602 301.263 563.94 302.787 559.546 302.881L559.072 302.887ZM552.108 301.04C554.491 301.933 557.022 302.353 559.564 302.277C563.777 302.181 570.134 300.729 576.678 294.403C570.355 291.155 564.297 291.297 558.664 294.828C556.107 296.467 553.881 298.574 552.108 301.04Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_41"
-                  d="M561.056 339.728C561.056 339.728 568.162 326.423 583.845 335.294C578.222 345.493 561.056 339.728 561.056 339.728Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_42"
-                  d="M571.258 341.665H570.331C567.154 341.527 564.007 340.98 560.969 340.042C560.812 339.99 560.724 339.818 560.775 339.661C560.781 339.646 560.788 339.628 560.797 339.613C560.914 339.396 563.714 334.265 569.699 332.526C574.009 331.277 578.82 332.128 584.002 335.058C584.144 335.14 584.195 335.321 584.117 335.466C581.864 339.513 577.43 341.665 571.258 341.665ZM561.509 339.553C563.964 340.286 578.306 344.128 583.431 335.409C578.502 332.692 573.939 331.895 569.868 333.075C564.964 334.497 562.222 338.409 561.509 339.553Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_43"
-                  d="M22.4019 295.607C22.4019 295.607 3.20718 303.983 0.301994 273.353C17.2137 266.224 24.1595 289.61 22.4019 295.607Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_44"
-                  d="M16.7607 296.944C14.3568 296.968 11.9922 296.343 9.91448 295.133C4.39705 291.895 1.06304 284.575 2.07283e-05 273.384C-0.00903909 273.254 0.0634394 273.133 0.184237 273.082C5.753 270.734 10.905 271.458 15.0786 275.176C21.4204 280.833 23.8122 291.87 22.6918 295.701C22.6677 295.788 22.6043 295.857 22.5227 295.894C20.6836 296.594 18.7297 296.95 16.7607 296.944ZM0.625148 273.547C1.68817 284.412 4.91346 291.493 10.2135 294.617C15.5134 297.741 21.2211 295.746 22.1513 295.384C23.1358 291.563 20.7802 281.059 14.6769 275.62C10.6815 272.065 5.95534 271.367 0.625148 273.547Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_45"
-                  d="M72.2309 297.213C72.2309 297.213 51.0702 296.054 61.4316 267.48C77.1715 271.123 76.1175 289.356 72.2309 297.213Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_46"
-                  d="M72.2309 297.514H72.2128C72.1403 297.514 64.8411 297.044 60.8578 291.016C57.3064 285.653 57.406 277.697 61.1598 267.377C61.2111 267.232 61.3621 267.148 61.5131 267.184C66.9188 268.437 70.7843 271.446 72.9889 276.127C76.2021 282.918 75.1753 291.94 72.4997 297.345C72.4483 297.448 72.3456 297.514 72.2309 297.514ZM61.6249 267.836C58.0432 277.839 57.9496 285.523 61.3561 290.678C64.8109 295.906 70.881 296.772 72.0497 296.893C74.5291 291.719 75.5045 282.855 72.4423 276.387C70.3434 271.944 66.7074 269.077 61.6249 267.836Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_47"
-                  d="M554.059 253.792C554.059 253.792 543.604 227.672 569.79 222.571C574.45 245.634 554.059 253.792 554.059 253.792Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_48"
-                  d="M554.059 254.094C553.935 254.094 553.824 254.019 553.778 253.904C553.73 253.783 548.974 241.641 554.08 232.299C556.901 227.123 562.174 223.752 569.748 222.276C569.911 222.245 570.068 222.351 570.101 222.514C572.517 234.551 568.078 242.492 563.91 247.034C561.174 250.01 557.867 252.404 554.186 254.073C554.147 254.088 554.101 254.097 554.059 254.094ZM569.56 222.928C562.331 224.394 557.303 227.645 554.606 232.586C550.076 240.88 553.561 251.504 554.24 253.388C557.728 251.746 560.863 249.443 563.475 246.609C567.495 242.208 571.801 234.539 569.56 222.928Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_49"
-                  d="M564.907 280.226C564.907 280.226 588.764 278.675 595.71 262.72C581.996 258.274 564.463 266.922 564.907 280.226Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_50"
-                  d="M564.907 280.528C564.831 280.528 564.759 280.501 564.704 280.449C564.644 280.395 564.608 280.317 564.605 280.235C564.433 275.004 566.993 270.124 571.816 266.493C578.493 261.468 587.907 259.853 595.792 262.421C595.873 262.449 595.937 262.506 595.973 262.584C596.006 262.663 596.006 262.75 595.973 262.829C592.349 271.177 584.089 275.545 577.799 277.739C573.634 279.182 569.313 280.12 564.925 280.528H564.907ZM588.103 261.857C582.425 261.857 576.597 263.653 572.179 266.988C567.616 270.423 565.148 275.001 565.203 279.912C568.014 279.653 588.776 277.256 595.284 262.907C592.956 262.204 590.537 261.848 588.103 261.857Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_51"
-                  d="M564.575 325.14C564.575 325.14 562.69 299.739 585.325 302.621C589.096 321.25 564.575 325.14 564.575 325.14Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_52"
-                  d="M564.575 325.442C564.505 325.442 564.442 325.418 564.387 325.376C564.321 325.325 564.279 325.246 564.273 325.162C564.273 325.041 563.442 312.823 570.37 306.255C573.976 302.839 579.019 301.517 585.361 302.332C585.491 302.347 585.596 302.446 585.62 302.573C586.581 307.315 585.808 311.537 583.319 315.117C577.636 323.299 564.75 325.427 564.623 325.448L564.575 325.442ZM581.897 302.697C577.319 302.697 573.592 304.034 570.79 306.693C564.704 312.461 564.783 322.792 564.858 324.781C566.9 324.392 577.796 322.005 582.824 314.761C585.177 311.374 585.932 307.384 585.071 302.896C584.017 302.766 582.957 302.7 581.897 302.697Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_53"
-                  d="M53.1962 352.878C53.0573 352.884 52.9335 352.794 52.8942 352.661C52.864 352.555 49.829 342.012 42.711 327.806C36.1547 314.7 24.6638 295.707 7.24786 279.65C7.118 279.544 7.09686 279.354 7.20256 279.224C7.30826 279.094 7.49851 279.073 7.62837 279.179C7.63743 279.188 7.64951 279.197 7.65857 279.206C25.1742 295.329 36.6953 314.396 43.2938 327.549C50.436 341.804 53.4801 352.389 53.5103 352.495C53.5556 352.655 53.465 352.821 53.3049 352.869C53.2717 352.878 53.2355 352.881 53.2023 352.878H53.1962Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_54"
-                  d="M90.6677 352.531C90.5257 352.534 90.3989 352.437 90.3657 352.299C82.3477 318.361 67.5591 287.473 67.4141 287.165C67.3416 287.014 67.4051 286.833 67.5561 286.76C67.7071 286.688 67.8883 286.751 67.9607 286.902C68.1087 287.204 82.9276 318.156 90.9606 352.16C90.9968 352.323 90.8972 352.486 90.7341 352.522C90.713 352.528 90.6888 352.531 90.6677 352.531Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_55"
-                  d="M540.053 353.086C539.887 353.086 539.751 352.951 539.751 352.785C539.751 352.631 539.811 337.117 544.812 319.041C547.75 308.416 551.797 298.996 556.837 291.037C563.146 281.077 571.031 273.399 580.293 268.21C580.438 268.129 580.622 268.18 580.704 268.325C580.786 268.47 580.737 268.654 580.592 268.735C559.821 280.392 549.988 302.603 545.404 319.198C540.421 337.198 540.364 352.628 540.364 352.782C540.364 352.948 540.228 353.083 540.062 353.083C540.062 353.083 540.059 353.083 540.056 353.083L540.053 353.086Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_56"
-                  d="M548.487 353.086C548.339 353.086 548.212 352.984 548.185 352.839C548.155 352.658 544.966 334.566 545.129 311.072C545.226 297.27 546.446 284.328 548.753 272.608C551.634 257.948 556.236 245.166 562.427 234.617C562.506 234.469 562.687 234.412 562.835 234.49C562.983 234.569 563.04 234.75 562.962 234.898C562.959 234.907 562.953 234.913 562.95 234.919C548.998 258.688 545.89 289.45 545.736 311.072C545.573 334.512 548.756 352.549 548.783 352.724C548.813 352.887 548.702 353.044 548.539 353.074L548.487 353.086Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_57"
-                  d="M559.897 353.086C559.731 353.086 559.595 352.951 559.595 352.785C559.764 346.63 560.458 340.5 561.672 334.464C563.484 325.639 567.344 314.287 575.304 310.339C575.455 310.27 575.637 310.336 575.706 310.487C575.772 310.632 575.715 310.804 575.573 310.879C560.712 318.25 560.202 352.447 560.199 352.791C560.196 352.954 560.06 353.086 559.897 353.086Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_58"
-                  d="M527.085 293.108C527.085 293.108 546.25 291.019 545.392 310.704C536.655 310.028 528.849 303.605 527.085 293.108Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_59"
-                  d="M545.401 311.006H545.38C535.933 310.276 528.468 303.101 526.795 293.159C526.78 293.078 526.801 292.993 526.852 292.927C526.904 292.86 526.979 292.818 527.061 292.809C527.145 292.809 535.653 291.937 541.122 297.056C544.422 300.149 545.954 304.743 545.703 310.719C545.7 310.801 545.664 310.876 545.603 310.931C545.549 310.979 545.476 311.006 545.401 311.006ZM527.438 293.373C529.151 302.76 536.196 309.536 545.105 310.369C545.289 304.731 543.809 300.409 540.699 297.487C536.039 293.12 529.015 293.283 527.438 293.373Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_60"
-                  d="M261.071 105.862L282.57 148.443H337.089L317.411 104.148L262.264 103.149L261.071 105.862Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_61"
-                  d="M337.089 148.594H282.57C282.512 148.594 282.458 148.561 282.434 148.51L260.923 105.94C260.905 105.898 260.905 105.853 260.923 105.811L262.131 103.094C262.158 103.04 262.212 103.007 262.273 103.007L317.42 104.006C317.48 104.006 317.531 104.042 317.556 104.096L337.234 148.389C337.258 148.434 337.258 148.489 337.234 148.534C337.2 148.579 337.143 148.603 337.089 148.594ZM282.66 148.292H336.856L317.314 104.298L262.351 103.299L261.225 105.859L282.66 148.292Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_62"
-                  d="M425.953 122.918C425.953 122.918 429.964 138.181 419.433 135.679C408.903 133.177 363.033 118.173 363.033 118.173H337.089C337.089 118.173 335.624 121.3 350.074 120.989C351.322 125.933 351.219 130.672 354.604 130.261C357.404 129.92 362.852 127.702 365.899 127.328C373.032 131.426 412.406 153.755 424.697 154.211C438.232 154.709 446.504 140.445 448.008 130.938L425.953 122.918Z"
-                  fill="white"
-                />
-                <path
-                  id="brazo-hombre"
-                  className="lapiz-2"
-                  d="M425.398 154.513C425.162 154.513 424.927 154.513 424.688 154.498C412.427 154.045 373.73 132.163 365.841 127.636C364.331 127.838 362.19 128.496 360.131 129.13C358.071 129.763 356.042 130.388 354.644 130.557C351.729 130.907 351.14 127.841 350.461 124.306C350.271 123.329 350.077 122.323 349.827 121.288C342.437 121.427 337.992 120.685 336.965 119.088C336.738 118.786 336.681 118.391 336.817 118.038C336.865 117.932 336.971 117.862 337.089 117.862H363.033C363.066 117.862 363.096 117.869 363.127 117.878C363.586 118.028 409.108 132.917 419.506 135.383C421.84 135.939 423.604 135.628 424.745 134.46C427.805 131.333 425.682 123.075 425.651 122.99C425.621 122.882 425.654 122.764 425.739 122.689C425.82 122.616 425.938 122.592 426.041 122.628L448.086 130.636C448.222 130.684 448.304 130.823 448.283 130.965C447.431 136.337 444.737 142.147 441.071 146.503C437.997 150.197 432.784 154.513 425.398 154.513ZM365.905 127.014C365.959 127.014 366.011 127.026 366.056 127.053C373.717 131.457 412.563 153.448 424.712 153.897C437.734 154.38 446.06 140.683 447.664 131.122L426.367 123.392C426.808 125.36 428.019 131.97 425.159 134.882C423.857 136.213 421.901 136.582 419.343 135.972C409.075 133.53 364.649 119.015 362.963 118.466H337.333C337.351 118.584 337.4 118.696 337.469 118.789C337.916 119.429 340.036 120.902 350.035 120.682C350.177 120.679 350.301 120.772 350.337 120.908C350.621 122.034 350.829 123.126 351.035 124.186C351.778 128.049 352.309 130.222 354.553 129.951C355.9 129.788 357.875 129.184 359.934 128.547C362.048 127.889 364.268 127.213 365.847 127.017H365.905V127.014Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_63"
-                  d="M413.254 324.691L414.284 352.833L369.49 352.205C369.49 352.205 387.162 336.063 402.389 335.876C404.27 325.916 403.899 324.691 403.899 324.691H413.254Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_64"
-                  d="M414.284 352.984L369.489 352.356C369.429 352.356 369.372 352.317 369.35 352.259C369.329 352.202 369.344 352.136 369.39 352.093C369.565 351.933 387.183 336 402.268 335.728C404.08 326.182 403.778 324.787 403.751 324.73C403.739 324.685 403.751 324.636 403.778 324.6C403.805 324.564 403.85 324.54 403.896 324.54H413.257C413.339 324.54 413.405 324.603 413.408 324.685L414.438 352.83C414.438 352.869 414.423 352.908 414.396 352.939C414.366 352.969 414.326 352.984 414.284 352.984ZM369.891 352.06L414.139 352.682L413.121 324.842H404.062C404.104 325.445 404.062 327.809 402.534 335.907C402.522 335.976 402.461 336.027 402.389 336.027C388.449 336.199 372.232 349.993 369.879 352.06H369.891Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_65"
-                  d="M482.441 324.691L483.477 353.08L438.673 352.205C438.673 352.205 456.346 336.063 471.591 335.876C473.469 325.916 473.101 324.691 473.101 324.691H482.441Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_66"
-                  d="M483.492 353.231L438.688 352.356C438.628 352.356 438.574 352.317 438.55 352.259C438.528 352.202 438.543 352.136 438.589 352.093C438.767 351.933 456.382 336 471.467 335.728C473.279 326.182 472.977 324.787 472.95 324.73C472.941 324.685 472.95 324.636 472.977 324.6C473.007 324.564 473.049 324.54 473.098 324.54H482.459C482.541 324.54 482.607 324.603 482.61 324.685L483.646 353.077C483.646 353.117 483.634 353.159 483.604 353.186C483.574 353.216 483.534 353.231 483.492 353.231ZM439.078 352.063L483.335 352.926L482.311 324.857H473.252C473.297 325.46 473.252 327.824 471.742 335.922C471.727 335.991 471.666 336.042 471.594 336.042C457.629 336.199 441.406 350.002 439.063 352.063H439.078Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_67"
-                  d="M421.922 49.5203C421.922 49.5203 413.874 69.314 420.795 77.8526C426.264 84.6286 431.948 80.569 431.948 80.569L438.214 88.8119L449.992 85.0572C449.992 85.0572 441.968 72.7971 445.23 65.7887C448.491 58.7803 429.435 39.0108 421.922 49.5203Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_68"
-                  d="M448.011 228.843L470.809 323.858H482.84C486.681 325.539 484.392 269.037 482.686 241.725C482.423 241.692 482.16 241.665 481.895 241.629C469.712 240.144 458.602 235.025 448.011 228.843Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_69"
-                  d="M483 324.205C482.924 324.205 482.852 324.193 482.78 324.169H470.809C470.667 324.172 470.54 324.078 470.507 323.939L447.712 228.916C447.688 228.801 447.733 228.683 447.827 228.614C447.923 228.542 448.053 228.535 448.159 228.596C461.09 236.141 471.503 240.065 481.922 241.348L482.417 241.408L482.719 241.445C482.864 241.463 482.973 241.58 482.982 241.725C483.74 253.865 484.752 274.265 485.096 291.798C485.7 322.46 483.963 323.683 483.39 324.093C483.275 324.169 483.139 324.208 483 324.205ZM471.041 323.562H482.819C482.861 323.562 482.9 323.568 482.94 323.586C482.967 323.607 483.009 323.607 483.036 323.586C483.64 323.154 485.035 319.192 484.486 291.807C484.136 274.404 483.136 254.172 482.372 242.006H482.324L481.825 241.943C471.488 240.678 461.169 236.812 448.443 229.468L471.041 323.562Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_70"
-                  d="M442.602 206.3L448.011 228.843C458.602 235.025 469.712 240.144 481.889 241.635C482.154 241.671 482.417 241.698 482.68 241.731C482.302 235.677 481.955 231.056 481.707 228.822L442.602 206.3Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_71"
-                  d="M482.68 241.882H482.662L482.36 241.846L481.861 241.786C471.379 240.503 460.915 236.552 447.926 228.973C447.893 228.952 447.866 228.919 447.857 228.88L442.448 206.336C442.436 206.276 442.457 206.216 442.506 206.179C442.557 206.146 442.62 206.146 442.672 206.179L481.777 228.701C481.819 228.726 481.846 228.768 481.852 228.816C482.1 231.068 482.456 235.656 482.825 241.731C482.828 241.777 482.813 241.822 482.78 241.852C482.749 241.873 482.716 241.882 482.68 241.882ZM448.141 228.747C461.066 236.292 471.482 240.216 481.907 241.487L482.402 241.547H482.52C482.148 235.634 481.81 231.155 481.566 228.904L442.832 206.593L448.141 228.747Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_72"
-                  d="M507.274 168.762C507.274 168.762 567.83 294.895 411.412 206.309C417.938 237.137 418.415 298.873 413.65 327.244H402.37C402.37 327.244 360.997 198.042 390.336 180.401C419.675 162.759 452.628 175.3 452.628 175.3L507.274 168.762Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_73"
-                  d="M413.65 327.546H402.371C402.235 327.552 402.111 327.465 402.069 327.335C401.966 327.012 391.647 294.623 385.045 260.496C381.168 240.439 379.307 223.715 379.531 210.782C379.806 194.532 383.384 184.222 390.17 180.141C405.388 170.987 421.577 170.081 432.494 170.932C444.305 171.856 452.644 174.986 452.728 175.019C452.885 175.079 452.964 175.251 452.903 175.408C452.843 175.565 452.671 175.644 452.514 175.583C452.432 175.55 444.161 172.447 432.431 171.533C421.617 170.688 405.554 171.59 390.484 180.657C383.889 184.626 380.41 194.761 380.138 210.791C379.92 223.679 381.772 240.37 385.643 260.375C391.958 293.029 401.682 324.093 402.582 326.942H413.384C417.893 299.706 417.736 237.672 411.107 206.369C411.074 206.207 411.18 206.047 411.343 206.013C411.412 205.998 411.488 206.013 411.551 206.047C439.984 222.146 463.15 232.191 480.406 235.897C495.001 239.033 505.547 237.684 511.753 231.892C520.813 223.441 519.055 206.78 515.981 194.303C512.632 180.72 507.048 169.01 506.99 168.895C506.918 168.744 506.981 168.563 507.129 168.491C507.28 168.418 507.458 168.481 507.531 168.632C507.588 168.75 513.199 180.512 516.561 194.149C518.539 202.171 519.366 209.264 519.016 215.237C518.578 222.746 516.274 228.496 512.163 232.332C507.996 236.223 502.029 238.17 494.261 238.167C476.265 238.167 448.684 227.718 411.817 206.901C414.78 221.277 416.679 243.37 417.041 267.694C417.392 291.294 416.223 313.572 413.919 327.292C413.898 327.428 413.786 327.534 413.647 327.546H413.65Z"
-                  fill="#1A1A1A"
-                />
-                <g id="cabeza-hombre" className="rotthis-2">
-                  <path
-                    id="Vector_74"
-                    d="M438.214 89.1107C438.121 89.1107 438.033 89.0654 437.976 88.99L431.875 80.9675C430.692 81.6617 425.494 84.1547 420.56 78.0428C413.614 69.4649 421.312 50.2206 421.641 49.4057C421.65 49.3845 421.662 49.3634 421.677 49.3453C424.365 45.5876 428.925 45.1952 434.204 48.2708C440.968 52.2126 447.649 61.3127 445.507 65.9125C442.358 72.6884 450.17 84.7674 450.249 84.8912C450.3 84.9697 450.312 85.0693 450.282 85.1568C450.252 85.2473 450.179 85.3168 450.089 85.3439L438.311 89.0956C438.281 89.1047 438.247 89.1107 438.214 89.1107ZM431.948 80.2642C432.042 80.2642 432.132 80.3065 432.19 80.3819L438.326 88.4557L449.53 84.8882C448.244 82.8297 441.932 72.1693 444.961 65.6589C446.773 61.7503 440.987 52.9249 433.899 48.7899C430.982 47.0907 425.591 44.9507 422.187 49.6652C421.825 50.5707 414.429 69.5223 421.028 77.6625C426.261 84.1427 431.549 80.4785 431.773 80.3216C431.824 80.2853 431.884 80.2642 431.948 80.2642Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_75"
-                    d="M413.795 45.1499C413.795 45.1499 417.383 60.4132 433.699 61.041L431.468 70.4247L433.699 71.0495C433.699 71.0495 433.724 66.0453 436.719 68.4236C439.715 70.802 439.084 73.6784 439.084 73.6784L445.242 74.768C445.242 74.768 453.395 58.0379 449.125 50.4047C444.855 42.7716 413.795 45.1499 413.795 45.1499Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_76"
-                    d="M445.254 74.9189H445.23L439.069 73.8293C439.027 73.8233 438.99 73.7991 438.969 73.7629C438.948 73.7297 438.939 73.6874 438.948 73.6482C438.948 73.621 439.531 70.8292 436.638 68.5444C435.934 67.989 435.357 67.8109 434.923 68.0222C433.875 68.5262 433.85 71.0404 433.85 71.0404C433.85 71.0887 433.826 71.131 433.79 71.1612C433.751 71.1883 433.703 71.1974 433.657 71.1853L431.425 70.5605C431.347 70.5394 431.302 70.4579 431.32 70.3794L433.509 61.1738C425.132 60.7935 420.188 56.4955 417.504 52.943C415.746 50.616 414.435 47.981 413.644 45.1741C413.635 45.1318 413.644 45.0865 413.668 45.0503C413.695 45.0141 413.735 44.993 413.78 44.99C415.051 44.8934 445.009 42.6931 449.267 50.3232C453.525 57.9533 445.722 74.1402 445.387 74.8253C445.366 74.8797 445.311 74.9159 445.254 74.9189ZM439.268 73.5546L445.169 74.599C445.837 73.1834 453.021 57.6455 449.008 50.4771C444.994 43.3088 416.537 45.1107 413.976 45.2858C414.774 47.9901 416.048 50.5254 417.745 52.777C420.406 56.3024 425.331 60.5671 433.696 60.8901C433.742 60.8901 433.784 60.9112 433.811 60.9474C433.838 60.9836 433.847 61.0289 433.838 61.0742L431.646 70.3251L433.555 70.8594C433.582 70.2195 433.754 68.2516 434.79 67.7536C435.339 67.488 436.022 67.6781 436.825 68.3089C439.471 70.3976 439.35 72.9118 439.268 73.5546Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_77"
-                    d="M434.237 83.7261C434.195 83.7261 434.152 83.708 434.122 83.6748L431.404 80.6566C431.377 80.6264 431.362 80.5841 431.368 80.5419C431.371 80.4996 431.392 80.4634 431.425 80.4362L436.438 76.5548C436.493 76.5155 436.565 76.5155 436.62 76.5548C436.671 76.594 436.695 76.6634 436.674 76.7268L434.367 83.6144C434.349 83.6657 434.306 83.705 434.255 83.7171L434.237 83.7261ZM431.752 80.5871L434.167 83.2824L436.236 77.1101L431.752 80.5871Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_78"
-                    d="M431.528 80.566L436.544 76.6846L434.237 83.5752L431.528 80.566Z"
-                    fill="#1C0311"
-                  />
-                </g>
-                <path
-                  id="Vector_79"
-                  d="M454.76 169.71L450.273 174.521C450.273 174.521 476.646 191.481 491.498 190.168C506.35 188.855 511.701 181.375 511.701 181.375L508.796 169.71H454.76Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_80"
-                  d="M489.834 190.391C474.87 190.391 450.463 174.811 450.209 174.648C450.17 174.624 450.146 174.584 450.14 174.539C450.137 174.494 450.149 174.452 450.179 174.418L454.664 169.607C454.715 169.544 454.812 169.532 454.875 169.586C454.939 169.637 454.951 169.734 454.896 169.797C454.893 169.803 454.887 169.806 454.881 169.813L450.523 174.491C452.704 175.867 477.452 191.254 491.501 190.017C505.438 188.785 511.025 182.021 511.553 181.342L508.694 169.873H455.591C455.506 169.873 455.44 169.806 455.44 169.722C455.44 169.637 455.506 169.571 455.591 169.571H508.796C508.866 169.571 508.926 169.619 508.941 169.686L511.846 181.351C511.858 181.394 511.849 181.442 511.825 181.478C511.771 181.55 506.263 189.024 491.513 190.331C490.964 190.367 490.396 190.391 489.831 190.391H489.834Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_81"
-                  d="M437.462 90.5474L450.705 173.64C450.705 173.64 509.896 200.906 511.161 168.626C507.15 121.092 450.499 55.2762 437.462 90.5474Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_82"
-                  d="M491.743 184.735C486.153 184.735 479.424 183.654 471.6 181.49C464.421 179.471 457.394 176.945 450.575 173.926C450.484 173.884 450.421 173.8 450.406 173.7L437.166 90.6077C437.157 90.5564 437.166 90.5051 437.181 90.4568C439.942 82.9776 444.928 79.5036 451.596 80.4061C461.897 81.8035 476.042 93.8041 488.505 111.723C501.446 130.328 510.025 151.594 511.457 168.611V168.651C511.221 174.717 508.92 179.13 504.623 181.765C501.397 183.745 497.082 184.735 491.743 184.735ZM450.973 173.443C453.568 174.612 489.363 190.409 504.306 181.252C508.419 178.731 510.62 174.488 510.853 168.644C509.421 151.742 500.887 130.581 488.004 112.07C475.622 94.2809 461.649 82.377 451.511 81.0037C445.088 80.1344 440.464 83.3579 437.767 90.5926L450.973 173.443Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_83"
-                  d="M442.536 82.9323C442.536 82.9323 417.658 91.0604 424.679 124.352C441.473 142.371 449.744 136.364 449.744 136.364L454.757 97.8274L442.536 82.9323Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_84"
-                  d="M445.77 137.632C444.994 137.632 444.221 137.557 443.457 137.415C437.861 136.407 431.468 132.084 424.458 124.563C424.422 124.521 424.395 124.472 424.383 124.418C420.732 107.105 425.83 96.6744 430.746 90.9729C436.082 84.7885 442.379 82.6788 442.442 82.6577C442.599 82.6003 442.771 82.6788 442.829 82.8357C442.886 82.9927 442.808 83.1647 442.651 83.2221C442.645 83.2221 442.635 83.2281 442.629 83.2281C442.566 83.2492 436.408 85.3198 431.184 91.3774C426.373 96.9672 421.393 107.193 424.957 124.201C433.506 133.355 439.754 136.102 443.49 136.796C447.002 137.445 449.002 136.449 449.464 136.177L454.462 97.7881C454.483 97.6221 454.634 97.5074 454.8 97.5286C454.966 97.5497 455.081 97.7006 455.06 97.8666L450.046 136.404C450.034 136.485 449.989 136.561 449.923 136.609C449.853 136.648 448.479 137.629 445.77 137.629V137.632Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_85"
-                  d="M523.087 243.065C523.084 238.867 519.674 235.462 515.473 235.465H462.374C458.182 235.453 454.773 238.843 454.76 243.032C454.757 244.158 455.005 245.272 455.485 246.289H522.362C522.839 245.281 523.087 244.179 523.087 243.065Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_86"
-                  d="M522.362 246.591H455.485C455.368 246.591 455.259 246.521 455.211 246.416C453.353 242.474 455.044 237.774 458.988 235.915C460.048 235.417 461.205 235.161 462.374 235.164H515.473C519.84 235.167 523.38 238.701 523.389 243.065C523.389 244.224 523.132 245.368 522.634 246.416C522.585 246.521 522.48 246.591 522.362 246.591ZM455.679 245.987H522.169C523.787 242.302 522.111 238.001 518.424 236.383C517.494 235.975 516.488 235.764 515.473 235.767H462.374C458.339 235.767 455.069 239.033 455.063 243.065C455.063 244.07 455.271 245.066 455.679 245.987Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_87"
-                  d="M455.485 246.289C456.736 248.96 459.423 250.668 462.374 250.668H515.473C518.424 250.668 521.109 248.96 522.362 246.289H455.485Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_88"
-                  d="M515.473 250.816H462.374C459.366 250.807 456.633 249.069 455.349 246.349C455.325 246.304 455.325 246.25 455.349 246.204C455.377 246.162 455.425 246.135 455.476 246.135H522.353C522.404 246.135 522.452 246.162 522.48 246.204C522.504 246.25 522.504 246.304 522.48 246.349C521.199 249.063 518.475 250.798 515.473 250.816ZM455.727 246.44C457.004 248.933 459.568 250.508 462.371 250.517H515.473C518.276 250.508 520.84 248.933 522.117 246.44H455.727Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_89"
-                  d="M493.099 250.668H487.654V353.083H493.099V250.668Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_90"
-                  d="M493.096 353.231H487.66C487.575 353.231 487.509 353.165 487.509 353.08V250.668C487.509 250.584 487.575 250.517 487.66 250.517H493.096C493.18 250.517 493.247 250.584 493.247 250.668V353.08C493.247 353.165 493.18 353.231 493.096 353.231ZM487.805 352.929H492.939V250.816H487.805V352.929Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_91"
-                  d="M152.567 243.065C152.564 238.867 149.158 235.465 144.957 235.465H91.8545C87.6628 235.453 84.2502 238.84 84.2382 243.029C84.2351 244.155 84.4828 245.269 84.9629 246.289H151.843C152.32 245.281 152.567 244.179 152.567 243.065Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_92"
-                  d="M151.84 246.591H84.963C84.8452 246.591 84.7395 246.521 84.6912 246.416C84.1929 245.368 83.9362 244.224 83.9362 243.065C83.9453 238.701 87.4877 235.167 91.8545 235.164H144.957C149.324 235.164 152.866 238.701 152.875 243.065C152.875 244.224 152.619 245.368 152.12 246.416C152.069 246.524 151.96 246.594 151.84 246.591ZM85.1623 245.987H151.646C152.054 245.066 152.265 244.07 152.265 243.065C152.256 239.036 148.989 235.773 144.957 235.767H91.8545C87.8199 235.767 84.5493 239.033 84.5402 243.065C84.5402 244.073 84.7516 245.066 85.1623 245.987Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_93"
-                  d="M84.963 246.289C86.2163 248.96 88.901 250.668 91.8545 250.668H144.957C147.908 250.665 150.589 248.957 151.843 246.289H84.963Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_94"
-                  d="M144.957 250.816H91.8545C88.8466 250.807 86.1106 249.069 84.8271 246.349C84.8029 246.304 84.8029 246.25 84.8271 246.204C84.8543 246.162 84.9026 246.135 84.9539 246.135H151.84C151.924 246.135 151.991 246.201 151.994 246.283C151.994 246.304 151.991 246.328 151.978 246.349C150.695 249.066 147.962 250.804 144.957 250.816ZM85.2076 246.44C86.485 248.933 89.049 250.508 91.8515 250.517H144.957C147.76 250.508 150.324 248.933 151.601 246.44H85.2076Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_95"
-                  d="M122.576 250.668H117.131V353.083H122.576V250.668Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_96"
-                  d="M122.576 353.231H117.14C117.056 353.231 116.989 353.165 116.989 353.08V250.668C116.989 250.584 117.056 250.517 117.14 250.517H122.576C122.661 250.517 122.727 250.584 122.727 250.668V353.08C122.727 353.165 122.661 353.231 122.576 353.231ZM117.282 352.929H122.416V250.816H117.282V352.929Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_97"
-                  d="M299.176 162.686H293.731V341.883H299.176V162.686Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_98"
-                  d="M299.173 342.034H293.737C293.653 342.034 293.586 341.967 293.586 341.883V162.683C293.586 162.599 293.653 162.533 293.737 162.533H299.173C299.258 162.533 299.324 162.599 299.324 162.683V341.88C299.324 341.964 299.261 342.031 299.176 342.034C299.176 342.034 299.176 342.034 299.173 342.034ZM293.882 341.732H299.016V162.837H293.882V341.732Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_99"
-                  d="M462.549 195.226C462.531 195.226 462.51 195.226 462.492 195.226C456.512 194.073 455.848 188.076 455.848 188.016C455.833 187.85 455.953 187.702 456.123 187.684C456.289 187.668 456.437 187.789 456.452 187.958C456.476 188.185 457.056 193.566 462.6 194.635C462.766 194.65 462.89 194.798 462.875 194.964C462.86 195.13 462.712 195.253 462.546 195.238L462.552 195.226H462.549Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_100"
-                  d="M386.878 162.333V159.919C386.878 156.366 383.994 153.487 380.44 153.49H217.913C214.358 153.487 211.474 156.363 211.471 159.916V162.333C211.471 163.148 211.628 163.954 211.93 164.709H386.419C386.721 163.954 386.878 163.148 386.878 162.333Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_101"
-                  d="M386.419 165.01H211.93C211.806 165.01 211.695 164.935 211.649 164.82C211.332 164.03 211.169 163.184 211.169 162.333V159.919C211.175 156.2 214.192 153.188 217.913 153.188H380.437C384.157 153.188 387.174 156.2 387.18 159.919V162.333C387.18 163.184 387.017 164.03 386.7 164.82C386.655 164.935 386.543 165.01 386.419 165.01ZM212.139 164.407H386.211C386.452 163.743 386.576 163.04 386.576 162.333V159.919C386.57 156.532 383.825 153.792 380.437 153.792H217.913C214.524 153.792 211.779 156.532 211.773 159.919V162.333C211.773 163.04 211.897 163.743 212.139 164.407Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_102"
-                  d="M211.93 164.709C212.906 167.156 215.276 168.762 217.913 168.762H380.437C383.073 168.762 385.441 167.156 386.419 164.709H211.93Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_103"
-                  d="M380.437 168.913H217.913C215.21 168.922 212.779 167.274 211.788 164.763C211.761 164.682 211.803 164.594 211.882 164.567C211.897 164.561 211.912 164.558 211.93 164.558H386.419C386.471 164.558 386.516 164.582 386.543 164.624C386.564 164.666 386.564 164.721 386.543 164.763C385.556 167.271 383.134 168.916 380.437 168.913ZM212.157 164.86C213.153 167.147 215.418 168.62 217.913 168.611H380.437C382.931 168.62 385.196 167.147 386.193 164.86H212.157Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_104"
-                  d="M262.191 341.913H330.517C336.569 341.913 341.473 346.814 341.473 352.863H251.235C251.235 346.814 256.139 341.913 262.191 341.913Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_105"
-                  d="M341.477 353.014H251.235C251.15 353.014 251.084 352.948 251.084 352.863C251.09 346.736 256.061 341.768 262.191 341.762H330.52C336.651 341.768 341.621 346.736 341.628 352.863C341.628 352.948 341.561 353.014 341.477 353.014ZM251.386 352.712H341.326C341.235 346.811 336.427 342.07 330.52 342.064H262.191C256.284 342.073 251.476 346.811 251.386 352.712Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_106"
-                  d="M262.264 103.149L287.707 148.443H342.228L322.551 104.148L262.264 103.149Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_107"
-                  d="M342.229 148.745H287.707C287.598 148.745 287.495 148.685 287.444 148.588L262.001 103.296C261.946 103.203 261.946 103.088 262.001 102.995C262.058 102.901 262.158 102.847 262.267 102.85L322.554 103.849C322.671 103.852 322.774 103.921 322.822 104.03L342.5 148.323C342.543 148.416 342.534 148.525 342.479 148.609C342.425 148.694 342.328 148.745 342.229 148.745ZM287.87 148.142H341.748L322.339 104.446L262.771 103.456L287.87 148.142Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_108"
-                  d="M315.36 136.458C321.288 137.478 326.927 136.041 331.764 132.969L320.114 106.743L267.056 105.862L285.855 139.331C293.272 132.338 305.875 134.876 315.36 136.458Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_109"
-                  d="M285.858 139.633H285.813C285.722 139.618 285.641 139.564 285.596 139.482L266.796 106.01C266.742 105.916 266.742 105.802 266.796 105.708C266.854 105.617 266.954 105.563 267.059 105.56L320.113 106.441C320.231 106.441 320.337 106.514 320.385 106.623L332.036 132.845C332.097 132.981 332.048 133.144 331.921 133.222C326.739 136.512 320.992 137.735 315.312 136.754L313.941 136.524C304.621 134.952 293.022 132.993 286.07 139.543C286.015 139.6 285.937 139.633 285.858 139.633ZM267.567 106.173L285.937 138.839C293.13 132.386 304.709 134.342 314.037 135.918L315.408 136.147C320.865 137.086 326.386 135.945 331.381 132.827L319.905 107.018L267.567 106.173Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_110"
-                  d="M337.433 145.727L331.764 132.969C326.933 136.041 321.288 137.478 315.36 136.458C305.875 134.876 293.272 132.338 285.858 139.331L289.452 145.727H337.433Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_111"
-                  d="M337.433 146.029H289.452C289.343 146.029 289.241 145.971 289.186 145.875L285.596 139.479C285.529 139.358 285.553 139.208 285.653 139.114C292.822 132.347 304.588 134.333 314.04 135.93L315.412 136.159C320.953 137.116 326.555 135.921 331.607 132.712C331.68 132.667 331.771 132.655 331.855 132.679C331.94 132.703 332.009 132.764 332.045 132.845L337.714 145.603C337.756 145.697 337.747 145.805 337.69 145.89C337.632 145.977 337.536 146.029 337.433 146.029ZM289.627 145.425H336.971L331.632 133.406C326.528 136.558 320.89 137.713 315.309 136.751L313.938 136.521C304.694 134.961 293.209 133.023 286.239 139.389L289.627 145.425Z"
-                  fill="black"
-                />
-                <path
-                  id="Vector_112"
-                  d="M375.569 145.691H319.54C318.087 145.691 316.909 146.868 316.909 148.32V150.852C316.909 152.304 318.087 153.481 319.54 153.481H375.569C377.021 153.481 378.199 152.304 378.199 150.852V148.32C378.199 146.868 377.021 145.691 375.569 145.691Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_113"
-                  d="M375.569 153.783H319.54C317.921 153.78 316.61 152.47 316.607 150.852V148.32C316.607 146.702 317.921 145.392 319.54 145.389H375.569C377.187 145.389 378.498 146.702 378.501 148.32V150.852C378.498 152.47 377.187 153.78 375.569 153.783ZM319.54 145.993C318.253 145.993 317.211 147.034 317.211 148.32V150.852C317.211 152.138 318.253 153.176 319.54 153.179H375.569C376.855 153.179 377.894 152.138 377.897 150.852V148.32C377.897 147.034 376.855 145.993 375.569 145.993H319.54Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_114"
-                  d="M337.97 145.691H281.941C280.489 145.691 279.311 146.868 279.311 148.32V150.852C279.311 152.304 280.489 153.481 281.941 153.481H337.97C339.423 153.481 340.601 152.304 340.601 150.852V148.32C340.601 146.868 339.423 145.691 337.97 145.691Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_115"
-                  d="M337.967 153.783H281.941C280.323 153.783 279.012 152.47 279.009 150.852V148.32C279.009 146.702 280.323 145.389 281.941 145.389H337.967C339.586 145.389 340.9 146.702 340.9 148.32V150.852C340.9 152.47 339.586 153.78 337.967 153.783ZM281.941 145.993C280.655 145.993 279.613 147.034 279.613 148.32V150.852C279.613 152.138 280.655 153.179 281.941 153.179H337.967C339.254 153.179 340.293 152.138 340.296 150.852V148.32C340.296 147.034 339.254 145.993 337.967 145.993H281.941Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_116"
-                  d="M111.62 172.179C110.953 174.186 109.965 176.072 108.694 177.763C111.508 179.06 123.31 179.341 131.089 179.755C151.836 180.853 154.132 180.358 154.132 180.358L153.811 173.999L111.62 172.179Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_117"
-                  d="M150.77 180.615C147.69 180.615 141.889 180.476 131.08 179.906C129.673 179.83 128.136 179.761 126.551 179.688C119.248 179.353 110.971 178.976 108.639 177.898C108.597 177.88 108.567 177.844 108.555 177.799C108.546 177.754 108.555 177.705 108.582 177.669C109.841 175.991 110.82 174.123 111.484 172.134C111.505 172.067 111.566 172.025 111.635 172.028L153.83 173.839C153.908 173.842 153.969 173.902 153.972 173.981L154.292 180.34C154.292 180.416 154.243 180.479 154.171 180.497C154.12 180.491 153.543 180.615 150.77 180.615ZM108.932 177.699C111.433 178.695 119.457 179.06 126.557 179.386C128.151 179.459 129.688 179.528 131.086 179.604C149.348 180.57 153.274 180.298 153.959 180.207L153.657 174.123L111.738 172.342C111.079 174.258 110.134 176.066 108.932 177.699Z"
-                  fill="#1A1A1A"
-                />
-                <g id="cabeza" className="rotthis-2">
-                  <path
-                    id="Vector_118"
-                    d="M169.219 106.764L182.175 98.7329C182.175 98.7329 184.029 101.751 189.423 101.751C193.349 101.751 205.087 81.227 199.316 71.5475C193.545 61.868 179.65 68.8703 175.407 80.2008C173.239 85.9898 163.249 100.028 158.302 101.751C160.561 104.706 169.219 106.764 169.219 106.764Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_119"
-                    d="M169.219 107.066C169.195 107.069 169.174 107.069 169.15 107.066C168.79 106.979 160.362 104.953 158.055 101.935C157.994 101.857 157.979 101.757 158.006 101.664C158.033 101.573 158.106 101.498 158.196 101.467C162.917 99.8194 172.858 86.1256 175.108 80.0952C177.76 73.0204 184.413 67.2676 190.588 66.7123C194.372 66.3772 197.558 68.0343 199.561 71.3936C203.278 77.6323 199.974 87.9939 196.015 94.9359C194.152 98.2167 191.301 102.047 189.408 102.047C184.766 102.047 182.67 99.8858 182.084 99.1373L169.367 107.021C169.322 107.048 169.271 107.063 169.219 107.066ZM158.797 101.869C161.147 104.368 168.159 106.191 169.168 106.441L182.015 98.4763C182.084 98.434 182.166 98.4189 182.244 98.437C182.323 98.4582 182.389 98.5065 182.431 98.5729C182.45 98.603 184.283 101.443 189.417 101.443C190.721 101.443 193.222 98.6453 195.502 94.6371C199.687 87.2756 202.405 77.3274 199.05 71.6984C196.634 67.666 193.155 67.0865 190.652 67.3099C184.69 67.8471 178.27 73.4309 175.685 80.3034C173.668 85.688 164.037 99.5115 158.797 101.869Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_120"
-                    d="M121.402 118.729C119.961 118.732 118.524 118.593 117.113 118.309C106.921 118.074 96.0401 109.034 91.8364 97.2901C88.4268 87.7706 90.3838 78.9452 97.2028 73.0747C103.599 68.9578 105.535 69.8301 108.742 71.2638C111.297 72.5133 114.063 73.277 116.896 73.5184C126.91 74.5929 130.585 70.3493 133.826 66.6066C137.501 62.366 140.675 58.7049 151.755 64.1437C163.499 71.3875 169.548 70.3372 178.741 59.4383C183.057 54.7751 189.084 54.6091 194.865 58.9886C200.08 62.9425 203.018 69.0756 201.146 72.121C200.367 73.612 197.634 74.5356 194.994 75.441C192.778 76.2016 190.685 76.917 190.132 77.8556C178.623 97.2086 173.64 97.0849 167.872 96.94C165.118 96.8736 162.267 96.8012 158.402 98.7509C157.589 99.4119 156.705 100.148 155.768 100.93C147.557 107.751 134.387 118.729 121.402 118.729ZM104.587 70.3855C102.871 70.3855 100.766 71.131 97.3719 73.3162C90.6676 79.078 88.7439 87.7917 92.1082 97.1875C96.2726 108.82 107.033 117.775 117.134 118.013C131.358 120.875 146.503 108.249 155.551 100.707C156.493 99.922 157.384 99.1795 158.199 98.5155L158.227 98.4974C162.153 96.5144 165.061 96.5838 167.857 96.6533C173.532 96.7951 178.427 96.9158 189.848 77.7168C190.452 76.6906 192.603 75.9572 194.871 75.1815C197.459 74.2941 200.134 73.3705 200.859 71.9912C202.623 69.1238 199.651 63.0542 194.653 59.2542C189.009 54.9773 183.135 55.1282 178.949 59.6616C174.118 65.3782 170.388 68.1369 166.438 68.8794C162.337 69.6551 157.894 68.324 151.592 64.4305C140.72 59.1003 137.631 62.6829 134.037 66.83C131.099 70.2195 127.81 74.0134 119.904 74.0164C118.883 74.0134 117.862 73.9561 116.847 73.8444C113.985 73.5969 111.194 72.8242 108.612 71.5626C107.187 70.9107 106.024 70.3855 104.587 70.3855Z"
-                    fill="#1A1A1A"
-                  />
-                </g>
-                <path
-                  id="Vector_121"
-                  d="M110.687 174.639C117.122 158.37 128.574 150.324 133.605 136.186C138.322 122.933 136.166 103.287 154.585 97.0849L169.117 96.7831C169.117 96.7831 177.874 109.97 174.679 125.803C164.016 159.46 153.812 176.051 153.812 176.051C153.812 176.051 148.092 178.964 110.687 174.639Z"
-                  fill="#F60954"
-                />
-                <path
-                  id="Vector_122"
-                  d="M143.26 177.316C136.8 177.316 126.602 176.782 110.645 174.937C110.478 174.916 110.361 174.768 110.382 174.602C110.385 174.578 110.391 174.551 110.4 174.527C113.655 166.296 118.164 160.199 122.522 154.305C126.795 148.522 130.833 143.062 133.315 136.09C134.523 132.673 135.275 128.885 136.063 124.874C138.331 113.356 140.675 101.443 154.485 96.8042C154.515 96.7981 154.545 96.7981 154.576 96.8042L169.105 96.5023C169.21 96.5023 169.307 96.5506 169.364 96.6382C169.452 96.771 178.161 110.112 174.972 125.885C174.972 125.894 174.972 125.906 174.972 125.915C164.402 159.221 154.177 176.066 154.074 176.232C154.044 176.278 154.002 176.317 153.953 176.341C153.815 176.38 151.812 177.316 143.26 177.316ZM111.113 174.382C145.582 178.345 152.845 176.096 153.603 175.804C154.385 174.503 164.236 157.749 174.386 125.719C177.343 111.05 169.856 98.5276 168.951 97.0818L154.636 97.3837C141.197 101.926 138.89 113.649 136.661 124.989C135.867 129.021 135.118 132.836 133.886 136.286C131.376 143.346 127.312 148.842 123.014 154.661C118.717 160.48 114.329 166.408 111.113 174.382Z"
-                  fill="black"
-                />
-                <g id="brazo" className="rotthis">
-                  <path
-                    id="Vector_123"
-                    d="M144.691 118.161C144.691 118.161 167.468 159.209 217.913 153.475C237.026 153.475 247.33 151.459 247.33 151.459C247.33 151.459 242.933 143.219 240.734 142.808C226.559 141.942 206.419 139.117 196.012 132.61C176.663 120.515 172.457 101.739 172.457 101.739L144.691 118.161Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_124"
-                    d="M208.43 154.326C191.621 154.444 175.286 148.748 162.198 138.202C150.29 128.731 144.486 118.412 144.429 118.309C144.344 118.164 144.395 117.977 144.543 117.893C144.691 117.808 144.876 117.859 144.96 118.007C145.017 118.11 150.773 128.339 162.597 137.738C173.499 146.403 191.935 156.113 217.88 153.17H217.916C234.698 153.17 244.793 151.594 246.871 151.232C245.524 148.772 242.308 143.439 240.701 143.104C233.272 142.651 208.189 140.575 195.855 132.863C176.621 120.851 172.212 102.017 172.17 101.811C172.134 101.648 172.236 101.488 172.396 101.452C172.559 101.416 172.722 101.516 172.759 101.679C172.801 101.866 177.165 120.476 196.175 132.362C208.4 140.004 233.39 142.063 240.759 142.512H240.795C243.069 142.941 247.137 150.463 247.602 151.32C247.644 151.404 247.644 151.507 247.602 151.591C247.56 151.679 247.481 151.739 247.387 151.757C247.282 151.778 236.839 153.777 217.925 153.78C214.775 154.139 211.604 154.323 208.433 154.326H208.43Z"
-                    fill="black"
-                  />
-                </g>
-                <path
-                  id="Vector_125"
-                  d="M153.812 97.3505C153.812 97.3505 173.139 107.597 175.785 110.386C172.587 100.577 168.6 93.9942 165.302 93.5837C162.005 93.1732 153.812 97.3505 153.812 97.3505Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_126"
-                  d="M175.785 110.688C175.703 110.688 175.625 110.655 175.567 110.595C172.985 107.878 153.863 97.7187 153.673 97.6161C153.525 97.5406 153.464 97.3596 153.543 97.2086C153.573 97.1513 153.618 97.106 153.673 97.0789C154.011 96.9068 161.987 92.8533 165.336 93.2789C168.685 93.7044 172.741 100.064 176.063 110.293C176.108 110.426 176.05 110.573 175.93 110.646C175.884 110.673 175.836 110.685 175.785 110.688ZM154.473 97.3596C157.378 98.9109 171.049 106.254 175.151 109.433C172.007 100.179 168.256 94.2538 165.266 93.8795C162.566 93.5445 156.321 96.4601 154.473 97.3596Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="hair"
-                  className="rotthis-2"
-                  d="M200.992 72.0576C199.591 74.7499 191.226 75.6795 189.978 77.7923C173.1 106.164 170.47 92.5002 158.296 98.6182C149.569 105.732 132.877 121.333 117.131 118.161C98.3474 117.721 79.9167 88.1388 97.2874 73.1894C107.329 66.7304 106.16 72.6914 116.86 73.6814C138.301 75.9753 130.92 54.1081 151.664 64.2917C163.744 71.7528 169.829 70.2195 178.844 59.547C189.063 48.4911 204.667 66.0996 200.992 72.0576Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_127"
-                  d="M245.597 307.339C240.284 302.812 222.186 303.346 222.186 303.346C219.972 307.598 216.3 308.694 211.743 307.873C210.897 309.82 213.486 316.756 214.941 320.36C224.605 318.594 233.822 314.571 242.791 309.826C243.917 309.243 244.884 308.389 245.597 307.339Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_128"
-                  d="M214.941 320.664C214.817 320.664 214.709 320.589 214.663 320.474C212.743 315.733 210.632 309.678 211.468 307.755C211.526 307.629 211.661 307.556 211.797 307.58C216.629 308.447 219.936 307.016 221.917 303.207C221.969 303.11 222.068 303.047 222.177 303.044C222.923 303.023 240.454 302.549 245.793 307.11C245.911 307.209 245.932 307.381 245.847 307.508C245.104 308.597 244.105 309.488 242.933 310.095C232.028 315.865 223.412 319.122 214.995 320.658L214.941 320.664ZM211.948 308.217C211.568 309.756 212.712 314.006 215.131 320.022C223.406 318.476 231.907 315.244 242.649 309.56C243.649 309.041 244.518 308.302 245.189 307.396C240.055 303.4 224.218 303.602 222.37 303.645C220.277 307.532 216.865 309.032 211.948 308.217Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_129"
-                  d="M245.597 307.339C244.884 308.389 243.918 309.243 242.791 309.829C233.822 314.574 224.611 318.582 214.941 320.363C215.482 321.694 215.865 322.572 215.865 322.572C215.865 322.572 248.843 315.841 246.919 309.249C246.675 308.498 246.216 307.834 245.597 307.339Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_130"
-                  d="M215.865 322.723C215.805 322.723 215.753 322.687 215.726 322.632C215.726 322.632 215.337 321.727 214.802 320.42C214.781 320.381 214.781 320.329 214.802 320.29C214.823 320.251 214.86 320.224 214.905 320.215C223.276 318.684 231.85 315.443 242.712 309.696C243.818 309.12 244.76 308.281 245.464 307.254C245.488 307.221 245.524 307.197 245.566 307.191C245.609 307.185 245.654 307.197 245.687 307.224C246.327 307.737 246.801 308.428 247.055 309.207C247.233 309.874 247.116 310.587 246.729 311.157C243.144 317.097 216.998 322.49 215.886 322.72H215.865V322.723ZM215.153 320.477C215.542 321.434 215.841 322.137 215.956 322.397C217.922 321.986 243.084 316.629 246.478 311.003C246.823 310.502 246.931 309.88 246.78 309.292C246.566 308.622 246.167 308.024 245.63 307.565C244.911 308.57 243.966 309.391 242.869 309.962C232.052 315.681 223.494 318.929 215.153 320.477Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_131"
-                  d="M156.357 331.947C152.157 333.308 148.723 331.533 145.788 327.721C143.84 328.479 140.802 334.995 139.243 338.608C147.883 344.545 157.1 351.686 167.915 350.853C168.597 350.832 169.259 350.624 169.829 350.249C168.18 343.174 156.357 331.947 156.357 331.947Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_132"
-                  d="M166.133 351.23C156.877 351.23 148.919 345.692 141.179 340.325L139.065 338.861C138.947 338.78 138.902 338.626 138.959 338.493C140.956 333.869 143.74 328.198 145.67 327.446C145.794 327.398 145.939 327.437 146.02 327.543C149.109 331.545 152.459 332.891 156.261 331.66C156.366 331.627 156.481 331.654 156.563 331.729C157.049 332.191 168.473 343.096 170.119 350.204C170.149 350.331 170.095 350.461 169.983 350.53C169.364 350.925 168.645 351.146 167.909 351.161C167.305 351.206 166.713 351.23 166.133 351.23ZM139.615 338.505L141.526 339.827C149.653 345.474 158.058 351.315 167.887 350.557C168.446 350.548 168.993 350.4 169.479 350.123C167.788 343.579 157.544 333.522 156.276 332.291C152.335 333.498 148.871 332.125 145.706 328.104C144.353 328.895 142.161 332.641 139.615 338.505Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_133"
-                  d="M139.24 338.614C138.636 340.029 138.247 340.998 138.247 340.998C138.247 340.998 166.245 359.666 169.573 353.675C170.089 352.745 170.125 351.583 169.826 350.285C169.256 350.66 168.594 350.868 167.912 350.889C157.097 351.692 147.88 344.551 139.24 338.614Z"
-                  fill="#1C0311"
-                />
-                <path
-                  id="Vector_134"
-                  d="M166.906 355C159.069 355 139.056 341.72 138.162 341.116C138.102 341.077 138.078 341.001 138.105 340.935C138.105 340.935 138.497 339.948 139.101 338.548C139.12 338.505 139.153 338.475 139.198 338.463C139.24 338.451 139.289 338.457 139.325 338.484C140.026 338.964 140.729 339.453 141.439 339.945C149.593 345.607 158.015 351.457 167.9 350.702C168.555 350.687 169.195 350.491 169.748 350.135C169.79 350.113 169.841 350.113 169.884 350.135C169.929 350.153 169.962 350.192 169.974 350.24C170.3 351.65 170.21 352.824 169.706 353.735C169.358 354.33 168.769 354.746 168.09 354.876C167.7 354.964 167.305 355.006 166.906 355ZM138.431 340.941C140.107 342.046 161.627 356.132 168.026 354.58C168.621 354.469 169.138 354.107 169.446 353.584C169.89 352.785 169.986 351.749 169.73 350.506C169.177 350.823 168.555 350.998 167.918 351.01C167.326 351.055 166.737 351.076 166.154 351.079C156.934 351.079 148.983 345.553 141.276 340.214L139.316 338.852C138.86 339.879 138.543 340.66 138.431 340.941Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_135"
-                  d="M131.413 202.446C131.413 202.446 141.91 198.739 144.7 192.25L131.413 202.446Z"
-                  fill="white"
-                />
-                <path
-                  id="Vector_136"
-                  d="M131.413 202.748C131.247 202.748 131.111 202.612 131.111 202.446C131.111 202.319 131.189 202.204 131.31 202.162C131.416 202.126 141.717 198.422 144.413 192.132C144.474 191.975 144.646 191.897 144.803 191.957C144.96 192.018 145.039 192.19 144.978 192.347C144.978 192.353 144.972 192.362 144.969 192.368C142.167 198.905 131.947 202.579 131.512 202.729C131.479 202.742 131.446 202.748 131.413 202.748Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_137"
-                  d="M227.703 310.378C227.371 310.387 227.057 310.227 226.87 309.953C225.719 308.275 228.682 301.363 229.005 300.581C229.071 300.427 229.25 300.358 229.404 300.424C229.558 300.49 229.627 300.669 229.561 300.822C228.329 303.66 226.643 308.552 227.368 309.612C227.45 309.729 227.592 309.793 227.734 309.772C228.872 309.726 229.811 307.701 230.636 305.911C231.542 303.97 232.387 302.138 233.656 302.256C233.97 302.268 234.26 302.425 234.444 302.679C234.885 303.313 234.586 304.432 234.272 305.618C234.057 306.433 233.789 307.448 234.009 307.731C234.027 307.755 234.069 307.813 234.248 307.813C235.712 307.813 238.053 304.459 238.832 303.168C238.895 303.014 239.073 302.941 239.227 303.005C239.382 303.068 239.454 303.246 239.391 303.4C239.378 303.427 239.366 303.451 239.348 303.472C239.046 303.977 236.328 308.41 234.248 308.41C233.97 308.428 233.704 308.311 233.529 308.093C233.127 307.571 233.387 306.584 233.689 305.455C233.931 304.55 234.229 303.421 233.946 303.017C233.864 302.908 233.734 302.845 233.598 302.848C232.759 302.766 231.965 304.49 231.182 306.168C230.237 308.208 229.265 310.318 227.755 310.378H227.703Z"
-                  fill="#1A1A1A"
-                />
-                <path
-                  id="Vector_138"
-                  d="M160.573 341.161C160.362 341.176 160.15 341.125 159.969 341.01C159.848 340.929 159.773 340.793 159.767 340.645C159.767 340.235 160.25 339.809 161.204 339.024C161.917 338.439 162.998 337.555 163.016 337.111C163.016 337.057 162.992 337.008 162.947 336.978C162.575 336.658 161.162 337.316 160.027 337.844C158.193 338.698 156.297 339.58 155.228 338.75C154.953 338.554 154.808 338.228 154.844 337.893C155.019 336.245 159.788 333.872 160.332 333.607C160.482 333.534 160.664 333.595 160.736 333.746C160.809 333.896 160.748 334.078 160.597 334.15C158.661 335.095 155.551 336.963 155.445 337.956C155.43 338.083 155.491 338.21 155.602 338.276C156.378 338.88 158.181 338.05 159.773 337.31C161.364 336.571 162.675 335.958 163.342 336.534C163.524 336.682 163.626 336.906 163.62 337.138C163.62 337.862 162.587 338.702 161.6 339.513C161.18 339.833 160.788 340.19 160.431 340.579C160.869 340.654 162.243 340.247 163.028 340.02C164.641 339.547 165.23 339.417 165.523 339.698C165.647 339.809 165.653 340.002 165.541 340.123C165.432 340.241 165.251 340.253 165.127 340.153C164.886 340.108 163.919 340.392 163.197 340.6C162.02 340.923 161.153 341.161 160.573 341.161Z"
-                  fill="#1A1A1A"
-                />
-                <g id="libro" className="appears">
-                  <path
-                    id="Vector_139"
-                    d="M398.934 72.0576L388.5 50.4953C391.115 47.0937 392.532 42.9225 392.529 38.6336V31.2539C392.529 20.4577 383.771 11.7048 372.969 11.7048C372.969 11.7048 372.966 11.7048 372.963 11.7048H291.27C280.468 11.7048 271.71 20.4577 271.71 31.2539V38.6336C271.71 49.4298 280.468 58.1827 291.27 58.1827H372.963C373.265 58.1827 373.588 58.1827 373.899 58.1586L398.934 72.0576Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_140"
-                    d="M398.934 72.3594C398.883 72.3594 398.834 72.3474 398.789 72.3202L373.826 58.4604C373.524 58.4755 373.222 58.4815 372.962 58.4815H291.27C280.308 58.4695 271.423 49.5898 271.408 38.6336V31.254C271.42 20.2947 280.305 11.415 291.27 11.403H372.962C383.928 11.415 392.813 20.2947 392.825 31.254V38.6336C392.837 42.9285 391.445 47.1058 388.856 50.5345L399.209 71.9278C399.281 72.0787 399.221 72.2568 399.07 72.3323C399.028 72.3534 398.979 72.3625 398.934 72.3625V72.3594ZM373.899 57.8537C373.95 57.8537 374.001 57.8688 374.047 57.893L398.248 71.3302L388.231 50.6281C388.186 50.5285 388.201 50.4138 388.265 50.3262C390.841 46.976 392.233 42.8682 392.221 38.6426V31.254C392.209 20.6297 383.593 12.0187 372.962 12.0066H291.27C280.64 12.0187 272.024 20.6297 272.012 31.254V38.6336C272.024 49.2578 280.64 57.8688 291.27 57.8809H372.962C373.264 57.8809 373.566 57.8809 373.868 57.8568H373.899V57.8537Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_141"
-                    d="M305.92 3.62189C305.92 3.62189 332.305 4.14103 334.796 10.7842C334.796 46.4991 335.316 46.4991 335.316 46.4991C335.316 46.4991 321.708 41.3077 305.92 44.2143V3.62189Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_142"
-                    d="M335.325 46.653C335.298 46.656 335.271 46.65 335.246 46.6349C334.591 46.3934 321.21 41.5582 305.953 44.3682C305.908 44.3773 305.862 44.3652 305.829 44.335C305.793 44.3048 305.772 44.2626 305.772 44.2173V3.62189C305.772 3.58265 305.79 3.54342 305.817 3.51323C305.847 3.48607 305.887 3.47098 305.926 3.47098C307.01 3.49211 332.444 4.07463 334.944 10.7329C334.948 10.751 334.948 10.7661 334.944 10.7842C334.944 43.4869 335.382 46.2033 335.446 46.4236C335.485 46.4991 335.458 46.5926 335.382 46.6319C335.361 46.644 335.337 46.65 335.313 46.65H335.325V46.653ZM315.792 43.1911C322.357 43.1911 328.88 44.2294 335.12 46.2727C335.044 45.7777 334.978 44.6459 334.902 42.0472C334.784 37.9725 334.642 29.2498 334.642 10.8174C332.257 4.62998 308.233 3.8392 306.065 3.78186V44.0392C309.275 43.4657 312.53 43.182 315.792 43.1911Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_143"
-                    d="M364.724 3.62189C364.724 3.62189 338.339 4.14103 335.844 10.7842C335.844 46.4991 335.325 46.4991 335.325 46.4991C335.325 46.4991 348.933 41.3077 364.724 44.2143V3.62189Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_144"
-                    d="M335.325 46.653C335.24 46.653 335.174 46.5836 335.174 46.5021C335.174 46.4749 335.18 46.4508 335.195 46.4267C335.258 46.2063 335.693 43.4899 335.693 10.7872C335.69 10.7691 335.69 10.754 335.693 10.7359C338.194 4.07161 363.631 3.49211 364.712 3.474C364.751 3.474 364.791 3.48909 364.821 3.51625C364.851 3.54342 364.866 3.58266 364.866 3.62491V44.2173C364.866 44.2626 364.845 44.3048 364.812 44.335C364.775 44.3622 364.733 44.3742 364.688 44.3682C349.434 41.5582 336.05 46.3904 335.394 46.6349C335.373 46.647 335.349 46.653 335.325 46.653ZM335.995 10.8144C335.995 29.2468 335.853 37.9786 335.736 42.0442C335.66 44.6459 335.594 45.7777 335.521 46.2697C337.439 45.5936 350.153 41.4405 364.573 44.0362V3.77884C362.408 3.83619 338.381 4.62697 335.995 10.8144Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_145"
-                    d="M305.92 0.301819C305.92 0.301819 332.824 0.863212 335.316 7.50939V43.179C335.316 43.179 321.708 37.9907 305.92 40.8972V0.301819Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_146"
-                    d="M335.325 43.4808C335.289 43.4808 335.253 43.4748 335.219 43.4627C335.083 43.4114 321.5 38.3317 305.983 41.193C305.896 41.2081 305.805 41.187 305.736 41.1296C305.666 41.0723 305.624 40.9878 305.624 40.8972V0.301825C305.624 0.220332 305.66 0.144876 305.718 0.0875291C305.775 0.0301825 305.853 0 305.935 0C307.04 0.024146 333.072 0.642887 335.609 7.40376C335.621 7.43696 335.627 7.47318 335.627 7.50939V43.179C335.627 43.2786 335.579 43.3722 335.497 43.4295C335.446 43.4627 335.385 43.4808 335.325 43.4808ZM315.789 39.7171C322.321 39.7171 328.811 40.7403 335.023 42.7534V7.56372C332.658 1.60571 309.209 0.703251 306.222 0.603649V40.535C309.381 39.9857 312.582 39.7111 315.789 39.7171Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_147"
-                    d="M364.724 0.301819C364.724 0.301819 337.819 0.863212 335.325 7.50939V43.179C335.325 43.179 348.933 37.9907 364.724 40.8972V0.301819Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_148"
-                    d="M335.325 43.4808C335.265 43.4808 335.204 43.4627 335.153 43.4295C335.071 43.3722 335.023 43.2786 335.023 43.179V7.50939C335.023 7.47318 335.029 7.43696 335.044 7.40376C337.578 0.642887 363.601 0.024146 364.718 0C364.8 0 364.878 0.0301825 364.936 0.0875291C364.993 0.144876 365.026 0.220332 365.026 0.301825V40.8972C365.026 40.9878 364.987 41.0723 364.917 41.1296C364.848 41.187 364.757 41.2081 364.67 41.193C349.15 38.3347 335.57 43.4114 335.434 43.4627C335.397 43.4748 335.361 43.4808 335.325 43.4808ZM335.627 7.56372V42.7534C338.004 41.9355 350.391 38.054 364.422 40.535V0.603649C361.444 0.703251 337.992 1.60571 335.627 7.56372Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_149"
-                    d="M340.278 12.3748C340.112 12.3748 339.976 12.239 339.976 12.073C339.976 11.9493 340.051 11.8376 340.166 11.7923C346.976 9.38978 354.163 8.23983 361.384 8.3998C361.55 8.3998 361.686 8.53562 361.686 8.70162C361.686 8.86762 361.55 9.00345 361.384 9.00345C354.245 8.84348 347.139 9.97834 340.404 12.3537C340.365 12.3688 340.32 12.3748 340.278 12.3748Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_150"
-                    d="M340.278 18.4837C340.112 18.4837 339.976 18.3479 339.976 18.1819C339.976 18.0582 340.051 17.9465 340.166 17.9012C346.976 15.4987 354.163 14.3487 361.384 14.5087C361.55 14.5087 361.686 14.6445 361.686 14.8105C361.686 14.9765 361.55 15.1124 361.384 15.1124C354.245 14.9524 347.139 16.0873 340.404 18.4626C340.365 18.4777 340.32 18.4837 340.278 18.4837Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_151"
-                    d="M340.278 24.6017C340.112 24.6017 339.976 24.4659 339.976 24.2999C339.976 24.1762 340.051 24.0645 340.166 24.0192C346.976 21.6167 354.163 20.4697 361.384 20.6267C361.55 20.6267 361.686 20.7625 361.686 20.9285C361.686 21.0945 361.55 21.2303 361.384 21.2303C354.245 21.0704 347.139 22.2052 340.404 24.5806C340.365 24.5957 340.32 24.6017 340.278 24.6017Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_152"
-                    d="M340.278 30.7197C340.112 30.7197 339.976 30.5839 339.976 30.4179C339.976 30.2941 340.051 30.1825 340.166 30.1372C346.976 27.7347 354.163 26.5847 361.384 26.7447C361.55 26.7447 361.686 26.8805 361.686 27.0465C361.677 27.2095 361.547 27.3393 361.384 27.3483C354.245 27.1853 347.136 28.3232 340.404 30.6986C340.365 30.7137 340.32 30.7197 340.278 30.7197Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_153"
-                    d="M330.381 12.3748C330.342 12.3748 330.306 12.3657 330.27 12.3537C323.538 9.97831 316.429 8.84345 309.293 9.00341C309.127 9.00341 308.991 8.86759 308.991 8.70159C308.991 8.53559 309.127 8.39977 309.293 8.39977C316.502 8.23376 323.683 9.37768 330.484 11.7711C330.638 11.8315 330.716 12.0066 330.656 12.1605C330.62 12.2842 330.508 12.3688 330.381 12.3748Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_154"
-                    d="M330.381 18.4837C330.342 18.4837 330.306 18.4747 330.27 18.4626C323.538 16.0873 316.429 14.9524 309.293 15.1124C309.127 15.1124 308.991 14.9765 308.991 14.8105C308.991 14.6445 309.127 14.5087 309.293 14.5087C316.514 14.3487 323.701 15.4957 330.511 17.9012C330.665 17.9616 330.744 18.1366 330.683 18.2906C330.635 18.4143 330.514 18.4928 330.381 18.4837Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_155"
-                    d="M330.381 24.6017C330.342 24.6017 330.306 24.5927 330.27 24.5806C323.538 22.2083 316.429 21.0704 309.293 21.2303C309.127 21.2303 308.991 21.0945 308.991 20.9285C308.991 20.7625 309.127 20.6267 309.293 20.6267C316.514 20.4667 323.701 21.6137 330.511 24.0192C330.665 24.0796 330.744 24.2546 330.683 24.4086C330.635 24.5323 330.514 24.6108 330.381 24.6017Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_156"
-                    d="M330.381 30.7197C330.342 30.7197 330.306 30.7107 330.27 30.6986C323.538 28.3202 316.429 27.1853 309.293 27.3483C309.127 27.3483 308.991 27.2125 308.991 27.0465C308.991 26.8805 309.127 26.7447 309.293 26.7447C316.514 26.5847 323.701 27.7316 330.511 30.1372C330.665 30.1975 330.744 30.3726 330.683 30.5265C330.635 30.6503 330.514 30.7288 330.381 30.7197Z"
-                    fill="#1A1A1A"
-                  />
-                </g>
-              </g>
-            </svg>
+              See more
+            </Link>
           </div>
-        </div>
-      </section>
-      <section id="services" className="bg-second pb-10">
-        <div className="services-container flex justify-center">
-          <div className="w-[50%] flex items-center justify-between bg-white rounded-full shadow-md -mt-12 border-second border-2">
-            <div className="flex flex-col py-5 pl-5">
-              <label
-                htmlFor="learn"
-                className="font-bold text-xl text-[#A1A1A1]"
-              >
-                What You Want To Learn?
-              </label>
-              <input
-                className="text-xl"
-                name="learn"
-                type="text"
-                placeholder="Ex: Math"
-              ></input>
-            </div>
-            <p className="font-bold text-2xl text-[#A1A1A1]">|</p>
-            <div className="relative flex flex-col py-5">
-              <div
-                id="range"
-                className="transition-transform scale-0  absolute bottom-[130%] flex flex-col gap-2 items-center justify-center p-10  left-1/2  -translate-x-1/2  w-[300px] h-[200px] bg-white before:absolute before:content-[''] before:left-1/2 before:top-[100%]  before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-white before:rotate-180 shadow-2xl"
-              >
-                <label className="font-bold text-xl">Select The Price</label>
-                <div className="flex w-full justify-evenly gap-3">
-                  <div className="flex flex-col items-center w-2/5">
-                    <label>Min</label>
-                    <input
-                      type="text"
-                      value={`$${inputOne.one}`}
-                      className="w-full rounded-xl border-2"
-                      readOnly
-                    ></input>
+          <div id="cards" className="w-fit relative">
+            <ChevronLeft
+              className="cursor-pointer absolute w-[25%] h-auto -left-[8rem] top-[50%] -translate-y-2/4 rounded-full bg-main text-white z-10"
+              onClick={() => {
+                switch (slider.left) {
+                  case "slider-left":
+                    setSlider({
+                      left: "slider-center",
+                      right: "slider-left",
+                      center: "slider-right",
+                    });
+                    break;
+                  case "slider-right":
+                    setSlider({
+                      left: "slider-left",
+                      right: "slider-right",
+                      center: "slider-center",
+                    });
+                    break;
+                  case "slider-center":
+                    setSlider({
+                      left: "slider-right",
+                      right: "slider-center",
+                      center: "slider-left",
+                    });
+                }
+                setDerech(true);
+              }}
+            ></ChevronLeft>
+            <div
+              id={slider.center}
+              className={`${
+                slider.center === "slider-left" ? attributes.left : ""
+              } ${slider.center === "slider-right" ? attributes.right : ""} ${
+                slider.center === "slider-center" ? attributes.center : ""
+              } transition-transform duration-[300ms]  w-[350px] rounded-xl bg-white flex flex-col items-center gap-6 `}
+              onTransitionEnd={() => {
+                setIzquier("");
+                setDerech("");
+              }}
+            >
+              <div className="w-full h-full flex rounded-xl shadow-xl flex-col items-center gap-4">
+                <div className="w-full h-[500px] flex flex-col items-center">
+                  <div className="w-full h-[65%]">
+                    <img
+                      className="w-full h-full object-cover rounded-tl-xl  rounded-tr-xl "
+                      src="https://images.pexels.com/photos/428328/pexels-photo-428328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    ></img>
                   </div>
-                  <div className="flex flex-col items-center w-2/5">
-                    <label>Max</label>
-                    <input
-                      value={`$${inputOne.two}`}
-                      type="text"
-                      className="w-full rounded-xl bg-gray border-2"
-                      readOnly
-                    ></input>
-                  </div>
-                </div>
-                <div className="flex relative">
-                  <input
-                    className="thumb-bg-main text-main bg-transparent appearance-none"
-                    type="range"
-                    min="5"
-                    max="50"
-                    step={5}
-                    value={inputOne.one}
-                    onInput={smoothScrollOne}
-                  ></input>
-                  <input
-                    className="thumb-bg-main text-main bg-transparent appearance-none"
-                    type="range"
-                    min="50"
-                    max="100"
-                    step={5}
-                    value={inputOne.two}
-                    onInput={smoothScrollTwo}
-                  ></input>
-                  <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 w-full h-[3px] z-[-1] bg-black"></div>
-                </div>
-                <button
-                  className="bg-main p-2 font-bold text-lg text-white rounded-xl"
-                  onClick={(e) => {
-                    let rangePrice =
-                      e.currentTarget.parentElement.parentElement.querySelector(
-                        "#price-range"
-                      );
-                    e.currentTarget.parentElement.classList.remove("scale-1");
-                    e.currentTarget.parentElement.classList.add("scale-0");
-                    rangePrice.innerText = `$${inputOne.one} - $${inputOne.two}`;
-                  }}
-                >
-                  Set Price Range
-                </button>
-              </div>
-              <label
-                htmlFor="price"
-                className="font-bold text-xl text-[#A1A1A1]"
-              >
-                Price Range
-              </label>
-              <button
-                id="price-range"
-                className="text-xl"
-                onClick={(e) => {
-                  const classesList = Array.from(
-                    e.currentTarget.parentElement.children[0].classList
-                  );
-                  let classIs;
-                  classesList.filter((clase) => {
-                    if (clase == "scale-0") {
-                      classIs = true;
-                    }
-                  });
-                  if (classIs) {
-                    e.currentTarget.parentElement.children[0].classList.remove(
-                      "scale-0"
-                    );
-                    e.currentTarget.parentElement.children[0].classList.add(
-                      "scale-1"
-                    );
-                  } else {
-                    e.currentTarget.parentElement.children[0].classList.remove(
-                      "scale-1"
-                    );
-                    e.currentTarget.parentElement.children[0].classList.add(
-                      "scale-0"
-                    );
-                  }
-                }}
-              >
-                $0 - $100
-              </button>
-            </div>
-            <p className="font-bold text-2xl text-[#A1A1A1]">|</p>
-            <div className="flex flex-col py-5">
-              <label className="font-bold text-xl text-[#A1A1A1]">
-                Level of Classes
-              </label>
-              <input type="text" placeholder="Ex:beginner"></input>
-            </div>
-            <button className="h-full w-[10%]  rounded-tr-full rounded-br-full text-white bg-main">
-              {" "}
-              <Search className="w-full h-full p-4"></Search>
-            </button>
-          </div>
-        </div>
-        <div className="services-list flex justify-center flex-col items-center mx-[135px] gap-4 mt-5 pb-14 bg-white rounded-xl shadow-lg">
-          <div className="pt-14 w-[70%] text-center flex flex-col items-center font-bold text-3xl">
-            <h2 className="text-gray-900 ">
-              Unlock Your Full Potential: Connect with{" "}
-              <strong className="text-main">Expert Teachers Today!</strong>
-            </h2>
-            <p className="text-xl font-medium opacity-[0.6] ">
-              Empowering Students to Achieve Academic Excellence Through
-              Personalized Tutoring.
-            </p>
-          </div>
-          <div className=" w-[90%] justify-center flex flex-wrap child:p-5 gap-[0.33%] child:rounded-xl child:items-center child:gap-5 child:justify-center">
-            <div className="parentsvg basis-[33%] flex transition-all duration-300">
-              <svg
-                className="w-[25%]"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M17 3v-2c0-.552.447-1 1-1s1 .448 1 1v2c0 .552-.447 1-1 1s-1-.448-1-1zm-12 1c.553 0 1-.448 1-1v-2c0-.552-.447-1-1-1-.553 0-1 .448-1 1v2c0 .552.447 1 1 1zm13 13v-3h-1v4h3v-1h-2zm-5 .5c0 2.481 2.019 4.5 4.5 4.5s4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5-4.5 2.019-4.5 4.5zm11 0c0 3.59-2.91 6.5-6.5 6.5s-6.5-2.91-6.5-6.5 2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5zm-14.237 3.5h-7.763v-13h19v1.763c.727.33 1.399.757 2 1.268v-9.031h-3v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-9v1c0 1.316-1.278 2.339-2.658 1.894-.831-.268-1.342-1.111-1.342-1.984v-.91h-3v21h11.031c-.511-.601-.938-1.273-1.268-2z" />
-              </svg>
-              <div className="w-[75%]">
-                <strong className="text-lg">Flexible Scheduling</strong>
-                <p className="text-sm">
-                  Enjoy the convenience of scheduling lessons at your preferred
-                  time slots, accommodating your busy schedule and ensuring
-                  optimal learning opportunities.
-                </p>
-              </div>
-            </div>
-            <div className="parentsvg basis-[33%] flex transition-all duration-300">
-              <svg
-                className="w-[25%]"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M18.604 16.111c.018.276.048.531.092.758-.583.106-.606-.469-.092-.758zm-4.354.16h.996l-.498-1.43-.498 1.43zm2.75-6.105c3.697 0 7 2.465 7 5.837 0 1.196-.432 2.37-1.193 3.281-.033 1.068.596 2.6 1.162 3.715-1.518-.274-3.676-.88-4.654-1.48-5.387 1.313-9.315-1.984-9.315-5.516 0-3.39 3.326-5.837 7-5.837zm-.437 7.584l-1.44-3.792h-.76l-1.447 3.792h.812l.312-.875h1.422l.313.875h.788zm3.988-2.296l.079-.353-.642-.125-.064.292c-.215-.032-.445-.036-.679-.012l.028-.458h.717v-.608h-.631l.084-.335-.627-.188c-.046.154-.084.304-.123.523h-.715v.608h.638c-.018.196-.026.399-.03.605-.704.259-1.002.751-1.002 1.198 0 .528.416.992 1.074.932.817-.074 1.362-.691 1.682-1.45.332.19.471.511.346.807-.115.275-.455.536-1.104.523v.654c.721.011 1.429-.262 1.707-.923.27-.647-.041-1.352-.738-1.69zm-1.25 1.073c.17-.177.305-.401.407-.626-.147-.013-.306-.009-.462.012.011.22.028.425.055.614zm-10.492 2.703c-1.887-.271-3.571-1.165-4.827-2.478-.182-.189-.315-.636-.019-.819l.302-.078c.235-.199-.221-1.009-.04-1.14.561-.401.295-.893-.051-1.299-.146-.172-.948-1-1.038-.853.067-.226-.146-.772-.274-.987-.217-.362-.502-.585-.617-.982-.046-.158-.046-.64-.139-.751-.038-.045-.327-.167-.317-.233.278-1.655 1.044-3.143 2.149-4.318l.746-.301c.468-.703.495-.158.916-.341.141 0 .301-.578.452-.667.261-.169.062-.169.013-.245-.104-.168 2.191-1.003 2.229-.853.032.127-1.135.734-1.007.716-.296.039-.352.571-.297.568.147-.005 1.074-.704 1.506-.555.423.146 1.183-.336 1.48-.582.149-.125.286-.344.483-.344.909 0 2.268.374 2.579.56.474.283-.204.263-.277.447-.058.142-.19.335-.249.412-.102.133-.399.077-.341-.082.059-.167.348-.231-.086-.271-.445-.041-.568-.341-1.014.034-.134.113-.234.286-.321.433-.123.21-.42.201-.544.396-.12.192.07.512.304.371.062-.038.765.645.674.095-.059-.364.196-.612.201-.887.003-.184.28-.066.206.03-.097.121-.203.534.051.554.096.008.339-.158.425-.084-.096-.002-.315.383-.3.376-.108.048-.233-.021-.15.21.074.228-.408.201-.495.247-.037.02-.417-.114-.408-.028-.131-.109.037-.379-.072-.422-.11.168-.058.512-.294.512-.202 0-.482.229-.604.369-.087.097-.609.308-.666.302.299.031.286.25.261.437-.06.433-.995.032-.956.196.038.158-.107.586-.139.724-.029.125.402.205.378.267.002-.007.583-.199.64-.25l.131-.293c.11-.073.226-.133.35-.179l.149-.258c.05-.02.645-.112.686-.092.149.068.428.353.532.483.036.047.227.117.227.188.069.107-.051.148-.006.223.104.193.132-.401.087-.29 0-.189.142.071.174.049l-.657-.654c-.204-.342.543.183.64.247.096.063.285.629.537.501.158-.08-.004-.139.106-.229l.449-.09c-.357.261.279.602.182.556.16.074.254-.058.354-.021.057.022.663.015.566-.082.151.076.082.748-.044.851-.204.169-1.182.1-1.399-.057-.361-.262-.297.279-.473.352-.344.142-.857-.463-1.218-.482.176.026.015-.445.015-.478-.139-.171-1.02.019-1.252.05-.434.058-.89.052-1.223.324-.234.189-.237.5-.477.651-.156.095-.325.064-.456.189-.234.222-.504.552-.637.845-.054.123.072.416.041.574-.307.967.076 2.308 1.248 2.456.25.032.506.144.759.117 1.332-2.88 4.568-4.92 8.347-4.92.932 0 1.831.124 2.678.354-1.105-4.322-5.012-7.521-9.678-7.521-5.523 0-10 4.477-10 10s4.477 10 10 10l.074-.004c-.509-.533-.931-1.128-1.265-1.766zm4.778-13.035c.068-.008-.089.138-.089.138.027.212.183.327.479.435.36.129.03.375-.176.317-.114-.032-.704-.21-.725.021 0 .138-.56.001-.473-.145.061-.098.041-.319.152-.464.16-.21.313-.096.318.026.002.327.332-.306.514-.328zm-4.532-.292c.08.113.688-.163.591-.146.187-.094.024-.104-.082-.159-.035-.179-.065-.456-.177-.566l.074-.085c-.173-.249-.301.302-.301.302l.09-.026-.042.113c.071.129.019.207.007.277l-.124.077c-.045.055.215.062.217.071.009.028-.313.074-.253.142zm-.396-.286c-.069.071.002.116.073.085.104-.045.244-.044.26-.183l.066-.084c.029-.043-.057-.114-.092-.121l-.124.086-.061.016-.056.072.006.04-.072.089zm2.634 2.107c-.055 0-.369.029-.34.084.178.293.403-.076.34-.084z" />
-              </svg>
-              <div className="w-[75%]">
-                <strong className="text-lg">Seamless Communication</strong>
-                <p className="text-sm">
-                  Stay connected with your teachers through a built-in messaging
-                  system, facilitating easy and efficient communication for
-                  scheduling lessons, asking questions, and receiving feedback.
-                </p>
-              </div>
-            </div>
-            <div className="parentsvg basis-[33%] flex transition-all duration-300">
-              <svg
-                className="w-[25%]"
-                xmlns="http://www.w3.org/2000/svg"
-                clipRule="evenodd"
-                viewBox="0 0 24 24"
-              >
-                <path d="M17 24h-10v-1.342c1.808-.985 2.005-2.205 2-3.658h-8c-.265 0-.52-.105-.707-.293-.188-.187-.293-.442-.293-.707v-17c0-.265.105-.52.293-.707.187-.188.442-.293.707-.293h22c.265 0 .52.105.707.293.188.187.293.442.293.707v17c0 .265-.105.52-.293.707-.187.188-.442.293-.707.293h-8c.004 1.374.155 2.66 2 3.658v1.342zm-3.984-5h-2.044c-.015.802.004 2.003-.719 3h3.493c-.757-1.02-.716-2.25-.73-3zm8.984-5h-20v3h20v-3zm-10 .537c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1zm-10-12.537v10h20v-10h-20z" />
-              </svg>{" "}
-              <div className="w-[75%]">
-                <strong className="text-lg">
-                  Virtual Classroom Experience
-                </strong>
-                <p className="text-sm">
-                  Engage in interactive and immersive virtual classrooms
-                  equipped with innovative tools, allowing for real-time
-                  collaboration, screen sharing, document sharing, and
-                  multimedia integration.
-                </p>
-              </div>
-            </div>
-            <div className="parentsvg basis-[33%] flex transition-all duration-300">
-              <svg
-                className="w-[25%]"
-                clipRule="evenodd"
-                strokeMiterlimit="2"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="m14.776 18.689 7.012-7.012c.133-.133.217-.329.217-.532 0-.179-.065-.363-.218-.515l-2.423-2.415c-.144-.143-.333-.215-.522-.215s-.378.072-.523.215l-7.027 6.996c-.442 1.371-1.158 3.586-1.265 3.952-.125.433.199.834.573.834.41 0 .696-.099 4.176-1.308zm-2.258-2.392 1.17 1.171c-.704.232-1.275.418-1.729.566zm.968-1.154 5.356-5.331 1.347 1.342-5.346 5.347zm-4.486-1.393c0-.402-.356-.75-.75-.75-2.561 0-2.939 0-5.5 0-.394 0-.75.348-.75.75s.356.75.75.75h5.5c.394 0 .75-.348.75-.75zm5-3c0-.402-.356-.75-.75-.75-2.561 0-7.939 0-10.5 0-.394 0-.75.348-.75.75s.356.75.75.75h10.5c.394 0 .75-.348.75-.75zm0-3c0-.402-.356-.75-.75-.75-2.561 0-7.939 0-10.5 0-.394 0-.75.348-.75.75s.356.75.75.75h10.5c.394 0 .75-.348.75-.75zm0-3c0-.402-.356-.75-.75-.75-2.561 0-7.939 0-10.5 0-.394 0-.75.348-.75.75s.356.75.75.75h10.5c.394 0 .75-.348.75-.75z"
-                  fillRule="nonzero"
-                />
-              </svg>{" "}
-              <div className="w-[75%]">
-                <strong className="text-lg">Personalized Matching</strong>
-                <p className="text-sm">
-                  Our app utilizes advanced algorithms to match students with
-                  the most suitable teachers based on their individual needs,
-                  preferences, and learning styles.
-                </p>
-              </div>
-            </div>
-            <div className="parentsvg basis-[33%] flex transition-all duration-300">
-              <svg
-                className="w-[25%]"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M21 10c1.103 0 2 .897 2 2s-.897 2-2 2h-18c-1.103 0-2-.897-2-2s.897-2 2-2h18zm3 2c0-1.657-1.343-3-3-3h-18c-1.657 0-3 1.343-3 3s1.343 3 3 3h18c1.657 0 3-1.343 3-3zm-9-1h-12c-.552 0-1 .448-1 1s.448 1 1 1h12c.552 0 1-.448 1-1s-.448-1-1-1z" />
-              </svg>
-              <div className="w-[75%]">
-                <strong className="text-lg">Progress Tracking</strong>
-                <p className="text-sm">
-                  Keep track of your progress with detailed performance
-                  analytics, including lesson history, assessment results, and
-                  personalized recommendations.
-                </p>
-              </div>
-            </div>
-            <div className="parentsvg basis-[33%] flex  transition-all duration-300">
-              <svg
-                className="w-[25%]"
-                xmlns="http://www.w3.org/2000/svg"
-                clipRule="evenodd"
-                viewBox="0 0 24 24"
-              >
-                <path d="M6 3.447h-1v-1.447h19v16h-7.731l2.731 4h-1.311l-2.736-4h-1.953l-2.736 4h-1.264l2.732-4h-2.732v-1h8v-1h3v1h3v-14h-17v.447zm2.242 17.343c-.025.679-.576 1.21-1.256 1.21-.64 0-1.179-.497-1.254-1.156l-.406-4.034-.317 4.019c-.051.656-.604 1.171-1.257 1.171-.681 0-1.235-.531-1.262-1.21l-.262-6.456-.308.555c-.241.437-.8.638-1.265.459-.404-.156-.655-.538-.655-.951 0-.093.012-.188.039-.283l1.134-4.098c.17-.601.725-1.021 1.351-1.021h4.096c.511 0 1.012-.178 1.285-.33.723-.403 2.439-1.369 3.136-1.793.394-.243.949-.147 1.24.217.32.396.286.95-.074 1.297l-3.048 2.906c-.375.359-.595.849-.617 1.381-.061 1.397-.3 8.117-.3 8.117zm-5.718-10.795c-.18 0-.34.121-.389.294-.295 1.04-1.011 3.666-1.134 4.098l1.511-2.593c.172-.295.623-.18.636.158l.341 8.797c.01.278.5.287.523.002 0 0 .269-3.35.308-3.944.041-.599.449-1.017.992-1.017.547.002.968.415 1.029 1.004.036.349.327 3.419.385 3.938.043.378.505.326.517.022 0 0 .239-6.725.3-8.124.033-.791.362-1.523.925-2.061l3.045-2.904c-.661.492-2.393 1.468-3.121 1.873-.396.221-1.07.457-1.772.457h-4.096zm16.476 1.005h-5v-1h5v1zm2-2h-7v-1h7v1zm-15.727-4.994c-1.278 0-2.315 1.038-2.315 2.316 0 1.278 1.037 2.316 2.315 2.316s2.316-1.038 2.316-2.316c0-1.278-1.038-2.316-2.316-2.316zm0 1c.726 0 1.316.59 1.316 1.316 0 .726-.59 1.316-1.316 1.316-.725 0-1.315-.59-1.315-1.316 0-.726.59-1.316 1.315-1.316zm15.727 1.994h-7v-1h7v1z" />
-              </svg>
-              <div className="w-[75%]">
-                <strong className="text-lg">Extensive Teacher Profiles</strong>
-                <p className="text-sm">
-                  Gain insights into teachers' qualifications, expertise,
-                  teaching styles, and reviews from previous students to make an
-                  informed decision.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="bg-second pt-5">
-        <div className="mx-[135px] bg-white rounded-xl shadow-lg">
-          <div className="py-10 px-12 flex justify-between items-center">
-            <div className="w-[40%] flex flex-col gap-3">
-              <h3 className="text-2xl font-bold">
-                Access the Power of Online Learning with Classpro: 4 Compelling
-                Reasons to Get Connected
-              </h3>
-              <p className="text-sm">
-                ClassPro opens the doors to your full learning potential. Our
-                platform connects you with exceptional teachers who are experts
-                in their fields. Whether you're seeking guidance in mathematics,
-                science, languages, or any other subject, ClassPro has a diverse
-                range of qualified teachers ready to help you succeed.
-              </p>
-              <ul className="w-full list-disc pl-5 text-sm gap-2 flex flex-col">
-                <li>User-friendly interface</li>
-                <li>Cutting-edge online learning resources</li>
-                <li>Engaging and effective educational experience</li>
-                <li>Transformative journey towards academic excellence</li>
-              </ul>
-              <Link
-                href={"#"}
-                className="bg-main px-5 py-2 w-fit font-bold text-white rounded-lg"
-              >
-                Join ClassPro
-              </Link>
-            </div>
-            <div className="w-[40%]">
-              <svg
-                viewBox="0 0 1876 1135"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-full"
-              >
-                <g id="Asset 6 1" clipPath="url(#clip0_49_2)">
-                  <path
-                    id="Vector"
-                    d="M1313.64 935.79C1313.64 935.79 1429.86 927.95 1510.41 983.19C1590.96 1038.43 1602.13 1061.25 1602.13 1061.25H1276.57L1313.64 935.79Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_2"
-                    d="M1602.13 1062.25H1276.57C1276.41 1062.26 1276.25 1062.22 1276.11 1062.16C1275.97 1062.09 1275.84 1061.99 1275.74 1061.87C1275.64 1061.74 1275.58 1061.59 1275.55 1061.44C1275.52 1061.28 1275.53 1061.12 1275.57 1060.97L1312.64 935.5C1312.7 935.305 1312.82 935.133 1312.97 935.006C1313.13 934.879 1313.33 934.804 1313.53 934.79C1313.82 934.79 1343.12 932.88 1381.9 937.79C1417.7 942.32 1469.15 953.73 1510.9 982.38C1590.75 1037.15 1602.5 1059.88 1602.96 1060.82C1603.05 1060.97 1603.09 1061.14 1603.09 1061.32C1603.09 1061.5 1603.05 1061.67 1602.96 1061.82C1602.87 1061.95 1602.74 1062.06 1602.6 1062.14C1602.45 1062.21 1602.29 1062.25 1602.13 1062.25ZM1277.91 1060.25H1600.35C1596.47 1054.44 1578.02 1030.78 1509.84 984.02C1468.41 955.6 1417.31 944.27 1381.74 939.77C1359.42 936.889 1336.89 935.885 1314.4 936.77L1277.91 1060.25Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_3"
-                    d="M1 1133C1 1133 14.08 928.3 208.69 928.3C403.3 928.3 325.25 1133 325.25 1133H1Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_4"
-                    d="M325.25 1134H1C0.862883 1134 0.727322 1133.97 0.60174 1133.92C0.476158 1133.86 0.363239 1133.78 0.27 1133.68C0.0973348 1133.5 0.000872483 1133.25 0 1133C0 1132.49 3.6 1081 31 1030.23C47.1 1000.37 68.16 976.58 93.59 959.51C125.38 938.17 164.11 927.35 208.7 927.35C262.52 927.35 300.61 943.03 321.92 973.96C343.58 1005.41 343.58 1047.12 339.76 1076.57C337.241 1095.94 332.693 1115 326.19 1133.42C326.108 1133.6 325.975 1133.75 325.807 1133.85C325.64 1133.95 325.446 1134.01 325.25 1134ZM2.08 1132H324.55C330.849 1113.9 335.282 1095.2 337.78 1076.19C341.54 1047.1 341.56 1005.94 320.26 975.02C299.34 944.67 261.81 929.28 208.69 929.28C108.69 929.28 57.83 984.63 32.78 1031.05C7.73 1077.47 2.75 1124.41 2.08 1132Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_5"
-                    d="M1665.76 1033.45C1665.76 1033.45 1602.36 1047.71 1588.76 1014.92C1632.3 1002.8 1665.76 1033.45 1665.76 1033.45Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_6"
-                    d="M1636.25 1037C1617.59 1037 1595.68 1032.9 1588.35 1015.16C1588.32 1015.1 1588.31 1015.03 1588.31 1014.96C1588.31 1014.88 1588.32 1014.81 1588.35 1014.75C1588.38 1014.69 1588.43 1014.63 1588.48 1014.58C1588.54 1014.54 1588.6 1014.5 1588.67 1014.48C1631.92 1002.48 1665.75 1032.82 1666.08 1033.13C1666.15 1033.19 1666.2 1033.27 1666.23 1033.36C1666.25 1033.44 1666.25 1033.54 1666.23 1033.63C1666.21 1033.72 1666.16 1033.8 1666.1 1033.86C1666.03 1033.92 1665.95 1033.97 1665.86 1033.99C1656.11 1035.95 1646.19 1036.95 1636.25 1037ZM1589.5 1015.3C1602.24 1044.47 1656.64 1034.82 1664.66 1033.22C1659.48 1028.83 1628.4 1004.71 1589.5 1015.25V1015.3Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_7"
-                    d="M1585.89 1018.25C1585.89 1018.25 1543.89 994.25 1580.97 944.34C1606.63 972.14 1589.6 1016.34 1585.89 1018.25Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_8"
-                    d="M1585.89 1018.75C1585.8 1018.75 1585.72 1018.73 1585.64 1018.69C1585.49 1018.6 1569.84 1009.47 1566.03 991.23C1563.03 976.94 1567.93 961.06 1580.57 944.04C1580.61 943.982 1580.67 943.935 1580.73 943.9C1580.8 943.866 1580.87 943.845 1580.94 943.84C1581.01 943.832 1581.09 943.842 1581.16 943.87C1581.23 943.898 1581.29 943.943 1581.34 944C1597.4 961.4 1596.26 984.55 1594.15 996.8C1592.15 1008.66 1588.03 1017.69 1586.15 1018.7C1586.07 1018.73 1585.98 1018.75 1585.89 1018.75ZM1581 945.13C1568.81 961.71 1564.1 977.13 1567 991.02C1570.44 1007.49 1583.79 1016.36 1585.87 1017.66C1587.31 1016.32 1591.16 1008.31 1593.17 996.66C1595.23 984.67 1596.35 962.16 1581 945.13Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_9"
-                    d="M1624.46 909.41C1624.46 909.41 1596.37 960.73 1644.46 979.27C1655.11 938.64 1624.46 909.41 1624.46 909.41Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_10"
-                    d="M1644.42 979.77C1644.36 979.781 1644.3 979.781 1644.24 979.77C1630.97 974.65 1622.24 966.55 1618.24 955.69C1610.45 934.39 1623.87 909.45 1624.01 909.2C1624.05 909.134 1624.1 909.076 1624.16 909.033C1624.22 908.99 1624.3 908.961 1624.37 908.949C1624.45 908.938 1624.52 908.944 1624.6 908.966C1624.67 908.989 1624.73 909.028 1624.79 909.08C1625.1 909.37 1655.53 938.98 1644.89 979.43C1644.87 979.498 1644.84 979.562 1644.79 979.617C1644.75 979.672 1644.69 979.717 1644.63 979.75C1644.56 979.769 1644.49 979.776 1644.42 979.77ZM1624.58 910.25C1622.58 914.15 1612.22 936.25 1619.2 955.32C1623.01 965.75 1631.38 973.58 1644.07 978.6C1653.44 941.79 1628.39 914.17 1624.58 910.25Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_11"
-                    d="M1644.42 979.27C1644.42 979.27 1679.7 947.91 1727.64 975.71C1703.58 1012.06 1654.4 997.81 1644.42 979.27Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_12"
-                    d="M1685.37 998.76C1684.46 998.76 1683.61 998.76 1682.8 998.7C1665.88 997.94 1649.55 989.86 1643.98 979.51C1643.93 979.412 1643.91 979.298 1643.92 979.188C1643.94 979.077 1644 978.976 1644.08 978.9C1651.13 973.253 1659.23 969.065 1667.91 966.58C1681.52 962.58 1702.97 960.82 1727.91 975.27C1727.97 975.304 1728.02 975.351 1728.06 975.405C1728.1 975.46 1728.13 975.523 1728.15 975.59C1728.18 975.724 1728.15 975.864 1728.08 975.98C1715.23 995.37 1696.74 998.76 1685.37 998.76ZM1645.05 979.39C1650.58 989.13 1666.72 996.97 1682.84 997.71C1693.51 998.18 1713.36 995.98 1726.93 975.87C1682.42 950.38 1648.59 976.47 1645.05 979.39Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_13"
-                    d="M1679.89 943.5C1679.89 943.5 1672.22 886.33 1722.83 875.42C1745.64 932.22 1679.89 943.5 1679.89 943.5Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_14"
-                    d="M1679.89 944C1679.78 944.001 1679.68 943.97 1679.59 943.91C1679.54 943.87 1679.49 943.819 1679.46 943.761C1679.42 943.702 1679.4 943.637 1679.39 943.57C1678.39 933.451 1679.24 923.235 1681.9 913.42C1685.96 899 1696.34 880.62 1722.73 874.93C1722.85 874.907 1722.96 874.924 1723.07 874.979C1723.17 875.033 1723.25 875.122 1723.3 875.23C1729.75 891.3 1729.75 905.23 1723.3 916.81C1711.24 938.41 1680.3 943.94 1679.96 944H1679.89ZM1722.52 876C1696.94 881.68 1686.84 899.59 1682.87 913.66C1680.3 923.183 1679.44 933.086 1680.32 942.91C1684.42 942.09 1711.47 935.97 1722.44 916.32C1728.67 905.16 1728.7 891.6 1722.52 876Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_15"
-                    d="M1489 1058C1488.77 1058.01 1488.55 1057.93 1488.37 1057.8C1488.18 1057.66 1488.05 1057.46 1488 1057.24C1487.94 1056.98 1487.98 1056.71 1488.11 1056.49C1488.25 1056.26 1488.46 1056.1 1488.72 1056.03C1518.92 1047.59 1548.23 1036.24 1576.24 1022.13C1618.85 1000.66 1674.87 963.61 1699.78 909.02C1699.89 908.779 1700.09 908.591 1700.34 908.498C1700.59 908.405 1700.86 908.415 1701.1 908.525C1701.35 908.635 1701.53 908.836 1701.63 909.085C1701.72 909.333 1701.71 909.609 1701.6 909.85C1676.44 964.98 1620.01 1002.32 1577.1 1023.94C1548.98 1038.1 1519.55 1049.49 1489.22 1057.94C1489.15 1057.97 1489.08 1057.99 1489 1058Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_16"
-                    d="M1612.69 703.68C1612.69 703.68 1566.98 776.83 1665.76 803.91C1665.09 747.59 1612.69 703.68 1612.69 703.68Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_17"
-                    d="M1665.76 804.91H1665.49C1633.09 796.02 1612.66 781.26 1604.75 761.02C1593.75 732.73 1611.66 703.47 1611.85 703.18C1611.93 703.058 1612.03 702.954 1612.14 702.875C1612.26 702.796 1612.4 702.743 1612.54 702.72C1612.68 702.697 1612.83 702.705 1612.96 702.743C1613.1 702.781 1613.23 702.848 1613.34 702.94C1613.86 703.38 1666.09 747.8 1666.76 803.94C1666.76 804.094 1666.73 804.247 1666.66 804.386C1666.59 804.525 1666.49 804.646 1666.37 804.74C1666.19 804.861 1665.98 804.921 1665.76 804.91ZM1613 705.23C1610 710.56 1597.13 735.85 1606.67 760.23C1614.23 779.57 1633.78 793.8 1664.78 802.54C1663.38 752.05 1619.8 711.32 1613 705.23Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_18"
-                    d="M1665.76 803.91C1665.76 803.91 1744.22 751.22 1803 828C1750.6 859.87 1665.73 803.91 1665.73 803.91H1665.76Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_19"
-                    d="M1764.7 838.74C1746.87 838.74 1728.92 834.07 1714.41 828.85C1697.21 822.56 1680.72 814.482 1665.21 804.75C1665.07 804.659 1664.96 804.534 1664.88 804.387C1664.8 804.24 1664.76 804.076 1664.76 803.91C1664.76 803.746 1664.8 803.585 1664.88 803.44C1664.95 803.295 1665.06 803.172 1665.2 803.08C1679.54 794.274 1695.54 788.518 1712.2 786.17C1737.07 782.87 1773.14 787.35 1803.81 827.39C1803.9 827.499 1803.96 827.627 1803.99 827.763C1804.03 827.9 1804.03 828.043 1804 828.18C1803.97 828.318 1803.92 828.448 1803.84 828.564C1803.76 828.679 1803.66 828.777 1803.54 828.85C1791.72 836.05 1778.24 838.74 1764.7 838.74ZM1667.63 803.92C1682.64 813.189 1698.55 820.922 1715.12 827C1739.94 835.94 1774.94 843.24 1801.55 827.73C1771.63 789.31 1736.68 784.98 1712.55 788.16C1696.69 790.407 1681.42 795.763 1667.63 803.92Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_20"
-                    d="M1652.26 622.21C1652.26 622.21 1620.65 696.15 1712.73 717.59C1713.56 662.76 1681.49 634.41 1652.26 622.21Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_21"
-                    d="M1712.73 718.59C1712.66 718.6 1712.58 718.6 1712.51 718.59C1682.51 711.59 1662.29 698.3 1652.51 679.08C1638.74 651.91 1651.17 622.13 1651.3 621.84C1651.4 621.599 1651.6 621.408 1651.84 621.309C1652.08 621.209 1652.36 621.21 1652.6 621.31C1664.52 626.31 1681.47 635.88 1694.53 653.31C1707.59 670.74 1714.07 692.46 1713.69 717.61C1713.69 717.759 1713.65 717.905 1713.59 718.038C1713.52 718.171 1713.43 718.288 1713.31 718.38C1713.14 718.509 1712.94 718.583 1712.73 718.59ZM1652.81 623.53C1650.88 628.7 1642.33 654.53 1654.34 678.17C1663.68 696.57 1682.99 709.41 1711.75 716.33C1712.11 658 1675.49 633.25 1652.81 623.53Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_22"
-                    d="M1712.73 717.59C1712.73 717.59 1754.2 659.19 1829.05 711.95C1806.95 743.31 1712.73 717.59 1712.73 717.59Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_23"
-                    d="M1781.81 728.6C1749.81 728.6 1714.81 719.21 1712.47 718.6C1712.31 718.558 1712.17 718.478 1712.05 718.369C1711.93 718.259 1711.84 718.122 1711.79 717.97C1711.74 717.819 1711.72 717.658 1711.74 717.499C1711.77 717.341 1711.83 717.19 1711.92 717.06C1719.9 706.842 1730.43 698.909 1742.45 694.06C1760.67 686.66 1790.59 683.62 1829.63 711.13C1829.85 711.283 1829.99 711.515 1830.04 711.775C1830.08 712.036 1830.02 712.304 1829.87 712.52C1821.22 724.8 1802.13 728.6 1781.81 728.6ZM1714.45 717C1726.31 720 1806.7 739.32 1827.64 712.17C1797.64 691.31 1768.5 685.67 1743.29 695.87C1732.1 700.466 1722.2 707.718 1714.45 717Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_24"
-                    d="M1691.47 510.92C1691.47 510.92 1671.21 617.11 1743.72 635.65C1746.36 561.51 1717.13 518.76 1691.47 510.92Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_25"
-                    d="M1743.72 636.65C1743.64 636.66 1743.55 636.66 1743.47 636.65C1713.4 628.96 1694.7 604.65 1689.41 566.5C1685.41 537.8 1690.41 511.03 1690.48 510.76C1690.51 510.622 1690.56 510.49 1690.64 510.375C1690.72 510.259 1690.83 510.162 1690.95 510.09C1691.07 510.017 1691.2 509.971 1691.34 509.954C1691.48 509.936 1691.63 509.949 1691.76 509.99C1719.99 518.62 1747.25 564.57 1744.76 635.71C1744.76 635.975 1744.65 636.23 1744.47 636.417C1744.28 636.605 1744.03 636.71 1743.76 636.71L1743.72 636.65ZM1692.25 512.22C1691.37 517.55 1687.92 541.16 1691.4 566.22C1696.58 603.54 1713.86 626.46 1742.76 634.34C1744.87 565.86 1719.2 521.41 1692.25 512.22Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_26"
-                    d="M1874.67 571.51C1874.67 571.51 1785.27 568.62 1743.67 635.65C1816.22 661.33 1874.67 571.51 1874.67 571.51Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_27"
-                    d="M1770 641.2C1760.93 641.197 1751.93 639.637 1743.39 636.59C1743.25 636.54 1743.12 636.458 1743.02 636.352C1742.91 636.246 1742.83 636.118 1742.78 635.977C1742.73 635.836 1742.72 635.686 1742.73 635.538C1742.75 635.389 1742.8 635.247 1742.88 635.12C1764.51 600.22 1799.22 584.51 1824.52 577.48C1840.86 572.881 1857.75 570.526 1874.72 570.48C1874.9 570.486 1875.07 570.54 1875.22 570.635C1875.37 570.73 1875.49 570.863 1875.57 571.021C1875.66 571.179 1875.69 571.355 1875.68 571.533C1875.67 571.71 1875.62 571.882 1875.52 572.03C1864.67 587.725 1851.71 601.848 1837 614C1814.82 632 1792.06 641.2 1770 641.2ZM1745.24 635.11C1781.77 647.43 1814.56 629.66 1835.72 612.47C1849.79 600.828 1862.26 587.378 1872.8 572.47C1856.64 572.734 1840.57 575.059 1825 579.39C1800.31 586.29 1766.56 601.52 1745.23 635.11H1745.24Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_28"
-                    d="M1764 546.14C1764 546.14 1724.31 464.58 1774.21 401.85C1808.43 450.32 1785.88 535.03 1764 546.14Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_29"
-                    d="M1764 547.14C1763.89 547.154 1763.79 547.154 1763.68 547.14C1763.55 547.098 1763.44 547.031 1763.34 546.943C1763.24 546.856 1763.16 546.749 1763.1 546.63C1756.2 531.065 1751.59 514.585 1749.4 497.7C1746.01 471.75 1747.4 433.95 1773.4 401.27C1773.5 401.15 1773.62 401.054 1773.76 400.99C1773.9 400.926 1774.06 400.895 1774.21 400.9C1774.37 400.904 1774.52 400.944 1774.65 401.017C1774.79 401.09 1774.91 401.193 1775 401.32C1796 431.08 1795.48 473.98 1788 504.19C1782.59 526.01 1773.56 542.45 1764.44 547.08C1764.3 547.131 1764.15 547.151 1764 547.14ZM1774.16 403.53C1749.42 435.4 1748.09 472.06 1751.38 497.33C1753.52 513.664 1757.92 529.621 1764.46 544.74C1772.67 539.74 1781.07 523.86 1786.08 503.66C1793.32 474.25 1793.94 432.69 1774.11 403.53H1774.16Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_30"
-                    d="M1361.41 1091.15C1361.07 1091.15 1360.75 1091.03 1360.49 1090.82C1360.23 1090.62 1360.04 1090.33 1359.96 1090C1359.88 1089.68 1359.91 1089.33 1360.04 1089.03C1360.18 1088.72 1360.41 1088.47 1360.71 1088.31C1361.71 1087.82 1457.41 1037.55 1555.02 939.15C1645.02 848.39 1755.16 696.94 1768.38 490.86C1768.39 490.663 1768.44 490.47 1768.53 490.293C1768.62 490.116 1768.74 489.958 1768.89 489.827C1769.03 489.697 1769.21 489.597 1769.39 489.533C1769.58 489.469 1769.78 489.443 1769.97 489.455C1770.17 489.467 1770.36 489.519 1770.54 489.606C1770.72 489.692 1770.88 489.813 1771.01 489.962C1771.14 490.11 1771.24 490.282 1771.3 490.469C1771.37 490.656 1771.39 490.853 1771.38 491.05C1765.51 582.48 1740.38 670.93 1696.56 753.92C1661.56 820.29 1614.62 883.35 1557.09 941.33C1459.14 1040.03 1363.09 1090.48 1362.09 1090.98C1361.88 1091.09 1361.65 1091.15 1361.41 1091.15Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_31"
-                    d="M1806.29 1134.52H92.6699C92.2721 1134.52 91.8906 1134.36 91.6093 1134.08C91.328 1133.8 91.1699 1133.42 91.1699 1133.02C91.1699 1132.62 91.328 1132.24 91.6093 1131.96C91.8906 1131.68 92.2721 1131.52 92.6699 1131.52H1806.29C1806.69 1131.52 1807.07 1131.68 1807.35 1131.96C1807.63 1132.24 1807.79 1132.62 1807.79 1133.02C1807.79 1133.42 1807.63 1133.8 1807.35 1134.08C1807.07 1134.36 1806.69 1134.52 1806.29 1134.52Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_32"
-                    d="M1270.67 241.21H189.8C145.247 241.21 109.13 277.327 109.13 321.88V965.4C109.13 1009.95 145.247 1046.07 189.8 1046.07H1270.67C1315.22 1046.07 1351.34 1009.95 1351.34 965.4V321.88C1351.34 277.327 1315.22 241.21 1270.67 241.21Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_33"
-                    d="M1270.67 1046.57H189.8C168.28 1046.55 147.648 1037.99 132.43 1022.77C117.213 1007.55 108.654 986.92 108.63 965.4V321.87C108.656 300.351 117.217 279.722 132.434 264.507C147.651 249.292 168.281 240.734 189.8 240.71H1270.67C1292.19 240.734 1312.82 249.292 1328.04 264.507C1343.25 279.722 1351.81 300.351 1351.84 321.87V965.4C1351.82 986.92 1343.26 1007.55 1328.04 1022.77C1312.82 1037.99 1292.19 1046.55 1270.67 1046.57ZM189.8 241.71C168.546 241.731 148.168 250.183 133.138 265.211C118.108 280.239 109.654 300.616 109.63 321.87V965.4C109.654 986.655 118.108 1007.03 133.137 1022.06C148.167 1037.09 168.545 1045.55 189.8 1045.57H1270.67C1291.93 1045.55 1312.3 1037.09 1327.33 1022.06C1342.36 1007.03 1350.82 986.655 1350.84 965.4V321.87C1350.81 300.617 1342.36 280.241 1327.33 265.214C1312.3 250.187 1291.92 241.734 1270.67 241.71H189.8Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_34"
-                    d="M1313.02 241.21H232.15C187.597 241.21 151.48 277.327 151.48 321.88V965.4C151.48 1009.95 187.597 1046.07 232.15 1046.07H1313.02C1357.57 1046.07 1393.69 1009.95 1393.69 965.4V321.88C1393.69 277.327 1357.57 241.21 1313.02 241.21Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_35"
-                    d="M1313 1047.07H232.14C210.488 1047.05 189.73 1038.43 174.42 1023.12C159.111 1007.81 150.501 987.052 150.48 965.4V321.87C150.504 300.22 159.115 279.463 174.424 264.154C189.733 248.845 210.49 240.234 232.14 240.21H1313C1334.65 240.234 1355.41 248.845 1370.72 264.153C1386.03 279.462 1394.64 300.219 1394.67 321.87V965.4C1394.65 987.053 1386.03 1007.81 1370.72 1023.12C1355.41 1038.43 1334.65 1047.05 1313 1047.07ZM232.14 242.21C211.02 242.234 190.772 250.634 175.838 265.568C160.904 280.502 152.504 300.75 152.48 321.87V965.4C152.504 986.521 160.904 1006.77 175.838 1021.71C190.771 1036.64 211.019 1045.04 232.14 1045.07H1313C1334.12 1045.05 1354.37 1036.64 1369.31 1021.71C1384.24 1006.77 1392.65 986.522 1392.67 965.4V321.87C1392.65 300.748 1384.24 280.499 1369.31 265.565C1354.37 250.63 1334.12 242.231 1313 242.21H232.14Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_36"
-                    d="M1377.69 965.4V321.88C1377.69 286.164 1348.74 257.21 1313.02 257.21L232.15 257.21C196.434 257.21 167.48 286.164 167.48 321.88V965.4C167.48 1001.12 196.434 1030.07 232.15 1030.07H1313.02C1348.74 1030.07 1377.69 1001.12 1377.69 965.4Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_37"
-                    d="M1313 1031.07H232.14C214.731 1031.05 198.041 1024.12 185.731 1011.81C173.422 999.5 166.499 982.809 166.48 965.4V321.87C166.499 304.462 173.422 287.771 185.732 275.462C198.041 263.152 214.732 256.229 232.14 256.21H1313C1330.41 256.229 1347.1 263.152 1359.41 275.461C1371.72 287.771 1378.65 304.461 1378.67 321.87V965.4C1378.65 982.81 1371.72 999.501 1359.41 1011.81C1347.1 1024.12 1330.41 1031.05 1313 1031.07ZM232.14 258.21C215.262 258.229 199.081 264.941 187.146 276.876C175.211 288.811 168.499 304.992 168.48 321.87V965.4C168.499 982.279 175.211 998.461 187.145 1010.4C199.08 1022.33 215.261 1029.05 232.14 1029.07H1313C1329.88 1029.05 1346.06 1022.33 1358 1010.4C1369.93 998.462 1376.65 982.28 1376.67 965.4V321.87C1376.65 304.991 1369.93 288.81 1358 276.875C1346.06 264.941 1329.88 258.229 1313 258.21H232.14Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_38"
-                    d="M947.23 419.78C947.23 419.78 890.67 403.78 881.17 419.78C871.67 435.78 878.79 447.71 878.79 447.71C878.79 447.71 896.73 460.06 903 446C909.27 431.94 909.24 436.5 909.24 436.5C909.24 436.5 906.15 445.5 909.95 447.67C913.75 449.84 919.95 439.83 926.11 441.25C932.27 442.67 946 432.48 947.23 419.78Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_39"
-                    d="M893 453.74C885.89 453.74 878.59 448.74 878.24 448.53C878.119 448.453 878.019 448.346 877.95 448.22C877.64 447.72 870.62 435.64 880.32 419.22C890.02 402.8 945.17 418.1 947.51 418.77C947.733 418.834 947.927 418.974 948.059 419.166C948.19 419.357 948.251 419.589 948.23 419.82C947.46 428.06 941.71 434.95 936.59 438.65C932.59 441.52 928.59 442.85 925.86 442.22C923.13 441.59 920.02 443.83 917.32 445.81C914.62 447.79 911.81 449.87 909.44 448.53C906.44 446.83 906.83 442.13 907.5 439.01C906.7 440.43 905.5 442.71 903.89 446.4C903.265 448.026 902.276 449.487 900.998 450.671C899.721 451.855 898.189 452.73 896.52 453.23C895.375 453.559 894.191 453.731 893 453.74ZM879.55 447C880.92 447.89 889.44 453.19 895.97 451.34C897.353 450.915 898.621 450.18 899.677 449.191C900.732 448.201 901.547 446.983 902.06 445.63C907.06 434.43 908.18 434.63 909.06 434.86C909.411 434.965 909.714 435.19 909.916 435.495C910.119 435.8 910.209 436.166 910.17 436.53C910.17 436.639 910.15 436.748 910.11 436.85C909.38 438.99 907.87 445.42 910.37 446.85C911.62 447.55 913.79 445.95 916.08 444.26C919.08 442.02 922.58 439.48 926.26 440.33C928.42 440.83 931.91 439.59 935.37 437.09C939.96 433.77 945.09 427.74 946.1 420.53C939.15 418.65 890.39 406.11 881.99 420.3C873.59 434.49 878.74 445.48 879.55 447Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_40"
-                    d="M878.79 447.71V496.6L883.54 519.47L1013.29 504.74L1010.91 442L878.79 447.71Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_41"
-                    d="M883.54 520.47C883.306 520.475 883.078 520.397 882.895 520.251C882.712 520.105 882.587 519.899 882.54 519.67L877.78 496.81C877.775 496.74 877.775 496.67 877.78 496.6V447.71C877.78 447.445 877.885 447.19 878.073 447.003C878.26 446.815 878.515 446.71 878.78 446.71L1010.9 441.01C1011.03 441.004 1011.16 441.024 1011.29 441.068C1011.41 441.113 1011.52 441.181 1011.62 441.27C1011.72 441.36 1011.8 441.468 1011.85 441.588C1011.91 441.708 1011.94 441.838 1011.94 441.97L1014.32 504.7C1014.32 504.947 1014.23 505.186 1014.07 505.371C1013.9 505.556 1013.68 505.673 1013.43 505.7L883.66 520.46L883.54 520.47ZM879.79 496.47L884.34 518.34L1012.25 503.82L1009.95 443.02L879.79 448.64V496.47Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_42"
-                    d="M869.82 490.95L889.07 503.07L914.73 490.95L900.12 647.79H869.82V490.95Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_43"
-                    d="M900.12 648.29H869.82C869.687 648.29 869.56 648.237 869.466 648.144C869.373 648.05 869.32 647.923 869.32 647.79V491C869.32 490.91 869.344 490.822 869.39 490.744C869.435 490.667 869.501 490.603 869.58 490.56C869.658 490.516 869.746 490.493 869.835 490.493C869.924 490.493 870.012 490.516 870.09 490.56L889.09 502.56L914.51 490.56C914.59 490.523 914.679 490.509 914.767 490.518C914.855 490.526 914.939 490.558 915.01 490.61C915.084 490.658 915.142 490.725 915.179 490.805C915.216 490.885 915.231 490.973 915.22 491.06L900.62 647.83C900.608 647.955 900.55 648.071 900.458 648.155C900.366 648.24 900.245 648.288 900.12 648.29ZM870.32 647.29H899.66L914.15 491.78L889.28 503.53C889.206 503.569 889.124 503.59 889.04 503.59C888.956 503.59 888.874 503.569 888.8 503.53L870.32 491.89V647.29Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_44"
-                    d="M914.73 490.95H1060.16L1032.36 643.64L900.12 647.79L914.73 490.95Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_45"
-                    d="M900.12 648.79C899.98 648.791 899.841 648.762 899.713 648.706C899.584 648.649 899.469 648.566 899.375 648.463C899.281 648.359 899.209 648.237 899.165 648.103C899.121 647.97 899.106 647.829 899.12 647.69L913.74 490.86C913.765 490.612 913.881 490.383 914.066 490.217C914.251 490.05 914.491 489.959 914.74 489.96H1060.17C1060.32 489.959 1060.46 489.989 1060.59 490.05C1060.73 490.11 1060.84 490.199 1060.94 490.31C1061.03 490.423 1061.1 490.555 1061.14 490.697C1061.17 490.838 1061.18 490.986 1061.15 491.13L1033.35 643.82C1033.31 644.045 1033.19 644.248 1033.02 644.398C1032.85 644.547 1032.63 644.632 1032.4 644.64L900.16 648.79H900.12ZM915.64 492L901.22 646.75L1031.52 642.66L1059 492H915.64Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_46"
-                    d="M1387.32 1046.07H222.01C197.941 1046.07 178.43 1065.58 178.43 1089.65C178.43 1113.71 197.941 1133.22 222.01 1133.22H1387.32C1411.39 1133.22 1430.9 1113.71 1430.9 1089.65C1430.9 1065.58 1411.39 1046.07 1387.32 1046.07Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_47"
-                    d="M1387.32 1133.72H222C210.426 1133.55 199.384 1128.83 191.261 1120.58C183.137 1112.33 178.584 1101.22 178.584 1089.65C178.584 1078.07 183.137 1066.96 191.261 1058.71C199.384 1050.46 210.426 1045.74 222 1045.57H1387.32C1393.16 1045.48 1398.97 1046.56 1404.39 1048.73C1409.82 1050.91 1414.75 1054.14 1418.92 1058.24C1423.08 1062.34 1426.39 1067.23 1428.64 1072.62C1430.9 1078.01 1432.06 1083.8 1432.06 1089.65C1432.06 1095.49 1430.9 1101.28 1428.64 1106.67C1426.39 1112.06 1423.08 1116.95 1418.92 1121.05C1414.75 1125.15 1409.82 1128.38 1404.39 1130.56C1398.97 1132.73 1393.16 1133.81 1387.32 1133.72ZM222 1046.57C210.69 1046.74 199.901 1051.36 191.963 1059.42C184.026 1067.48 179.576 1078.33 179.576 1089.65C179.576 1100.96 184.026 1111.81 191.963 1119.87C199.901 1127.93 210.69 1132.55 222 1132.72H1387.32C1393.03 1132.81 1398.7 1131.76 1404.01 1129.63C1409.31 1127.51 1414.14 1124.35 1418.21 1120.34C1422.28 1116.33 1425.51 1111.55 1427.71 1106.28C1429.92 1101.01 1431.06 1095.36 1431.06 1089.65C1431.06 1083.93 1429.92 1078.28 1427.71 1073.01C1425.51 1067.74 1422.28 1062.96 1418.21 1058.95C1414.14 1054.94 1409.31 1051.78 1404.01 1049.66C1398.7 1047.53 1393.03 1046.48 1387.32 1046.57H222Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_48"
-                    d="M1704.94 1046.07H646.11C623.113 1046.07 604.47 1064.71 604.47 1087.71V1091.58C604.47 1114.58 623.113 1133.22 646.11 1133.22H1704.94C1727.94 1133.22 1746.58 1114.58 1746.58 1091.58V1087.71C1746.58 1064.71 1727.94 1046.07 1704.94 1046.07Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_49"
-                    d="M1705 1134.22H646.11C634.805 1134.21 623.967 1129.71 615.974 1121.72C607.98 1113.72 603.483 1102.88 603.47 1091.58V1087.71C603.483 1076.41 607.98 1065.57 615.974 1057.57C623.967 1049.58 634.805 1045.08 646.11 1045.07H1705C1716.3 1045.08 1727.14 1049.58 1735.14 1057.57C1743.13 1065.57 1747.63 1076.41 1747.64 1087.71V1091.58C1747.63 1102.88 1743.13 1113.72 1735.14 1121.72C1727.14 1129.71 1716.3 1134.21 1705 1134.22ZM646.11 1047.07C635.335 1047.08 625.004 1051.37 617.385 1058.98C609.766 1066.6 605.481 1076.93 605.47 1087.71V1091.58C605.481 1102.36 609.766 1112.69 617.385 1120.31C625.004 1127.92 635.335 1132.21 646.11 1132.22H1705C1715.78 1132.21 1726.11 1127.92 1733.73 1120.31C1741.34 1112.69 1745.63 1102.36 1745.64 1091.58V1087.71C1745.63 1076.93 1741.34 1066.6 1733.73 1058.98C1726.11 1051.37 1715.78 1047.08 1705 1047.07H646.11Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_50"
-                    d="M1332.66 320.47H229.05V383.27H1332.66V320.47Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_51"
-                    d="M1501.45 681.89H621.07C593.445 681.89 571.05 704.285 571.05 731.91V847.18C571.05 874.805 593.445 897.2 621.07 897.2H1501.45C1529.08 897.2 1551.47 874.805 1551.47 847.18V731.91C1551.47 704.285 1529.08 681.89 1501.45 681.89Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_52"
-                    d="M1501.45 898.2H621.06C607.539 898.184 594.576 892.806 585.015 883.245C575.454 873.684 570.076 860.721 570.06 847.2V731.91C570.079 718.39 575.458 705.428 585.018 695.868C594.578 686.308 607.54 680.928 621.06 680.91H1501.45C1514.97 680.931 1527.93 686.311 1537.49 695.871C1547.05 705.431 1552.43 718.39 1552.45 731.91V847.19C1552.43 860.712 1547.06 873.676 1537.5 883.238C1527.93 892.801 1514.97 898.181 1501.45 898.2ZM621.06 682.89C608.07 682.909 595.618 688.077 586.432 697.262C577.247 706.447 572.079 718.9 572.06 731.89V847.19C572.076 860.181 577.244 872.635 586.429 881.821C595.615 891.007 608.069 896.174 621.06 896.19H1501.45C1514.44 896.171 1526.89 891.003 1536.08 881.818C1545.26 872.633 1550.43 860.18 1550.45 847.19V731.91C1550.43 718.921 1545.26 706.47 1536.07 697.285C1526.89 688.1 1514.44 682.931 1501.45 682.91L621.06 682.89Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_53"
-                    d="M1415.44 875.42C1462.93 875.42 1501.42 836.975 1501.42 789.55C1501.42 742.125 1462.93 703.68 1415.44 703.68C1367.95 703.68 1329.46 742.125 1329.46 789.55C1329.46 836.975 1367.95 875.42 1415.44 875.42Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_54"
-                    d="M1415.44 875.92C1398.36 875.898 1381.67 870.814 1367.49 861.311C1353.3 851.807 1342.24 838.31 1335.72 822.526C1329.2 806.742 1327.51 789.38 1330.85 772.633C1334.2 755.886 1342.43 740.506 1354.52 728.438C1366.6 716.37 1381.99 708.155 1398.74 704.832C1415.49 701.508 1432.85 703.225 1448.63 709.765C1464.4 716.305 1477.89 727.376 1487.37 741.577C1496.86 755.778 1501.92 772.472 1501.92 789.55C1501.88 812.464 1492.75 834.426 1476.54 850.618C1460.33 866.81 1438.35 875.909 1415.44 875.92ZM1415.44 704.18C1398.56 704.202 1382.07 709.227 1368.04 718.621C1354.02 728.015 1343.09 741.355 1336.65 756.956C1330.2 772.558 1328.53 789.719 1331.83 806.272C1335.14 822.825 1343.28 838.026 1355.22 849.954C1367.17 861.883 1382.38 870.002 1398.94 873.288C1415.49 876.573 1432.65 874.876 1448.24 868.411C1463.84 861.946 1477.16 851.004 1486.54 836.968C1495.92 822.931 1500.92 806.43 1500.92 789.55C1500.88 766.902 1491.85 745.196 1475.83 729.192C1459.81 713.188 1438.09 704.193 1415.44 704.18Z"
-                    fill="#1A1A1A"
-                  />
-                  <g id="lapiz" className="escribir">
-                    <path
-                      id="Vector_55"
-                      d="M1384.64 829C1384.48 828.999 1384.31 828.958 1384.17 828.88C1383.99 828.785 1383.85 828.639 1383.76 828.46C1383.66 828.282 1383.63 828.08 1383.65 827.88L1393.92 761.24C1393.94 761.124 1393.97 761.012 1394.03 760.91L1397.25 755.03C1397.35 754.842 1397.51 754.691 1397.7 754.599C1397.89 754.508 1398.11 754.48 1398.32 754.52C1413.13 757.43 1427.32 767.52 1436.15 781.42C1436.27 781.616 1436.32 781.849 1436.3 782.079C1436.27 782.308 1436.16 782.521 1435.99 782.68L1427.89 790.32L1385.31 828.78C1385.12 828.932 1384.88 829.01 1384.64 829ZM1395.87 761.68L1386.06 825.37L1426.53 788.81L1434.01 781.81C1425.54 768.91 1412.42 759.58 1398.65 756.64L1395.87 761.68Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_56"
-                      d="M1479.62 606.64L1398.13 755.47C1413.01 758.39 1426.85 768.65 1435.31 781.91L1519.71 635.65C1515.73 616.72 1499.63 605 1479.62 606.64Z"
-                      fill="#F60954"
-                    />
-                    <path
-                      id="Vector_57"
-                      d="M1519.71 636.15H1519.63C1519.53 636.135 1519.44 636.09 1519.36 636.02C1519.29 635.95 1519.24 635.859 1519.22 635.76C1515.28 617.02 1499.39 605.53 1479.66 607.15C1479.57 607.159 1479.48 607.143 1479.4 607.102C1479.32 607.061 1479.25 606.998 1479.2 606.92C1479.16 606.842 1479.13 606.754 1479.13 606.665C1479.13 606.576 1479.16 606.488 1479.2 606.41L1489.28 588.01C1495.08 578.56 1502.84 576.78 1508.28 576.94C1517.84 577.24 1527.93 583.85 1532.82 593.03C1536.71 600.34 1536.64 607.88 1532.62 614.26L1520.12 635.93C1520.07 635.996 1520.01 636.05 1519.94 636.088C1519.87 636.127 1519.79 636.148 1519.71 636.15ZM1483.36 606C1501.36 606 1515.72 617 1519.91 634.3L1531.78 613.72C1535.61 607.64 1535.67 600.46 1531.95 593.48C1527.23 584.6 1517.49 578.2 1508.27 577.92C1503.06 577.77 1495.68 579.47 1490.13 588.5L1480.5 606.09C1481.46 606 1482.41 606 1483.36 606Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_58"
-                      d="M1398.13 755.47L1394.91 761.35L1384.64 828L1427.2 789.55L1435.31 781.91C1426.85 768.65 1413 758.39 1398.13 755.47Z"
-                      fill="white"
-                    />
-                    <path
-                      id="Vector_59"
-                      d="M1435.31 782.91C1435.14 782.911 1434.97 782.87 1434.83 782.79C1434.68 782.709 1434.55 782.592 1434.46 782.45C1425.87 768.97 1412.21 759.25 1397.94 756.45C1397.78 756.42 1397.64 756.354 1397.51 756.257C1397.39 756.16 1397.29 756.034 1397.22 755.89C1397.15 755.75 1397.11 755.596 1397.11 755.44C1397.11 755.284 1397.15 755.13 1397.22 754.99L1478.72 606.16C1478.8 606.017 1478.91 605.895 1479.05 605.806C1479.19 605.717 1479.35 605.664 1479.51 605.65C1500.02 603.96 1516.51 615.92 1520.65 635.44C1520.7 635.682 1520.66 635.935 1520.54 636.15L1436.14 782.41C1436.05 782.558 1435.93 782.682 1435.79 782.77C1435.64 782.857 1435.47 782.905 1435.3 782.91H1435.31ZM1399.65 754.77C1413.48 757.89 1426.65 767.2 1435.25 780.01L1518.65 635.48C1514.65 617.38 1499.32 606.24 1480.24 607.6L1399.65 754.77Z"
-                      fill="black"
-                    />
-                    <path
-                      id="Vector_60"
-                      d="M1489.7 588.24L1479.62 606.64C1499.62 604.99 1515.73 616.72 1519.71 635.64L1532.22 614C1546.33 591.54 1506.55 560.78 1489.7 588.24Z"
-                      fill="#1C0311"
-                    />
-                  </g>
-                  <path
-                    id="Vector_61"
-                    d="M448.79 335.85H264.9V367.89H448.79V335.85Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_62"
-                    d="M448.79 368.89H264.9C264.635 368.89 264.38 368.785 264.193 368.597C264.005 368.41 263.9 368.155 263.9 367.89V335.89C263.9 335.625 264.005 335.37 264.193 335.183C264.38 334.995 264.635 334.89 264.9 334.89H448.79C449.055 334.89 449.309 334.995 449.497 335.183C449.685 335.37 449.79 335.625 449.79 335.89V367.89C449.79 368.155 449.685 368.41 449.497 368.597C449.309 368.785 449.055 368.89 448.79 368.89ZM265.9 366.89H447.79V336.89H265.9V366.89Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_63"
-                    d="M531.28 335.85H480.3V367.89H531.28V335.85Z"
-                    fill="white"
-                  />
-                  <g id="pierna 2">
-                    <path
-                      id="Vector_64"
-                      d="M1072.48 1007.21C1061.48 1005.39 1051.48 999.39 1045.94 989.21C1024 990.54 992.14 1001.47 985.01 1012.05C978.18 1022.18 972.94 1029.73 973.32 1038.54C1016.79 1037.41 1059.78 1038.91 1102.63 1035.06C1102.63 1025.76 1102.41 1012.36 1101.83 1002.18C1093.41 1007.23 1081.65 1007.87 1072.48 1007.21Z"
-                      fill="white"
-                    />
-                    <path
-                      id="Vector_65"
-                      d="M1062.71 988.54C1062.71 988.54 1055.79 988.64 1045.94 989.24C1051.43 999.39 1061.53 1005.39 1072.48 1007.24C1081.65 1007.9 1093.41 1007.24 1101.83 1002.24C1101.46 995.72 1100.92 990.52 1100.14 988.57C1097.29 981.41 1062.71 988.54 1062.71 988.54Z"
-                      fill="#1C0311"
-                    />
-                    <path
-                      id="Vector_66"
-                      d="M1102.63 1046.57H974C973.881 1046.57 973.766 1046.53 973.676 1046.45C973.586 1046.37 973.527 1046.27 973.51 1046.15C973.51 1046.15 973.05 1043.09 972.86 1038.59C972.857 1038.52 972.866 1038.46 972.888 1038.4C972.911 1038.33 972.945 1038.28 972.99 1038.23C973.034 1038.18 973.088 1038.14 973.148 1038.11C973.209 1038.09 973.274 1038.07 973.34 1038.07C987.66 1037.7 1002.15 1037.61 1016.15 1037.53C1044.54 1037.35 1073.9 1037.18 1102.63 1034.6C1102.7 1034.59 1102.77 1034.6 1102.83 1034.62C1102.9 1034.64 1102.96 1034.67 1103.01 1034.72C1103.06 1034.77 1103.1 1034.83 1103.13 1034.89C1103.15 1034.95 1103.17 1035.02 1103.17 1035.09C1103.17 1041.58 1103.17 1046.09 1103.17 1046.09C1103.17 1046.16 1103.15 1046.22 1103.12 1046.28C1103.09 1046.35 1103.05 1046.4 1103 1046.45C1102.95 1046.49 1102.89 1046.52 1102.83 1046.55C1102.77 1046.57 1102.7 1046.58 1102.63 1046.57ZM974.4 1045.57H1102.14C1102.14 1044.28 1102.14 1040.57 1102.14 1035.64C1073.54 1038.18 1044.35 1038.35 1016.14 1038.53C1002.3 1038.61 988 1038.7 973.86 1039.06C974 1042.27 974.27 1044.64 974.4 1045.57Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_67"
-                      d="M1115.86 602.07C1078.86 707.62 1053.57 989.77 1053.57 989.77C1053.57 989.77 1081.79 1011.77 1102.69 989.77C1145.53 896.77 1166.43 721.9 1166.43 721.9C1166.43 721.9 1203 637.6 1227 579.08C1251 520.56 1219.73 461 1219.73 461L1125.16 487.13L1115.86 602.07Z"
-                      fill="#F60954"
-                    />
-                    <path
-                      id="Vector_68"
-                      d="M992 1020.61C991.826 1020.61 991.656 1020.56 991.505 1020.48C991.354 1020.39 991.228 1020.27 991.14 1020.12C985.49 1010.59 980.6 1008.36 980.55 1008.34C980.424 1008.29 980.309 1008.22 980.212 1008.12C980.116 1008.03 980.039 1007.91 979.988 1007.79C979.936 1007.66 979.911 1007.53 979.913 1007.39C979.915 1007.26 979.945 1007.12 980 1007C980.105 1006.76 980.302 1006.57 980.548 1006.47C980.793 1006.37 981.067 1006.38 981.31 1006.48C981.54 1006.58 986.84 1008.99 992.82 1019.07C992.955 1019.3 992.994 1019.57 992.929 1019.83C992.863 1020.08 992.698 1020.3 992.47 1020.44C992.331 1020.54 992.169 1020.6 992 1020.61Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_69"
-                      d="M1007.11 1013.6C1006.86 1013.6 1006.62 1013.51 1006.44 1013.34C1006.25 1013.18 1006.13 1012.95 1006.11 1012.7C1005.28 1004.34 995.74 997.28 995.65 997.21C995.435 997.054 995.291 996.818 995.25 996.556C995.209 996.293 995.273 996.025 995.43 995.81C995.586 995.595 995.822 995.451 996.084 995.41C996.347 995.369 996.615 995.434 996.83 995.59C997.25 995.9 1007.18 1003.25 1008.1 1012.5C1008.13 1012.76 1008.05 1013.02 1007.88 1013.23C1007.71 1013.43 1007.47 1013.56 1007.21 1013.59L1007.11 1013.6Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_70"
-                      d="M1019.41 1010C1019.14 1010 1018.89 1009.89 1018.7 1009.71C1018.52 1009.52 1018.41 1009.27 1018.41 1009C1018.07 1000.58 1011.11 993.52 1011.04 993.45C1010.88 993.259 1010.79 993.013 1010.8 992.761C1010.81 992.509 1010.91 992.271 1011.09 992.092C1011.27 991.914 1011.51 991.81 1011.76 991.8C1012.01 991.791 1012.26 991.876 1012.45 992.04C1012.76 992.35 1020.04 999.73 1020.45 1008.92C1020.45 1009.19 1020.34 1009.44 1020.16 1009.63C1019.97 1009.81 1019.72 1009.92 1019.45 1009.92L1019.41 1010Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_71"
-                      d="M1080.76 1000.47C1065.95 1000.47 1053.15 990.71 1052.96 990.56C1052.83 990.457 1052.72 990.322 1052.66 990.169C1052.59 990.015 1052.56 989.847 1052.58 989.68C1052.83 986.86 1078.3 706.2 1114.92 601.74C1115.02 601.512 1115.21 601.331 1115.44 601.232C1115.67 601.134 1115.93 601.125 1116.16 601.208C1116.4 601.291 1116.6 601.459 1116.71 601.68C1116.83 601.901 1116.86 602.158 1116.8 602.4C1081.05 704.4 1055.91 975.17 1054.62 989.31C1058.31 992.02 1082.98 1008.85 1101.85 989.2C1144.09 897.36 1165.23 723.53 1165.44 721.78C1165.45 721.683 1165.48 721.589 1165.52 721.5C1165.88 720.66 1202.36 636.5 1226.12 578.7C1248.29 524.7 1222.6 469.1 1219.2 462.18L1125.42 488.08C1125.29 488.129 1125.15 488.15 1125.01 488.143C1124.87 488.135 1124.74 488.098 1124.61 488.035C1124.49 487.972 1124.38 487.884 1124.29 487.776C1124.21 487.669 1124.14 487.544 1124.1 487.41C1124.07 487.276 1124.06 487.136 1124.08 486.999C1124.1 486.861 1124.15 486.729 1124.22 486.612C1124.3 486.494 1124.39 486.393 1124.51 486.315C1124.62 486.238 1124.75 486.185 1124.89 486.16L1219.46 460C1219.68 459.94 1219.91 459.956 1220.12 460.047C1220.33 460.138 1220.5 460.298 1220.61 460.5C1220.93 461.1 1251.91 521.15 1227.97 579.43C1204.65 636.21 1169.08 718.29 1167.41 722.13C1166.68 728.13 1145.49 899.23 1103.6 990.13C1103.55 990.23 1103.49 990.321 1103.41 990.4C1096.26 998 1088.25 1000.47 1080.76 1000.47Z"
-                      fill="black"
-                    />
-                  </g>
-                  <g id="pierna-1">
-                    <path
-                      id="Vector_72"
-                      d="M1166.7 1008.44C1160.8 1008.54 1154.92 1007.62 1149.34 1005.7C1146.19 1005.04 1145.03 1001.9 1144.43 999.59C1144.41 999.522 1144.41 999.451 1144.42 999.382C1144.43 999.313 1144.46 999.247 1144.5 999.19C1144.54 999.131 1144.59 999.081 1144.65 999.043C1144.71 999.005 1144.78 998.98 1144.85 998.97C1171.85 995.39 1182.85 988.78 1188.18 985.6C1190.4 984.26 1191.52 983.6 1192.51 983.99C1193.5 984.38 1193.82 985.44 1194.36 987.46C1195.16 990.089 1196.1 992.676 1197.16 995.21C1197.65 996.46 1198.16 997.78 1198.71 999.21C1198.75 999.312 1198.75 999.424 1198.72 999.529C1198.69 999.633 1198.63 999.725 1198.54 999.79C1191.13 1005.31 1178.55 1008.44 1166.7 1008.44ZM1145.55 999.89C1146.4 1002.8 1147.69 1004.35 1149.55 1004.72H1149.63C1163.63 1009.97 1186.38 1007.31 1197.63 999.15L1196.22 995.54C1195.14 992.974 1194.2 990.354 1193.39 987.69C1193.03 986.36 1192.62 985.09 1192.12 984.89C1191.62 984.69 1190.44 985.37 1188.68 986.43C1183.37 989.65 1172.34 996.26 1145.55 999.89Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_73"
-                      d="M1203.08 1040.87H1086.54C1086.4 1040.87 1086.25 1040.84 1086.12 1040.78C1085.99 1040.72 1085.87 1040.64 1085.78 1040.53C1085.68 1040.42 1085.61 1040.29 1085.57 1040.16C1085.53 1040.02 1085.52 1039.87 1085.54 1039.73C1086.98 1028.99 1094.89 1003.54 1137.12 999.36C1139.71 999.1 1142.28 998.81 1144.78 998.47C1145.02 998.438 1145.27 998.495 1145.47 998.632C1145.67 998.768 1145.82 998.974 1145.88 999.21C1146.69 1002.32 1147.88 1003.87 1149.67 1004.21H1149.83C1163.83 1009.46 1186.63 1006.74 1197.64 998.49C1197.76 998.397 1197.91 998.334 1198.06 998.306C1198.21 998.278 1198.37 998.287 1198.52 998.33C1198.67 998.373 1198.8 998.45 1198.92 998.554C1199.03 998.658 1199.12 998.787 1199.17 998.93C1203.56 1010.43 1207.57 1024.31 1204.06 1040.01C1204.03 1040.25 1203.91 1040.46 1203.73 1040.62C1203.55 1040.78 1203.32 1040.87 1203.08 1040.87ZM1087.69 1038.87H1202.27C1205.27 1024.53 1201.78 1011.71 1197.76 1000.92C1185.76 1009.05 1163.57 1011.53 1149.2 1006.18C1146.2 1005.53 1144.88 1002.86 1144.2 1000.57C1141.94 1000.86 1139.64 1001.12 1137.33 1001.35C1099.11 1005.13 1089.77 1026 1087.69 1038.87Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_74"
-                      d="M1086.54 1039.87C1086.23 1041.99 1086.13 1044.14 1086.24 1046.28C1086.24 1046.28 1163.45 1045.78 1201.24 1046.28C1201.98 1044.18 1202.6 1042.04 1203.08 1039.87H1086.54Z"
-                      fill="#1C0311"
-                    />
-                    <path
-                      id="Vector_75"
-                      d="M1149.48 1005.21C1163.48 1010.46 1186.62 1008.06 1198.24 999.36C1196.42 994.58 1194.69 990.59 1193.88 987.59C1191.21 977.7 1191.68 993.26 1144.88 999.47C1145.66 1002.33 1146.9 1004.7 1149.48 1005.21Z"
-                      fill="#1C0311"
-                    />
-                    <path
-                      id="Vector_76"
-                      d="M1198.24 999.36C1186.62 1008.06 1163.46 1010.46 1149.48 1005.21C1146.9 1004.7 1145.66 1002.33 1144.91 999.47C1142.48 999.79 1139.91 1000.09 1137.22 1000.35C1096.32 1004.35 1088.1 1028.22 1086.54 1039.87H1203.08C1206.64 1023.94 1202.21 1009.77 1198.24 999.36Z"
-                      fill="white"
-                    />
-                    <path
-                      id="Vector_77"
-                      d="M1201.24 1046.78C1163.9 1046.29 1087.02 1046.78 1086.24 1046.78C1086.12 1046.78 1086 1046.73 1085.9 1046.65C1085.81 1046.57 1085.75 1046.45 1085.74 1046.33C1085.62 1044.15 1085.72 1041.96 1086.04 1039.8C1086.06 1039.68 1086.12 1039.57 1086.21 1039.49C1086.3 1039.41 1086.42 1039.37 1086.54 1039.37H1203.08C1203.16 1039.37 1203.23 1039.39 1203.3 1039.42C1203.37 1039.45 1203.42 1039.5 1203.47 1039.56C1203.52 1039.62 1203.55 1039.68 1203.57 1039.76C1203.59 1039.83 1203.59 1039.91 1203.57 1039.98C1203.08 1042.17 1202.46 1044.33 1201.71 1046.45C1201.68 1046.55 1201.61 1046.63 1201.53 1046.69C1201.44 1046.75 1201.34 1046.78 1201.24 1046.78ZM1087 1040.37C1086.77 1042.16 1086.68 1043.97 1086.73 1045.78C1093.28 1045.78 1164.97 1045.31 1200.9 1045.78C1201.52 1044.01 1202.04 1042.2 1202.47 1040.37H1087Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_78"
-                      d="M1201.24 543.35C1206.54 625.23 1110 734.79 1110 734.79C1110 734.79 1176.18 819.79 1195.31 988.06C1193.54 1002.69 1158.12 1005.47 1158.12 1005.47C1158.12 1005.47 1099.55 947.97 1052.53 844.47C1005.51 740.97 1048.35 477.67 1048.35 477.67H1137.17L1201.24 543.35Z"
-                      fill="#F60954"
-                    />
-                    <path
-                      id="Vector_79"
-                      d="M1110 1020.61C1109.84 1020.61 1109.69 1020.57 1109.55 1020.5C1109.41 1020.43 1109.28 1020.33 1109.19 1020.2C1102.19 1010.66 1106.38 1004.2 1106.56 1003.94C1106.71 1003.72 1106.94 1003.57 1107.19 1003.52C1107.45 1003.47 1107.72 1003.52 1107.94 1003.67C1108.16 1003.82 1108.31 1004.04 1108.36 1004.3C1108.42 1004.56 1108.36 1004.83 1108.22 1005.05C1108.07 1005.29 1104.7 1010.68 1110.81 1019.05C1110.89 1019.16 1110.94 1019.28 1110.97 1019.4C1111.01 1019.53 1111.01 1019.67 1110.99 1019.8C1110.97 1019.93 1110.92 1020.05 1110.86 1020.16C1110.79 1020.28 1110.7 1020.37 1110.59 1020.45C1110.41 1020.56 1110.21 1020.62 1110 1020.61Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_80"
-                      d="M1125.21 1013.6C1125.06 1013.6 1124.91 1013.56 1124.77 1013.5C1124.63 1013.43 1124.51 1013.33 1124.42 1013.21C1118.62 1005.71 1122.04 999.16 1122.19 998.88C1122.32 998.647 1122.54 998.475 1122.8 998.404C1123.06 998.333 1123.34 998.367 1123.57 998.5C1123.8 998.633 1123.97 998.853 1124.05 999.111C1124.12 999.37 1124.08 999.647 1123.95 999.88C1123.83 1000.11 1121.02 1005.6 1125.95 1012.04C1126.06 1012.19 1126.13 1012.36 1126.15 1012.55C1126.17 1012.74 1126.14 1012.92 1126.06 1013.09C1125.97 1013.26 1125.85 1013.4 1125.69 1013.5C1125.53 1013.6 1125.35 1013.65 1125.16 1013.65L1125.21 1013.6Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_81"
-                      d="M1158.12 1006.47C1157.86 1006.47 1157.61 1006.36 1157.42 1006.18C1156.84 1005.6 1098.18 947.37 1051.62 844.93C1027.24 791.3 1027.39 694.24 1031.8 622.26C1036.59 544.34 1047.25 478.26 1047.36 477.55C1047.4 477.313 1047.52 477.098 1047.7 476.944C1047.89 476.79 1048.12 476.707 1048.36 476.71H1137.18C1137.45 476.71 1137.7 476.815 1137.89 477.003C1138.07 477.19 1138.18 477.445 1138.18 477.71C1138.18 477.975 1138.07 478.23 1137.89 478.417C1137.7 478.605 1137.45 478.71 1137.18 478.71H1049.18C1047.93 486.64 1038.26 549.33 1033.78 622.4C1029.38 694.15 1029.21 790.85 1053.42 844.1C1098.02 942.23 1153.71 999.62 1158.48 1004.43C1162.56 1004.04 1192.57 1000.75 1194.28 988.06C1184.41 901.38 1161.81 837.31 1144.59 798.82C1125.91 757.1 1109.36 735.61 1109.19 735.4C1109.04 735.221 1108.96 734.997 1108.96 734.765C1108.96 734.533 1109.04 734.309 1109.19 734.13C1126.59 713.68 1142.47 691.985 1156.71 669.22C1178.04 635.02 1202.9 585.44 1200.18 543.42C1200.17 543.289 1200.19 543.157 1200.23 543.032C1200.27 542.908 1200.34 542.793 1200.43 542.694C1200.51 542.595 1200.62 542.514 1200.74 542.456C1200.86 542.398 1200.98 542.364 1201.11 542.355C1201.25 542.346 1201.38 542.364 1201.5 542.406C1201.63 542.449 1201.74 542.515 1201.84 542.602C1201.94 542.689 1202.02 542.794 1202.08 542.912C1202.14 543.03 1202.17 543.159 1202.18 543.29C1204.94 585.85 1179.9 635.85 1158.41 670.29C1144.24 692.897 1128.48 714.462 1111.24 734.82C1114.14 738.74 1129.39 760.05 1146.34 797.92C1163.65 836.56 1186.34 900.92 1196.25 987.92C1196.26 987.996 1196.26 988.074 1196.25 988.15C1194.4 1003.42 1159.63 1006.32 1158.15 1006.43L1158.12 1006.47Z"
-                      fill="black"
-                    />
-                  </g>
-                  <g id="Group 68">
-                    <path
-                      id="Vector_82"
-                      d="M1044.37 505.17C1044.37 505.17 1163.94 531.48 1224.77 477.71L1219.77 460.99L1047 484.3L1044.37 505.17Z"
-                      fill="#1C0311"
-                    />
-                    <path
-                      id="Vector_83"
-                      d="M1100.67 503.54C1078.74 503.54 1055.46 500.09 1032.81 490.65C1032.6 490.563 1032.43 490.41 1032.32 490.214C1032.21 490.018 1032.17 489.791 1032.21 489.57C1041.94 430.57 1047.36 373.67 1052.14 323.49C1055.46 288.62 1058.32 258.49 1061.99 235.12C1064.91 217.331 1071.37 200.309 1080.99 185.06C1081.09 184.917 1081.23 184.803 1081.39 184.73C1103.85 174.2 1119.56 171.51 1128.08 176.73C1129.64 177.64 1130.96 178.9 1131.94 180.41C1132.93 181.92 1133.55 183.639 1133.75 185.43L1233.24 465.88C1233.32 466.099 1233.32 466.338 1233.24 466.557C1233.16 466.776 1233.01 466.961 1232.81 467.08C1232.55 467.23 1206.01 482.94 1168.3 493.63C1149.59 498.93 1126 503.54 1100.67 503.54ZM1034.31 489.11C1082.39 508.86 1133.31 501.45 1167.68 491.72C1189.72 485.491 1210.98 476.768 1231.05 465.72L1131.79 186C1131.76 185.903 1131.74 185.802 1131.73 185.7C1131.57 184.198 1131.05 182.757 1130.22 181.495C1129.39 180.233 1128.27 179.186 1126.96 178.44C1121.53 175.14 1109.39 173.87 1082.46 186.44C1073.12 201.39 1066.83 218.045 1063.96 235.44C1060.31 258.78 1057.44 288.86 1054.13 323.7C1049.37 373.67 1044 430.3 1034.31 489.11Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_84"
-                      d="M1110.56 512.11C1088.3 512.099 1066.1 509.939 1044.26 505.66C1044.14 505.634 1044.03 505.562 1043.96 505.461C1043.89 505.359 1043.85 505.234 1043.87 505.11L1046.53 484.24C1046.54 484.131 1046.59 484.03 1046.67 483.952C1046.75 483.874 1046.85 483.824 1046.96 483.81L1219.66 460.5C1219.78 460.481 1219.9 460.506 1220 460.57C1220.1 460.635 1220.18 460.734 1220.21 460.85L1225.21 477.57C1225.24 477.662 1225.24 477.76 1225.21 477.853C1225.19 477.945 1225.13 478.028 1225.06 478.09C1193.52 505.97 1146.06 511.98 1111.72 512.09L1110.56 512.11ZM1044.92 504.78C1066.95 509.026 1089.34 511.145 1111.78 511.11C1145.78 510.97 1192.9 505.04 1224.2 477.55L1219.37 461.55L1047.48 484.75L1044.92 504.78Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_85"
-                      d="M1081.79 185.63C1072.24 200.738 1065.85 217.624 1063 235.27C1054.13 291.82 1049.81 389.09 1033.21 489.73C1127.27 528.92 1232.29 466.22 1232.29 466.22L1132.75 185.63C1132.75 185.63 1132 162.12 1081.79 185.63Z"
-                      fill="white"
-                    />
-                  </g>
-                  <path
-                    id="Vector_86"
-                    d="M531.28 368.89H480.28C480.015 368.89 479.76 368.785 479.573 368.597C479.385 368.41 479.28 368.155 479.28 367.89V335.89C479.28 335.625 479.385 335.37 479.573 335.183C479.76 334.995 480.015 334.89 480.28 334.89H531.28C531.545 334.89 531.8 334.995 531.987 335.183C532.175 335.37 532.28 335.625 532.28 335.89V367.89C532.28 368.155 532.175 368.41 531.987 368.597C531.8 368.785 531.545 368.89 531.28 368.89ZM481.28 366.89H530.28V336.89H481.28V366.89Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_87"
-                    d="M647.82 727.52H639.27V854.52H647.82V727.52Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_88"
-                    d="M647.82 855H639.27C639.137 855 639.01 854.947 638.916 854.854C638.823 854.76 638.77 854.633 638.77 854.5V727.5C638.77 727.367 638.823 727.24 638.916 727.146C639.01 727.053 639.137 727 639.27 727H647.82C647.953 727 648.08 727.053 648.174 727.146C648.267 727.24 648.32 727.367 648.32 727.5V854.5C648.32 854.633 648.267 854.76 648.174 854.854C648.08 854.947 647.953 855 647.82 855ZM639.77 854H647.32V728H639.77V854Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_89"
-                    d="M973.32 1039.57C973.055 1039.57 972.8 1039.46 972.613 1039.28C972.425 1039.09 972.32 1038.84 972.32 1038.57C971.94 1029.63 977.14 1021.92 983.73 1012.15L984.18 1011.48C991.58 1000.48 1024.29 989.48 1045.88 988.2C1046.07 988.189 1046.26 988.233 1046.43 988.327C1046.59 988.421 1046.73 988.561 1046.82 988.73C1051.82 997.9 1061.18 1004.26 1072.59 1006.18C1079.48 1006.67 1092.33 1006.68 1101.32 1001.31C1101.47 1001.22 1101.64 1001.17 1101.81 1001.17C1101.98 1001.17 1102.15 1001.21 1102.3 1001.29C1102.45 1001.37 1102.58 1001.48 1102.67 1001.63C1102.77 1001.77 1102.82 1001.94 1102.83 1002.11C1103.41 1012.3 1103.59 1025.65 1103.63 1035.05C1103.63 1035.3 1103.54 1035.54 1103.37 1035.73C1103.2 1035.91 1102.97 1036.03 1102.72 1036.05C1073.94 1038.64 1044.54 1038.81 1016.12 1038.99C1002.12 1039.07 987.65 1039.16 973.34 1039.53L973.32 1039.57ZM1045.32 990.28C1024.18 991.73 992.82 1002.22 985.79 1012.64L985.33 1013.31C978.97 1022.75 974.33 1029.67 974.25 1037.54C988.25 1037.19 1002.38 1037.11 1016.06 1037.03C1044.14 1036.86 1073.17 1036.68 1101.58 1034.18C1101.53 1025.36 1101.36 1013.44 1100.87 1003.86C1092.03 1008.48 1080.59 1008.8 1072.35 1008.21H1072.26C1060.49 1006.23 1050.71 999.71 1045.37 990.28H1045.32Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_90"
-                    d="M1078.46 1007.93C1076.33 1007.93 1074.3 1007.85 1072.46 1007.71C1060.46 1005.71 1050.71 999.08 1045.52 989.48C1045.48 989.406 1045.46 989.324 1045.46 989.24C1045.46 989.156 1045.48 989.074 1045.52 989C1045.56 988.927 1045.62 988.865 1045.69 988.819C1045.76 988.774 1045.85 988.747 1045.93 988.74C1055.26 988.18 1062.05 988.05 1062.68 988.04C1066.47 987.26 1097.68 981.04 1100.62 988.35C1101.36 990.19 1101.92 994.72 1102.35 1002.18C1102.36 1002.27 1102.34 1002.36 1102.29 1002.44C1102.25 1002.52 1102.19 1002.59 1102.11 1002.64C1095.12 1006.8 1086.16 1007.93 1078.46 1007.93ZM1046.77 989.69C1051.9 998.69 1061.25 1004.84 1072.56 1006.69C1080.9 1007.28 1092.67 1006.93 1101.32 1001.9C1100.9 994.83 1100.32 990.38 1099.67 988.7C1097.46 983.17 1072.32 987.04 1062.81 989H1062.72C1062.65 989 1056.07 989.14 1046.77 989.69Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_91"
-                    d="M973.32 1038.57C973.51 1043.09 973.96 1046.07 973.96 1046.07H1102.63C1102.63 1046.07 1102.63 1041.58 1102.63 1035.07C1059.78 1038.94 1016.79 1037.44 973.32 1038.57Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_92"
-                    d="M1069 206.53C1069 206.53 1174.25 191.9 1183.66 154.28C1193.07 116.66 1069.54 138.08 1069 206.53Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_93"
-                    d="M1069 207.53C1068.73 207.53 1068.48 207.425 1068.29 207.237C1068.11 207.05 1068 206.795 1068 206.53C1068.19 181.53 1085.14 159.28 1114.51 145.53C1140.29 133.53 1169.26 131.3 1180.51 140.53C1184.66 143.95 1186.09 148.77 1184.67 154.53C1175.21 192.37 1073.5 206.93 1069.18 207.53H1069ZM1158.89 136.9C1146.07 136.9 1130.02 140.52 1115.35 147.37C1087.18 160.53 1070.72 181.61 1070.02 205.37C1081.51 203.62 1174.08 188.48 1182.69 154.04C1183.93 149.04 1182.76 145.04 1179.2 142.11C1175 138.6 1167.69 136.9 1158.91 136.9H1158.89Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_94"
-                    d="M1125.16 268.71C1125.16 268.71 1182.11 502.79 949.07 453.71L922.94 446.39C922.94 446.39 922.94 414 937.57 410.86C1021.18 414 1068.2 377.39 1076 268.71H1125.16Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_95"
-                    d="M1007.89 461.45C990.03 461.45 970.363 459.187 948.89 454.66L922.7 447.33C922.484 447.269 922.294 447.138 922.162 446.957C922.029 446.775 921.962 446.554 921.97 446.33C921.97 444.98 922.15 413.09 937.4 409.82H937.64C981.01 411.46 1012.71 402.01 1034.55 380.97C1058 358.39 1071.25 321.64 1075.07 268.63C1075.09 268.365 1075.21 268.118 1075.41 267.943C1075.61 267.769 1075.87 267.681 1076.14 267.7C1076.41 267.719 1076.65 267.842 1076.83 268.042C1077 268.243 1077.09 268.505 1077.07 268.77C1073.21 322.3 1059.75 359.47 1035.94 382.41C1013.71 403.83 981.57 413.46 937.7 411.83C925.33 414.64 924.11 440.83 923.99 445.6L949.37 452.71C1017.21 467 1066.9 458.52 1097 427.48C1124.12 399.48 1130.09 357.93 1130.32 327.99C1130.45 308.142 1128.4 288.341 1124.21 268.94C1124.15 268.675 1124.19 268.395 1124.33 268.163C1124.48 267.93 1124.7 267.764 1124.97 267.7C1125.24 267.636 1125.51 267.681 1125.75 267.823C1125.98 267.966 1126.15 268.195 1126.21 268.46C1130.43 288.006 1132.49 307.955 1132.37 327.95C1132.14 358.28 1126.08 400.41 1098.49 428.87C1077.39 450.56 1047.06 461.44 1007.89 461.45Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_96"
-                    d="M1260.71 259.6C1253.48 262.45 1248.71 263.25 1240.44 251.17C1235.79 244.39 1230.06 233.58 1222.17 216.81C1200.43 170.57 1129 203.67 1127.66 204.3C1126.44 200.53 1125.59 197.73 1125.17 196.08C1125.17 196.08 1205.1 144.36 1236.46 196.08C1245.54 211.07 1253.92 234.12 1260.71 259.6Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_97"
-                    d="M1253.62 261.88C1249.49 261.88 1245.46 259.39 1240.02 251.45C1235.38 244.68 1229.73 234.06 1221.72 217.02C1219.53 212.118 1216.36 207.717 1212.4 204.085C1208.45 200.453 1203.79 197.668 1198.72 195.9C1169.43 185.38 1128.27 204.56 1127.86 204.75C1127.79 204.779 1127.72 204.795 1127.65 204.796C1127.58 204.797 1127.51 204.784 1127.44 204.757C1127.38 204.73 1127.32 204.69 1127.27 204.639C1127.22 204.587 1127.18 204.527 1127.15 204.46C1125.91 200.62 1125.07 197.85 1124.65 196.2C1124.62 196.099 1124.63 195.993 1124.67 195.896C1124.7 195.799 1124.77 195.716 1124.86 195.66C1125.33 195.36 1171.5 165.85 1207.2 174.05C1219.89 176.96 1229.86 184.29 1236.86 195.82C1245.45 210 1253.86 232 1261.17 259.47C1261.2 259.588 1261.19 259.714 1261.13 259.823C1261.08 259.933 1260.98 260.017 1260.87 260.06C1258.59 261.112 1256.13 261.729 1253.62 261.88ZM1178.75 191.76C1185.66 191.652 1192.54 192.735 1199.08 194.96C1204.27 196.772 1209.04 199.625 1213.08 203.344C1217.13 207.064 1220.38 211.571 1222.62 216.59C1230.62 233.59 1236.23 244.16 1240.85 250.88C1248.9 262.64 1253.49 261.88 1260.11 259.29C1252.85 232.12 1244.52 210.36 1236.02 196.29C1229.18 185 1219.41 177.82 1207.02 174.97C1173.25 167.21 1129.82 193.71 1125.76 196.25C1126.18 197.83 1126.93 200.25 1127.98 203.57C1131.68 202 1155.33 191.76 1178.75 191.76Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_98"
-                    d="M1064.24 228.5C1064.24 228.5 1111.74 199.5 1136.82 231.31L1152.5 219.59C1152.5 219.59 1118.9 194 1068.5 213.42C1063.33 218.9 1064.24 228.5 1064.24 228.5Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_99"
-                    d="M1136.83 231.81C1136.75 231.811 1136.68 231.795 1136.61 231.762C1136.54 231.729 1136.48 231.68 1136.43 231.62C1111.92 200.51 1064.98 228.62 1064.5 228.93C1064.43 228.972 1064.34 228.994 1064.26 228.994C1064.18 228.994 1064.09 228.972 1064.02 228.93C1063.94 228.892 1063.88 228.835 1063.83 228.765C1063.79 228.695 1063.76 228.614 1063.75 228.53C1063.75 228.13 1062.87 218.64 1068.11 213.05C1068.16 212.999 1068.22 212.958 1068.29 212.93C1118.4 193.64 1152.46 218.93 1152.8 219.18C1152.86 219.225 1152.91 219.286 1152.95 219.355C1152.98 219.425 1153 219.502 1153 219.58C1153 219.657 1152.98 219.733 1152.94 219.802C1152.91 219.871 1152.86 219.931 1152.8 219.98L1137.12 231.69C1137.04 231.763 1136.94 231.805 1136.83 231.81ZM1104.92 216C1116.32 216 1128.01 219.58 1136.92 230.63L1151.66 219.63C1147.13 216.52 1114.84 196.19 1068.77 213.87C1064.77 218.24 1064.63 225.33 1064.71 227.69C1068.45 225.53 1086.3 216 1104.92 216Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_100"
-                    d="M1268.32 408.23C1245.86 421.29 1204.58 419.72 1204.58 419.72C1204.58 419.72 1141.76 247.85 1127.66 204.3C1129 203.67 1200.43 170.57 1222.17 216.81C1230.06 233.58 1235.79 244.39 1240.44 251.17C1248.7 263.25 1253.44 262.45 1260.71 259.6C1277.32 322 1284.27 399 1268.32 408.23Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_101"
-                    d="M1209.17 420.79C1206.52 420.79 1204.86 420.73 1204.54 420.72C1204.34 420.712 1204.15 420.645 1203.99 420.527C1203.83 420.41 1203.71 420.247 1203.64 420.06C1203.01 418.34 1140.64 247.68 1126.71 204.61C1126.64 204.378 1126.65 204.128 1126.75 203.905C1126.84 203.682 1127.02 203.503 1127.24 203.4C1127.65 203.2 1169.38 183.76 1199.24 194.49C1204.49 196.324 1209.32 199.212 1213.42 202.976C1217.52 206.74 1220.8 211.301 1223.08 216.38C1231.08 233.38 1236.66 243.9 1241.26 250.6C1249.26 262.32 1253.53 261.36 1260.34 258.67C1260.47 258.612 1260.61 258.582 1260.75 258.582C1260.89 258.582 1261.03 258.612 1261.16 258.67C1261.29 258.734 1261.4 258.824 1261.49 258.934C1261.58 259.044 1261.64 259.172 1261.68 259.31C1278.46 322.31 1285.52 399.31 1268.82 409.06C1250.58 419.7 1220.65 420.79 1209.17 420.79ZM1205.29 418.74C1210.69 418.86 1247.42 419.23 1267.82 407.36C1274.82 403.31 1277.66 383.82 1275.73 353.89C1273.93 326.11 1268.08 291.45 1260.03 260.89C1253.2 263.45 1247.86 263.74 1239.61 251.69C1234.95 244.9 1229.29 234.25 1221.27 217.19C1219.1 212.353 1215.97 208.008 1212.07 204.422C1208.17 200.835 1203.57 198.082 1198.57 196.33C1171.73 186.69 1134.77 202.19 1128.89 204.8C1142.9 247.84 1201.1 407.28 1205.29 418.74Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_102"
-                    d="M1243.24 306.01L1255.26 358.93L1219.03 369.56L1201.24 317.83L1243.24 306.01Z"
-                    fill="#F60954"
-                  />
-                  <path
-                    id="Vector_103"
-                    d="M1219 370.55C1218.79 370.549 1218.59 370.484 1218.42 370.364C1218.26 370.244 1218.13 370.075 1218.06 369.88L1200.26 318.15C1200.22 318.021 1200.2 317.885 1200.21 317.749C1200.22 317.613 1200.26 317.481 1200.32 317.36C1200.38 317.239 1200.47 317.132 1200.58 317.046C1200.68 316.96 1200.81 316.896 1200.94 316.86L1242.94 305.05C1243.07 305.013 1243.21 305.003 1243.34 305.02C1243.47 305.037 1243.6 305.081 1243.72 305.15C1243.84 305.219 1243.94 305.311 1244.02 305.421C1244.1 305.531 1244.16 305.657 1244.19 305.79L1256.19 358.71C1256.25 358.958 1256.21 359.217 1256.08 359.436C1255.95 359.655 1255.74 359.818 1255.5 359.89L1219.27 370.51C1219.18 370.538 1219.09 370.551 1219 370.55ZM1202.5 318.5L1219.64 368.33L1254.05 358.23L1242.47 307.23L1202.5 318.5Z"
-                    fill="black"
-                  />
-                  <path
-                    id="Vector_104"
-                    d="M1217.81 329.67L1201.24 317.83L1243.24 306.01L1238.37 322.18L1217.81 329.67Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_105"
-                    d="M1217.81 330.17C1217.71 330.17 1217.61 330.138 1217.52 330.08L1201 318.23C1200.92 318.176 1200.86 318.102 1200.82 318.015C1200.79 317.929 1200.78 317.833 1200.79 317.74C1200.81 317.648 1200.85 317.562 1200.92 317.492C1200.98 317.422 1201.06 317.369 1201.15 317.34L1243.15 305.53C1243.24 305.507 1243.33 305.507 1243.41 305.531C1243.5 305.554 1243.57 305.599 1243.64 305.662C1243.7 305.725 1243.74 305.804 1243.76 305.889C1243.79 305.975 1243.78 306.065 1243.76 306.15L1238.88 322.33C1238.86 322.403 1238.82 322.471 1238.77 322.526C1238.72 322.582 1238.65 322.624 1238.58 322.65L1218 330.14C1217.94 330.163 1217.87 330.173 1217.81 330.17ZM1202.38 318L1217.89 329.08L1238 321.8L1242.54 306.74L1202.38 318Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_106"
-                    d="M1061.93 217.23C1061.93 217.23 1023.61 291.35 1053.57 357.61L1060.07 344.3C1060.07 344.3 1046.21 320.86 1052.53 292.42C1053.53 262.42 1064.24 228.5 1064.24 228.5L1068.47 213.42C1068.47 213.42 1064.26 214.19 1061.93 217.23Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_107"
-                    d="M1053.57 358.1C1053.48 358.1 1053.38 358.072 1053.31 358.021C1053.23 357.969 1053.17 357.896 1053.13 357.81C1037.6 323.46 1040.7 287 1046.04 262.47C1049.39 246.759 1054.57 231.497 1061.49 217V216.93C1063.91 213.77 1068.16 212.93 1068.34 212.93C1068.42 212.914 1068.51 212.921 1068.59 212.949C1068.67 212.977 1068.74 213.026 1068.8 213.09C1068.86 213.152 1068.9 213.228 1068.92 213.31C1068.94 213.393 1068.93 213.479 1068.91 213.56L1064.69 228.65C1064.57 229 1054.02 262.88 1052.99 292.45C1046.78 320.45 1060.32 343.82 1060.46 344.05C1060.5 344.125 1060.52 344.207 1060.52 344.29C1060.52 344.373 1060.5 344.455 1060.46 344.53L1053.96 357.83C1053.92 357.905 1053.87 357.969 1053.8 358.017C1053.73 358.064 1053.65 358.093 1053.57 358.1ZM1062.36 217.5C1055.49 231.917 1050.33 247.091 1047 262.71C1041.75 286.86 1038.67 322.62 1053.59 356.42L1059.5 344.32C1058.08 341.76 1046.09 319.1 1052.04 292.32C1053.04 262.71 1063.66 228.7 1063.77 228.32L1067.77 214.08C1065.66 214.648 1063.78 215.84 1062.36 217.5Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_108"
-                    d="M1126.6 369.55C1126.6 369.55 1178.6 388.84 1188.97 376.85L1195.68 395.31C1195.68 395.31 1148.68 397.25 1124.11 384.18C1125.46 376 1126.6 369.55 1126.6 369.55Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_109"
-                    d="M1189.46 395.9C1175.79 395.9 1142.94 394.77 1123.88 384.63C1123.79 384.581 1123.71 384.503 1123.66 384.407C1123.62 384.312 1123.6 384.205 1123.62 384.1C1124.95 376.05 1126.1 369.53 1126.11 369.47C1126.12 369.397 1126.15 369.328 1126.19 369.268C1126.23 369.207 1126.29 369.157 1126.35 369.12C1126.42 369.088 1126.49 369.071 1126.56 369.071C1126.64 369.071 1126.71 369.088 1126.78 369.12C1127.29 369.31 1178.55 388.12 1188.59 376.55C1188.65 376.483 1188.72 376.432 1188.8 376.402C1188.88 376.372 1188.97 376.365 1189.06 376.38C1189.14 376.399 1189.22 376.438 1189.29 376.494C1189.36 376.549 1189.41 376.62 1189.44 376.7L1196.15 395.16C1196.18 395.235 1196.18 395.314 1196.17 395.392C1196.16 395.47 1196.13 395.545 1196.09 395.61C1196.05 395.678 1195.99 395.735 1195.93 395.773C1195.86 395.812 1195.78 395.832 1195.7 395.83C1195.6 395.81 1193.27 395.9 1189.46 395.9ZM1124.66 383.9C1147.29 395.72 1189.11 394.99 1194.97 394.82L1188.77 377.76C1186.07 380.29 1181.36 381.27 1175.71 381.27C1158.15 381.27 1131.43 371.83 1126.99 370.27C1126.69 372 1125.74 377.41 1124.66 383.91V383.9Z"
-                    fill="#1A1A1A"
-                  />
-                  <g id="cabeza">
-                    <path
-                      id="Vector_110"
-                      d="M1092.93 173.09L1079.35 147.49C1079.35 147.49 1053.92 172.92 1041.73 149.23C1029.54 125.54 1002.73 60.4 1045.21 48.56C1087.69 36.72 1108.21 108.82 1108.21 108.82L1115.87 155.5L1092.93 173.09Z"
-                      fill="white"
-                    />
-                    <path
-                      id="Vector_111"
-                      d="M1092.94 174.09C1092.76 174.091 1092.58 174.043 1092.42 173.949C1092.26 173.856 1092.14 173.721 1092.05 173.56L1079.05 149.12C1075.67 152.22 1064.23 161.8 1053.57 160.12C1048.24 159.29 1043.95 155.78 1040.81 149.68C1035.98 140.29 1012.48 92.07 1024.45 64.68C1028.2 56.1 1035.09 50.36 1044.91 47.62C1062.76 42.62 1079.56 51.68 1093.49 73.74C1100.16 84.6494 1105.43 96.3503 1109.19 108.57V108.68L1116.85 155.36C1116.89 155.625 1116.83 155.896 1116.67 156.114C1116.59 156.222 1116.49 156.313 1116.38 156.383C1116.27 156.452 1116.14 156.499 1116.01 156.52C1115.74 156.562 1115.47 156.498 1115.26 156.34C1115.04 156.183 1114.89 155.945 1114.85 155.68L1107.28 109C1106.61 106.72 1086.05 38.18 1045.48 49.48C1036.26 52.05 1029.81 57.42 1026.32 65.42C1014.7 92.01 1037.86 139.49 1042.62 148.73C1045.45 154.23 1049.25 157.39 1053.91 158.12C1065.33 159.9 1078.51 146.87 1078.64 146.74C1078.75 146.63 1078.89 146.547 1079.03 146.498C1079.18 146.449 1079.34 146.436 1079.5 146.459C1079.65 146.482 1079.8 146.542 1079.92 146.632C1080.05 146.723 1080.16 146.842 1080.23 146.98L1093.82 172.58C1093.9 172.732 1093.94 172.903 1093.94 173.075C1093.93 173.247 1093.88 173.416 1093.8 173.564C1093.71 173.712 1093.58 173.834 1093.43 173.919C1093.28 174.004 1093.11 174.05 1092.94 174.05V174.09Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_112"
-                      d="M1006.63 110.17C1006.63 110.17 1040.38 110.28 1059.39 89.85C1064.61 108.38 1082.2 121.69 1095.98 141.65C1132.57 132.14 1162.98 113.65 1162.98 113.65C1162.98 113.65 1121.38 30.4 1048.45 43.31C994.75 52.78 1006.63 110.17 1006.63 110.17Z"
-                      fill="#1C0311"
-                    />
-                    <path
-                      id="Vector_113"
-                      d="M1096 142.15C1095.92 142.15 1095.84 142.13 1095.77 142.092C1095.7 142.053 1095.63 141.998 1095.59 141.93C1090.74 135.133 1085.52 128.607 1079.95 122.38C1071.09 112.11 1062.7 102.38 1059.17 90.82C1040.17 110.48 1007.23 110.67 1006.66 110.67C1006.55 110.668 1006.43 110.628 1006.35 110.555C1006.26 110.483 1006.19 110.382 1006.17 110.27C1006.17 110 1000.75 83.1 1014.27 63.16C1021.6 52.35 1033.08 45.49 1048.4 42.78C1086.29 36.07 1115.57 55.64 1133.46 73.24C1145.37 85.0813 1155.48 98.6092 1163.46 113.39C1163.51 113.503 1163.52 113.631 1163.49 113.751C1163.45 113.871 1163.38 113.974 1163.27 114.04C1162.97 114.22 1132.37 132.72 1096.13 142.13L1096 142.15ZM1059.41 89.35H1059.52C1059.61 89.3698 1059.69 89.4128 1059.75 89.4744C1059.82 89.5359 1059.87 89.6139 1059.89 89.7C1063.2 101.43 1071.7 111.28 1080.71 121.7C1086.22 127.867 1091.39 134.327 1096.21 141.05C1129.93 132.23 1158.65 115.58 1162.35 113.39C1154.43 98.8671 1144.45 85.5687 1132.72 73.91C1115 56.48 1086.02 37.11 1048.56 43.73C1033.56 46.4 1022.27 53.11 1015.09 63.73C1002.71 81.99 1006.46 106.26 1007.09 109.67C1010.99 109.59 1041.55 108.34 1059.09 89.52C1059.17 89.4289 1059.27 89.3685 1059.39 89.35H1059.41Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_114"
-                      d="M1080.3 23.31L1064.18 48.77L1052.26 48.02L1069.02 21.41L1080.3 23.31Z"
-                      fill="#1C0311"
-                    />
-                    <path
-                      id="Vector_115"
-                      d="M1064.18 49.27L1052.26 48.52C1052.17 48.5168 1052.09 48.49 1052.01 48.4425C1051.94 48.395 1051.88 48.3285 1051.84 48.25C1051.8 48.1752 1051.78 48.0908 1051.78 48.005C1051.78 47.9192 1051.8 47.8348 1051.84 47.76L1068.6 21.14C1068.65 21.058 1068.73 20.9935 1068.82 20.9545C1068.91 20.9154 1069.01 20.9035 1069.11 20.92L1080.39 22.82C1080.47 22.8326 1080.55 22.8658 1080.61 22.9166C1080.68 22.9674 1080.73 23.034 1080.76 23.11C1080.8 23.1821 1080.82 23.2629 1080.82 23.345C1080.82 23.4271 1080.8 23.5079 1080.76 23.58L1064.6 49C1064.56 49.0779 1064.5 49.1438 1064.43 49.1912C1064.35 49.2386 1064.27 49.2658 1064.18 49.27ZM1053.18 47.58L1063.97 48.25L1079.52 23.68L1069.26 22L1053.18 47.58Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_116"
-                      d="M1077.45 30.92C1085.85 30.92 1092.66 24.1103 1092.66 15.71C1092.66 7.30975 1085.85 0.5 1077.45 0.5C1069.05 0.5 1062.24 7.30975 1062.24 15.71C1062.24 24.1103 1069.05 30.92 1077.45 30.92Z"
-                      fill="#1C0311"
-                    />
-                    <path
-                      id="Vector_117"
-                      d="M1077.45 31.42C1074.34 31.422 1071.3 30.5023 1068.72 28.7773C1066.13 27.0522 1064.12 24.5993 1062.93 21.7289C1061.74 18.8584 1061.43 15.6994 1062.03 12.6513C1062.64 9.60317 1064.13 6.80298 1066.33 4.6049C1068.52 2.40681 1071.32 0.909588 1074.37 0.302603C1077.42 -0.304382 1080.58 0.00614393 1083.45 1.1949C1086.32 2.38366 1088.78 4.39724 1090.5 6.98096C1092.23 9.56467 1093.15 12.6024 1093.15 15.71C1093.15 19.874 1091.49 23.8669 1088.55 26.8122C1085.61 29.7575 1081.61 31.4147 1077.45 31.42ZM1077.45 1C1074.54 0.998026 1071.7 1.85907 1069.27 3.47422C1066.85 5.08938 1064.97 7.38607 1063.85 10.0738C1062.74 12.7615 1062.45 15.7195 1063.01 18.5736C1063.58 21.4278 1064.98 24.0498 1067.03 26.108C1069.09 28.1662 1071.71 29.5682 1074.57 30.1366C1077.42 30.705 1080.38 30.4143 1083.07 29.3012C1085.76 28.1882 1088.05 26.3027 1089.67 23.8835C1091.29 21.4642 1092.15 18.6198 1092.15 15.71C1092.14 11.812 1090.59 8.07506 1087.84 5.31783C1085.08 2.5606 1081.35 1.00794 1077.45 1Z"
-                      fill="#1A1A1A"
-                    />
-                  </g>
-                  <path
-                    id="Vector_118"
-                    d="M240.39 530.41L178.28 529.41C178.76 496.15 195.87 486.26 195.87 486.26C201.755 483.902 208.117 482.976 214.43 483.56C225.82 484.91 238.52 493.11 240.06 522.28C240.18 524.58 240.29 527.29 240.39 530.41Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_119"
-                    d="M240.39 530.91L178.28 529.91C178.214 529.909 178.149 529.894 178.089 529.868C178.029 529.842 177.975 529.804 177.929 529.757C177.884 529.709 177.848 529.653 177.824 529.592C177.8 529.531 177.789 529.466 177.79 529.4C178.26 496.24 195.45 485.92 195.63 485.82C201.611 483.425 208.074 482.479 214.49 483.06C225.49 484.37 238.98 492.23 240.57 522.25C240.68 524.49 240.79 527.25 240.9 530.35C240.901 530.417 240.889 530.484 240.865 530.546C240.841 530.608 240.804 530.665 240.758 530.714C240.711 530.762 240.656 530.801 240.594 530.827C240.533 530.854 240.467 530.869 240.4 530.87L240.39 530.91ZM178.78 529L239.87 529.94C239.77 527.03 239.67 524.49 239.56 522.38C238 493 225 485.35 214.37 484.09C208.145 483.524 201.874 484.439 196.07 486.76C196 486.83 179.42 496.8 178.78 529Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_120"
-                    d="M505.79 928.24H272.86C238 925.33 239 889.06 239.06 888.7C239.06 885.86 241.66 601.19 239.39 530.44C239.29 527.31 239.18 524.6 239.06 522.37C237.85 499.43 229.29 486.37 214.31 484.59C214.045 484.574 213.797 484.453 213.62 484.255C213.444 484.056 213.354 483.795 213.37 483.53C213.386 483.265 213.507 483.017 213.705 482.84C213.904 482.664 214.165 482.574 214.43 482.59L428.72 485.29C430.37 485.05 450.15 482.5 463.14 493.81C470.49 500.22 474.14 509.81 473.99 522.32C473.32 575.94 473.99 885.6 473.99 888.73C473.93 890.18 472.99 923.49 505.86 926.23C506.125 926.241 506.375 926.356 506.555 926.551C506.735 926.746 506.831 927.005 506.82 927.27C506.809 927.535 506.694 927.785 506.499 927.965C506.304 928.145 506.045 928.241 505.78 928.23L505.79 928.24ZM222.34 484.7C231.34 488.7 239.81 498.7 241.05 522.26C241.17 524.5 241.28 527.26 241.39 530.38C243.66 601.17 241.08 885.88 241.06 888.75C241 890.19 240.06 923.5 272.94 926.24H495.72C471.15 918 472 889 472 888.7C472 885.62 471.33 575.94 472 522.31C472.14 510.41 468.73 501.31 461.84 495.31C449.28 484.31 429.15 487.23 428.94 487.31H428.78L222.34 484.7Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_121"
-                    d="M1489.01 1084.42H1415.44V1107.94H1489.01V1084.42Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_122"
-                    d="M1489 1108.45H1415.43C1415.3 1108.45 1415.17 1108.4 1415.08 1108.3C1414.98 1108.21 1414.93 1108.08 1414.93 1107.95V1084.42C1414.93 1084.29 1414.98 1084.16 1415.08 1084.07C1415.17 1083.97 1415.3 1083.92 1415.43 1083.92H1489C1489.13 1083.92 1489.26 1083.97 1489.35 1084.07C1489.45 1084.16 1489.5 1084.29 1489.5 1084.42V1108C1489.49 1108.12 1489.43 1108.24 1489.34 1108.32C1489.24 1108.4 1489.12 1108.45 1489 1108.45ZM1415.93 1107.45H1488.5V1084.92H1415.93V1107.45Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_123"
-                    d="M1594.87 1084.42H1521.3V1107.94H1594.87V1084.42Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_124"
-                    d="M1594.87 1108.45H1521.3C1521.17 1108.45 1521.04 1108.4 1520.95 1108.3C1520.85 1108.21 1520.8 1108.08 1520.8 1107.95V1084.42C1520.8 1084.29 1520.85 1084.16 1520.95 1084.07C1521.04 1083.97 1521.17 1083.92 1521.3 1083.92H1594.87C1595 1083.92 1595.13 1083.97 1595.22 1084.07C1595.32 1084.16 1595.37 1084.29 1595.37 1084.42V1108C1595.36 1108.12 1595.3 1108.24 1595.2 1108.32C1595.11 1108.4 1594.99 1108.45 1594.87 1108.45ZM1521.8 1107.45H1594.37V1084.92H1521.8V1107.45Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_125"
-                    d="M450.36 555.11H267.15V563.66H450.36V555.11Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_126"
-                    d="M450.36 564.17H267.15C267.017 564.17 266.89 564.117 266.796 564.024C266.703 563.93 266.65 563.803 266.65 563.67V555.11C266.65 554.977 266.703 554.85 266.796 554.756C266.89 554.663 267.017 554.61 267.15 554.61H450.36C450.492 554.613 450.617 554.666 450.711 554.759C450.804 554.852 450.857 554.978 450.86 555.11V563.67C450.857 563.802 450.804 563.927 450.711 564.021C450.617 564.114 450.492 564.167 450.36 564.17ZM267.65 563.17H449.86V555.61H267.65V563.17Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_127"
-                    d="M450.36 599.31H267.15V607.86H450.36V599.31Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_128"
-                    d="M450.36 608.37H267.15C267.017 608.37 266.89 608.317 266.796 608.224C266.703 608.13 266.65 608.003 266.65 607.87V599.31C266.65 599.177 266.703 599.05 266.796 598.956C266.89 598.863 267.017 598.81 267.15 598.81H450.36C450.492 598.813 450.617 598.866 450.711 598.959C450.804 599.053 450.857 599.178 450.86 599.31V607.87C450.857 608.002 450.804 608.127 450.711 608.221C450.617 608.314 450.492 608.367 450.36 608.37ZM267.65 607.37H449.86V599.81H267.65V607.37Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_129"
-                    d="M450.36 643.51H267.15V652.06H450.36V643.51Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_130"
-                    d="M450.36 652.56H267.15C267.017 652.56 266.89 652.507 266.796 652.414C266.703 652.32 266.65 652.193 266.65 652.06V643.51C266.65 643.377 266.703 643.25 266.796 643.156C266.89 643.063 267.017 643.01 267.15 643.01H450.36C450.493 643.01 450.62 643.063 450.713 643.156C450.807 643.25 450.86 643.377 450.86 643.51V652.06C450.86 652.193 450.807 652.32 450.713 652.414C450.62 652.507 450.493 652.56 450.36 652.56ZM267.65 651.56H449.86V644H267.65V651.56Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_131"
-                    d="M450.36 687.71H267.15V696.26H450.36V687.71Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_132"
-                    d="M450.36 696.76H267.15C267.017 696.76 266.89 696.707 266.796 696.614C266.703 696.52 266.65 696.393 266.65 696.26V687.71C266.65 687.577 266.703 687.45 266.796 687.356C266.89 687.263 267.017 687.21 267.15 687.21H450.36C450.493 687.21 450.62 687.263 450.713 687.356C450.807 687.45 450.86 687.577 450.86 687.71V696.26C450.86 696.393 450.807 696.52 450.713 696.614C450.62 696.707 450.493 696.76 450.36 696.76ZM267.65 695.76H449.86V688.21H267.65V695.76Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_133"
-                    d="M450.36 731.91H267.15V740.46H450.36V731.91Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_134"
-                    d="M450.36 741H267.15C267.017 741 266.89 740.947 266.796 740.854C266.703 740.76 266.65 740.633 266.65 740.5V731.95C266.65 731.817 266.703 731.69 266.796 731.596C266.89 731.503 267.017 731.45 267.15 731.45H450.36C450.493 731.45 450.62 731.503 450.713 731.596C450.807 731.69 450.86 731.817 450.86 731.95V740.5C450.86 740.633 450.807 740.76 450.713 740.854C450.62 740.947 450.493 741 450.36 741ZM267.65 740H449.86V732.45H267.65V740Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_135"
-                    d="M450.36 776.1H267.15V784.65H450.36V776.1Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_136"
-                    d="M450.36 785.16H267.15C267.017 785.16 266.89 785.107 266.796 785.014C266.703 784.92 266.65 784.793 266.65 784.66V776.1C266.65 775.967 266.703 775.84 266.796 775.746C266.89 775.653 267.017 775.6 267.15 775.6H450.36C450.492 775.603 450.617 775.656 450.711 775.749C450.804 775.842 450.857 775.968 450.86 776.1V784.66C450.86 784.793 450.807 784.92 450.713 785.014C450.62 785.107 450.493 785.16 450.36 785.16ZM267.65 784.16H449.86V776.6H267.65V784.16Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_137"
-                    d="M450.36 820.3H267.15V828.85H450.36V820.3Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_138"
-                    d="M450.36 829.36H267.15C267.017 829.36 266.89 829.307 266.796 829.214C266.703 829.12 266.65 828.993 266.65 828.86V820.3C266.65 820.167 266.703 820.04 266.796 819.946C266.89 819.853 267.017 819.8 267.15 819.8H450.36C450.492 819.803 450.617 819.856 450.711 819.949C450.804 820.042 450.857 820.168 450.86 820.3V828.86C450.857 828.992 450.804 829.117 450.711 829.211C450.617 829.304 450.492 829.357 450.36 829.36ZM267.65 828.36H449.86V820.8H267.65V828.36Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_139"
-                    d="M450.36 864.5H267.15V873.05H450.36V864.5Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_140"
-                    d="M450.36 873.55H267.15C267.017 873.55 266.89 873.497 266.796 873.404C266.703 873.31 266.65 873.183 266.65 873.05V864.5C266.65 864.367 266.703 864.24 266.796 864.146C266.89 864.053 267.017 864 267.15 864H450.36C450.493 864 450.62 864.053 450.713 864.146C450.807 864.24 450.86 864.367 450.86 864.5V873.05C450.86 873.183 450.807 873.31 450.713 873.404C450.62 873.497 450.493 873.55 450.36 873.55ZM267.65 872.55H449.86V865H267.65V872.55Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_141"
-                    d="M643.54 490.95L662.79 503.07L688.46 490.95L673.84 647.79H643.54V490.95Z"
-                    fill="#1C0311"
-                  />
-                  <path
-                    id="Vector_142"
-                    d="M673.84 648.29H643.54C643.408 648.287 643.283 648.234 643.189 648.141C643.096 648.048 643.043 647.922 643.04 647.79V491C643.04 490.91 643.064 490.822 643.11 490.744C643.155 490.667 643.221 490.603 643.3 490.56C643.378 490.516 643.466 490.493 643.555 490.493C643.644 490.493 643.732 490.516 643.81 490.56L662.81 502.56L688.22 490.56C688.3 490.523 688.389 490.509 688.477 490.518C688.565 490.526 688.649 490.558 688.72 490.61C688.794 490.658 688.852 490.725 688.889 490.805C688.926 490.885 688.941 490.973 688.93 491.06L674.34 647.83C674.33 647.956 674.273 648.073 674.18 648.158C674.087 648.243 673.966 648.29 673.84 648.29ZM644.04 647.29H673.39L687.88 491.78L663 503.53C662.926 503.569 662.844 503.59 662.76 503.59C662.676 503.59 662.594 503.569 662.52 503.53L644 491.86L644.04 647.29Z"
-                    fill="#1A1A1A"
-                  />
-                  <path
-                    id="Vector_143"
-                    d="M688.46 490.95H833.88L806.08 643.64L673.84 647.79L688.46 490.95Z"
-                    fill="white"
-                  />
-                  <path
-                    id="Vector_144"
-                    d="M673.84 648.79C673.703 648.79 673.567 648.761 673.442 648.706C673.316 648.651 673.203 648.571 673.11 648.47C673.014 648.366 672.941 648.242 672.896 648.108C672.851 647.974 672.835 647.831 672.85 647.69L687.46 490.86C687.485 490.612 687.601 490.383 687.786 490.217C687.971 490.05 688.211 489.959 688.46 489.96H833.88C834.027 489.958 834.172 489.988 834.306 490.049C834.44 490.109 834.559 490.198 834.655 490.31C834.75 490.422 834.82 490.553 834.859 490.695C834.898 490.837 834.905 490.985 834.88 491.13L807.06 643.82C807.019 644.045 806.902 644.248 806.73 644.398C806.557 644.547 806.338 644.632 806.11 644.64L673.87 648.79H673.84ZM689.37 492L674.94 646.75L805.24 642.66L832.68 492H689.37Z"
-                    fill="#1A1A1A"
-                  />
-                  <g id="buscar" className="escribir-reverse">
-                    <path
-                      id="Vector_145"
-                      d="M744 799.39C750.196 793.918 754.058 786.279 754.792 778.045C755.525 769.811 753.073 761.609 747.942 755.128C742.81 748.648 735.389 744.381 727.206 743.207C719.024 742.033 710.702 744.041 703.955 748.817C697.209 753.594 692.55 760.775 690.939 768.883C689.327 776.991 690.886 785.408 695.293 792.402C699.701 799.395 706.622 804.432 714.632 806.477C722.642 808.521 731.13 807.416 738.35 803.39L765.17 840.76L770.27 836.86L744 799.39ZM722.59 801.79C717.309 801.792 712.146 800.228 707.754 797.295C703.361 794.362 699.938 790.193 697.915 785.315C695.893 780.436 695.363 775.067 696.392 769.887C697.421 764.707 699.963 759.949 703.697 756.214C707.43 752.479 712.188 749.935 717.367 748.904C722.547 747.873 727.916 748.401 732.795 750.421C737.675 752.442 741.845 755.864 744.78 760.255C747.714 764.646 749.28 769.809 749.28 775.09C749.281 778.596 748.592 782.068 747.251 785.307C745.91 788.546 743.945 791.49 741.466 793.969C738.988 796.449 736.045 798.415 732.806 799.757C729.567 801.099 726.096 801.79 722.59 801.79Z"
-                      fill="#1C0311"
-                      stroke="#1A1A1A"
-                      strokeLinecap="round"
-                    />
-                  </g>
-                  <g id="libro" className="volar">
-                    <g id="pagina-2" className="rotthis">
-                      <path
-                        id="Vector_146"
-                        d="M1712.23 188.83C1712.23 188.83 1684.14 176.47 1663.92 188.83V268.23C1663.92 268.23 1705.11 258.49 1727.21 275.72V200.07C1727.21 200.07 1718.73 191.14 1712.23 188.83Z"
-                        fill="#1C0311"
-                      />
-                      <path
-                        id="Vector_147"
-                        d="M1727.21 276.22C1727.1 276.219 1726.99 276.18 1726.9 276.11C1705.25 259.23 1664.44 268.62 1664.03 268.71C1663.96 268.728 1663.88 268.729 1663.81 268.713C1663.74 268.698 1663.67 268.666 1663.61 268.62C1663.55 268.573 1663.5 268.514 1663.47 268.446C1663.44 268.379 1663.42 268.305 1663.42 268.23V188.83C1663.42 188.745 1663.44 188.662 1663.48 188.588C1663.53 188.515 1663.59 188.453 1663.66 188.41C1683.66 176.18 1711.56 188 1712.41 188.41C1718.95 190.73 1727.22 199.41 1727.57 199.76C1727.66 199.855 1727.71 199.98 1727.71 200.11V275.76C1727.71 275.852 1727.68 275.943 1727.63 276.02C1727.58 276.098 1727.51 276.16 1727.43 276.2C1727.36 276.224 1727.28 276.231 1727.21 276.22ZM1689.64 265C1702 265 1716.33 267.05 1726.71 274.68V200.27C1725.59 199.12 1717.93 191.38 1712.06 189.27C1711.78 189.15 1684.19 177.27 1664.45 189.09V267.6C1672.74 265.913 1681.18 265.043 1689.64 265Z"
-                        fill="#1A1A1A"
-                      />
-                    </g>
-                    <path
-                      id="Vector_148"
-                      d="M1677 169C1677 169 1716.33 162.64 1727.19 189.6V268.25C1727.19 268.25 1700.62 249.5 1677 251V169Z"
-                      fill="white"
-                    />
-                    <g id="pagina-1" className="rotthis">
-                      <path
-                        id="Vector_149"
-                        d="M1740.73 188.53C1740.73 188.53 1766.46 176.087 1785 188.53V268.46C1785 268.46 1747.24 258.655 1727 276V199.845C1727 199.845 1734.76 190.855 1740.73 188.53Z"
-                        fill="#1C0311"
-                      />
-                      <path
-                        id="Vector_150"
-                        d="M1727.45 276C1727.38 276 1727.31 275.98 1727.25 275.94C1727.18 275.901 1727.11 275.839 1727.07 275.761C1727.02 275.684 1727 275.594 1727 275.502V200.136C1727 200.009 1727.04 199.886 1727.12 199.788C1727.43 199.429 1734.9 190.821 1740.79 188.48C1741.57 188.112 1766.74 176.336 1784.78 188.48C1784.85 188.525 1784.9 188.586 1784.94 188.659C1784.98 188.732 1785 188.815 1785 188.899V268C1785 268.075 1784.98 268.149 1784.95 268.217C1784.92 268.284 1784.88 268.343 1784.83 268.389C1784.77 268.435 1784.71 268.467 1784.64 268.482C1784.58 268.498 1784.51 268.496 1784.44 268.478C1784.07 268.389 1747.25 259.034 1727.72 275.851C1727.65 275.935 1727.55 275.988 1727.45 276ZM1727.9 200.286V274.446C1746.58 259.273 1779.42 266.267 1784.1 267.363V189.217C1766.28 177.432 1741.39 189.277 1741.15 189.397C1735.81 191.479 1728.9 199.19 1727.9 200.336V200.286Z"
-                        fill="#1A1A1A"
-                      />
-                    </g>
-                    <path
-                      id="Vector_151"
-                      d="M1777.39 169C1777.39 169 1738.07 162.64 1727.21 189.6V268.25C1727.21 268.25 1753.8 249.52 1777.39 251.02V169Z"
-                      fill="white"
-                    />
-                    <path
-                      id="Vector_152"
-                      d="M1727.21 269.23C1727 269.229 1726.8 269.162 1726.63 269.04C1726.37 268.86 1700.05 250.54 1677.09 252.04C1676.95 252.05 1676.82 252.031 1676.69 251.985C1676.56 251.939 1676.44 251.867 1676.34 251.773C1676.24 251.679 1676.16 251.566 1676.1 251.44C1676.05 251.313 1676.02 251.177 1676.02 251.04V169C1676.02 168.76 1676.1 168.527 1676.25 168.344C1676.41 168.16 1676.62 168.038 1676.86 168C1677.27 167.93 1717.1 161.82 1728.13 189.21C1728.18 189.327 1728.21 189.453 1728.21 189.58V268.23C1728.21 268.495 1728.1 268.75 1727.92 268.937C1727.73 269.125 1727.48 269.23 1727.21 269.23ZM1679.79 249.91C1699.63 249.91 1720.37 262.52 1726.21 266.35V189.78C1716.54 166.22 1683.71 169.16 1678.02 169.86V250C1678.61 249.92 1679.2 249.91 1679.79 249.91Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_153"
-                      d="M1727.21 269.23C1727.05 269.231 1726.89 269.189 1726.75 269.11C1726.59 269.026 1726.45 268.9 1726.36 268.745C1726.26 268.59 1726.21 268.412 1726.21 268.23V189.58C1726.21 189.453 1726.23 189.327 1726.28 189.21C1737.28 161.82 1777.15 167.93 1777.55 168C1777.79 168.038 1778 168.16 1778.16 168.344C1778.31 168.527 1778.39 168.76 1778.39 169V251C1778.39 251.137 1778.36 251.273 1778.31 251.4C1778.25 251.526 1778.17 251.639 1778.07 251.733C1777.97 251.827 1777.85 251.899 1777.72 251.945C1777.59 251.991 1777.46 252.01 1777.32 252C1754.32 250.53 1728.05 268.86 1727.78 269C1727.62 269.135 1727.42 269.215 1727.21 269.23ZM1728.21 189.78V266.35C1734.21 262.41 1756.03 249.16 1776.39 249.95V169.86C1770.7 169.16 1737.87 166.22 1728.21 189.78Z"
-                      fill="#1A1A1A"
-                    />
-                  </g>
-                  <g id="archivo" className="volar-reverse">
-                    <path
-                      id="Vector_154"
-                      d="M1550.85 177.36H1485.85V102.85L1508.62 80.08H1550.85V177.36Z"
-                      fill="#1C0311"
-                    />
-                    <path
-                      id="Vector_155"
-                      d="M1550.85 177.86H1485.85C1485.72 177.86 1485.59 177.807 1485.5 177.714C1485.4 177.62 1485.35 177.493 1485.35 177.36V102.85C1485.35 102.785 1485.36 102.72 1485.39 102.66C1485.42 102.6 1485.45 102.545 1485.5 102.5L1508.27 79.73C1508.36 79.6367 1508.49 79.583 1508.62 79.58H1550.85C1550.98 79.5826 1551.11 79.6361 1551.2 79.7293C1551.29 79.8225 1551.35 79.9482 1551.35 80.08V177.36C1551.35 177.492 1551.29 177.618 1551.2 177.711C1551.11 177.804 1550.98 177.857 1550.85 177.86ZM1486.35 176.86H1550.35V80.58H1508.83L1486.35 103.06V176.86Z"
-                      fill="#1A1A1A"
-                    />
-                    <path
-                      id="Vector_156"
-                      d="M1543.48 171.46H1478.48V97L1501.25 74.23H1543.48V171.46Z"
-                      fill="#F60954"
-                    />
-                    <path
-                      id="Vector_157"
-                      d="M1543.48 172.46H1478.48C1478.21 172.46 1477.96 172.355 1477.77 172.167C1477.59 171.98 1477.48 171.725 1477.48 171.46V97C1477.48 96.8684 1477.5 96.7379 1477.55 96.6161C1477.6 96.4943 1477.68 96.3834 1477.77 96.29L1500.54 73.52C1500.63 73.4273 1500.74 73.354 1500.87 73.3042C1500.99 73.2545 1501.12 73.2292 1501.25 73.23H1543.48C1543.75 73.23 1544 73.3354 1544.19 73.5229C1544.37 73.7104 1544.48 73.9648 1544.48 74.23V171.5C1544.47 171.758 1544.36 172.002 1544.17 172.181C1543.99 172.36 1543.74 172.46 1543.48 172.46ZM1479.48 170.46H1542.48V75.19H1501.67L1479.48 97.37V170.46Z"
-                      fill="black"
-                    />
-                    <path
-                      id="Vector_158"
-                      d="M1501.25 74.19L1503.68 100.28L1478.48 96.96L1501.25 74.19Z"
-                      fill="#F60954"
-                    />
-                    <path
-                      id="Vector_159"
-                      d="M1503.68 101.28H1503.55L1478.35 98C1478.16 97.9764 1477.99 97.9012 1477.84 97.7829C1477.7 97.6646 1477.59 97.508 1477.53 97.3309C1477.47 97.1538 1477.46 96.9633 1477.5 96.7811C1477.54 96.5988 1477.64 96.4322 1477.77 96.3L1500.54 73.53C1500.67 73.4049 1500.83 73.3175 1501.01 73.277C1501.18 73.2365 1501.37 73.2444 1501.54 73.3C1501.72 73.364 1501.88 73.4781 1501.99 73.6287C1502.11 73.7793 1502.18 73.9601 1502.2 74.15L1504.63 100.23C1504.65 100.38 1504.63 100.532 1504.57 100.674C1504.52 100.817 1504.44 100.945 1504.33 101.05C1504.15 101.201 1503.92 101.283 1503.68 101.28ZM1480.62 96.28L1502.62 99.17L1500.5 76.45L1480.62 96.28Z"
-                      fill="black"
-                    />
-                  </g>
-                  <path
-                    id="burbuja"
-                    className="volar "
-                    d="M1526.51 409.08C1523.73 409.09 1521.01 408.274 1518.69 406.736C1516.37 405.199 1514.56 403.008 1513.49 400.441C1512.42 397.875 1512.14 395.048 1512.67 392.32C1513.21 389.591 1514.54 387.083 1516.51 385.113C1518.47 383.143 1520.97 381.8 1523.7 381.254C1526.43 380.708 1529.25 380.983 1531.83 382.045C1534.4 383.107 1536.59 384.907 1538.14 387.219C1539.68 389.531 1540.51 392.249 1540.51 395.03C1540.51 398.747 1539.03 402.311 1536.41 404.944C1533.79 407.577 1530.23 409.064 1526.51 409.08ZM1526.51 383.98C1524.33 383.98 1522.21 384.625 1520.4 385.834C1518.59 387.043 1517.18 388.76 1516.35 390.77C1515.51 392.78 1515.3 394.992 1515.72 397.126C1516.15 399.26 1517.19 401.22 1518.73 402.758C1520.27 404.297 1522.23 405.344 1524.36 405.769C1526.5 406.193 1528.71 405.975 1530.72 405.143C1532.73 404.31 1534.45 402.9 1535.66 401.091C1536.86 399.282 1537.51 397.156 1537.51 394.98C1537.49 392.072 1536.32 389.29 1534.26 387.235C1532.2 385.18 1529.42 384.018 1526.51 384V383.98Z"
-                    fill="#1A1A1A"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_49_2">
-                    <rect width="1875.67" height="1134.52" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="bg-second py-24">
-        <div className="bg-white mx-[135px] px-16">
-          <div className="py-12 flex justify-around items-center">
-            <div className="w-[30%] flex flex-col gap-4">
-              <h4 className="text-2xl font-bold">
-                Look at This Top Rated Teachers!
-              </h4>
-              <p>
-                They are passionate, knowledgeable, and dedicated to igniting
-                the spark of learning in every student. With their expertise and
-                unwavering commitment, they inspire, empower, and shape the
-                minds of future generations. Prepare to be amazed by the
-                incredible impact they make on education
-              </p>
-              <Link
-                className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold"
-                href={"#"}
-              >
-                See more
-              </Link>
-            </div>
-            <div id="cards" className="w-fit relative">
-              <ChevronLeft
-                className="cursor-pointer absolute w-[25%] h-auto -left-[8rem] top-[50%] -translate-y-2/4 rounded-full bg-main text-white z-10"
-                onClick={() => {
-                  switch (slider.left) {
-                    case "slider-left":
-                      setSlider({
-                        left: "slider-center",
-                        right: "slider-left",
-                        center: "slider-right",
-                      });
-                      break;
-                    case "slider-right":
-                      setSlider({
-                        left: "slider-left",
-                        right: "slider-right",
-                        center: "slider-center",
-                      });
-                      break;
-                    case "slider-center":
-                      setSlider({
-                        left: "slider-right",
-                        right: "slider-center",
-                        center: "slider-left",
-                      });
-                  }
-                  setDerech(true);
-                }}
-              ></ChevronLeft>
-              <div
-                id={slider.center}
-                className={`${
-                  slider.center === "slider-left" ? attributes.left : ""
-                } ${slider.center === "slider-right" ? attributes.right : ""} ${
-                  slider.center === "slider-center" ? attributes.center : ""
-                } transition-transform duration-[300ms]  w-[350px] rounded-xl bg-white flex flex-col items-center gap-6 `}
-                onTransitionEnd={() => {
-                  setIzquier("");
-                  setDerech("");
-                }}
-              >
-                <div className="w-full h-full flex rounded-xl shadow-xl flex-col items-center gap-4">
-                  <div className="w-full h-[500px] flex flex-col items-center">
-                    <div className="w-full h-[65%]">
-                      <img
-                        className="w-full h-full object-cover rounded-tl-xl  rounded-tr-xl "
-                        src="https://images.pexels.com/photos/428328/pexels-photo-428328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      ></img>
-                    </div>
-                    <div className="w-full text-center pt-5 h-[30%] px-12">
-                      <p className="text-2xl font-bold opacity-[0.7]">
-                        John Anderson
-                      </p>
-                      <p className="text-lg font-semibold">Quantum Physics</p>
-                      <p className="text-sm font-normal opacity-[0.5] text">
-                        Passionate about quantum physics, dedicated to inspiring
-                        students to explore the mysteries of the universe.
-                      </p>
-                    </div>
+                  <div className="w-full text-center pt-5 h-[30%] px-12">
+                    <p className="text-2xl font-bold opacity-[0.7]">
+                      John Anderson
+                    </p>
+                    <p className="text-lg font-semibold">Quantum Physics</p>
+                    <p className="text-sm font-normal opacity-[0.5] text">
+                      Passionate about quantum physics, dedicated to inspiring
+                      students to explore the mysteries of the universe.
+                    </p>
                   </div>
                 </div>
               </div>
-              <div
-                id={slider.right}
-                className={`${
-                  slider.right === "slider-left" ? attributes.left : ""
-                } ${slider.right === "slider-right" ? attributes.right : ""} ${
-                  slider.right === "slider-center" ? attributes.center : ""
-                }  transition-transform duration-[300ms]  w-[350px] rounded-xl  bg-white flex flex-col items-center gap-6  `}
-                onTransitionEnd={() => {
-                  setIzquier("");
-                  setDerech("");
-                }}
-              >
-                <div className="w-full h-full flex rounded-xl shadow-xl flex-col items-center gap-4">
-                  <div className="w-full h-[500px] flex flex-col items-center">
-                    <div className="w-full h-[65%]">
-                      <img
-                        className="w-full h-full object-cover rounded-tl-xl  rounded-tr-xl "
-                        src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      ></img>
-                    </div>
-                    <div className="w-full text-center pt-5 h-[30%] px-12">
-                      <p className="text-2xl font-bold opacity-[0.7]">
-                        Sarah Davis
-                      </p>
-                      <p className="text-lg font-semibold">English literature</p>
-                      <p className="text-sm font-normal opacity-[0.5] text">
-                        Expert in English literature, fosters a love for reading
-                        and critical analysis in my classes.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                id={slider.left}
-                className={`${
-                  slider.left === "slider-left" ? attributes.left : ""
-                } ${slider.left === "slider-right" ? attributes.right : ""} ${
-                  slider.left === "slider-center" ? attributes.center : ""
-                } transition-transform duration-[300ms]  w-[350px] rounded-xl z-[0] bg-white flex flex-col items-center gap-6`}
-                onTransitionEnd={() => {
-                  setIzquier("");
-                  setDerech("");
-                }}
-              >
-                <div className="w-full h-full flex rounded-xl shadow-xl flex-col items-center gap-4">
-                  <div className="w-full h-[500px] flex flex-col items-center">
-                    <div className="w-full h-[65%]">
-                      <img
-                        className="w-full h-full object-cover rounded-tl-xl  rounded-tr-xl "
-                        src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      ></img>
-                    </div>
-                    <div className="w-full text-center pt-5 h-[30%] px-12">
-                      <p className="text-2xl font-bold opacity-[0.7]">Emily Thompson</p>
-                      <p className="text-lg font-semibold">Math Teacher</p>
-                      <p className="text-sm font-normal opacity-[0.5] text">
-                        Dedicated math educator fostering student growth and
-                        enthusiasm through engaging instruction and personalized
-                        support.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <ChevronRight
-                className="cursor-pointer absolute w-[25%] h-auto -right-[8rem] top-[50%] -translate-y-2/4 rounded-full bg-main text-white z-10"
-                onClick={() => {
-                  switch (slider.right) {
-                    case "slider-right":
-                      setSlider({
-                        left: "slider-right",
-                        right: "slider-center",
-                        center: "slider-left",
-                      });
-                      break;
-                    case "slider-left":
-                      setSlider({
-                        left: "slider-left",
-                        right: "slider-right",
-                        center: "slider-center",
-                      });
-                      break;
-                    case "slider-center":
-                      setSlider({
-                        left: "slider-center",
-                        right: "slider-left",
-                        center: "slider-right",
-                      });
-                  }
-                  setIzquier(true);
-                }}
-              ></ChevronRight>
             </div>
+            <div
+              id={slider.right}
+              className={`${
+                slider.right === "slider-left" ? attributes.left : ""
+              } ${slider.right === "slider-right" ? attributes.right : ""} ${
+                slider.right === "slider-center" ? attributes.center : ""
+              }  transition-transform duration-[300ms]  w-[350px] rounded-xl  bg-white flex flex-col items-center gap-6  `}
+              onTransitionEnd={() => {
+                setIzquier("");
+                setDerech("");
+              }}
+            >
+              <div className="w-full h-full flex rounded-xl shadow-xl flex-col items-center gap-4">
+                <div className="w-full h-[500px] flex flex-col items-center">
+                  <div className="w-full h-[65%]">
+                    <img
+                      className="w-full h-full object-cover rounded-tl-xl  rounded-tr-xl "
+                      src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    ></img>
+                  </div>
+                  <div className="w-full text-center pt-5 h-[30%] px-12">
+                    <p className="text-2xl font-bold opacity-[0.7]">
+                      Sarah Davis
+                    </p>
+                    <p className="text-lg font-semibold">English literature</p>
+                    <p className="text-sm font-normal opacity-[0.5] text">
+                      Expert in English literature, fosters a love for reading
+                      and critical analysis in my classes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              id={slider.left}
+              className={`${
+                slider.left === "slider-left" ? attributes.left : ""
+              } ${slider.left === "slider-right" ? attributes.right : ""} ${
+                slider.left === "slider-center" ? attributes.center : ""
+              } transition-transform duration-[300ms]  w-[350px] rounded-xl z-[0] bg-white flex flex-col items-center gap-6`}
+              onTransitionEnd={() => {
+                setIzquier("");
+                setDerech("");
+              }}
+            >
+              <div className="w-full h-full flex rounded-xl shadow-xl flex-col items-center gap-4">
+                <div className="w-full h-[500px] flex flex-col items-center">
+                  <div className="w-full h-[65%]">
+                    <img
+                      className="w-full h-full object-cover rounded-tl-xl  rounded-tr-xl "
+                      src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    ></img>
+                  </div>
+                  <div className="w-full text-center pt-5 h-[30%] px-12">
+                    <p className="text-2xl font-bold opacity-[0.7]">
+                      Emily Thompson
+                    </p>
+                    <p className="text-lg font-semibold">Math Teacher</p>
+                    <p className="text-sm font-normal opacity-[0.5] text">
+                      Dedicated math educator fostering student growth and
+                      enthusiasm through engaging instruction and personalized
+                      support.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ChevronRight
+              className="cursor-pointer absolute w-[25%] h-auto -right-[8rem] top-[50%] -translate-y-2/4 rounded-full bg-main text-white z-10"
+              onClick={() => {
+                switch (slider.right) {
+                  case "slider-right":
+                    setSlider({
+                      left: "slider-right",
+                      right: "slider-center",
+                      center: "slider-left",
+                    });
+                    break;
+                  case "slider-left":
+                    setSlider({
+                      left: "slider-left",
+                      right: "slider-right",
+                      center: "slider-center",
+                    });
+                    break;
+                  case "slider-center":
+                    setSlider({
+                      left: "slider-center",
+                      right: "slider-left",
+                      center: "slider-right",
+                    });
+                }
+                setIzquier(true);
+              }}
+            ></ChevronRight>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
-}
+};
