@@ -27,6 +27,7 @@ export default function Home() {
       <Teachers></Teachers>
       <HowItWorks></HowItWorks>
       <BecameTutor></BecameTutor>
+      <FinalMessage></FinalMessage>
     </>
   );
 }
@@ -414,7 +415,10 @@ const Teachers = () => {
               See more
             </Link>
           </div>
-          <div id="cards" className="w-[40%] relative flex justify-center mr-[100px]">
+          <div
+            id="cards"
+            className="w-[40%] relative flex justify-center mr-[100px]"
+          >
             <ChevronLeft
               className="cursor-pointer absolute w-[25%] h-auto -left-[8rem] top-[50%] -translate-y-2/4 rounded-full bg-main text-white z-10"
               onClick={() => {
@@ -774,20 +778,25 @@ const BecameTutor = () => {
     "https://images.pexels.com/photos/7516347/pexels-photo-7516347.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     "https://images.pexels.com/photos/5905718/pexels-photo-5905718.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   ];
-  const [imageSrc,setImageSrc] = useState({img:'https://images.pexels.com/photos/5303549/pexels-photo-5303549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',contador:0})
-  const [animation,setAnimation] = useState(false)
+  const [imageSrc, setImageSrc] = useState({
+    img: "https://images.pexels.com/photos/5303549/pexels-photo-5303549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    contador: 0,
+  });
+  const [animation, setAnimation] = useState(false);
   const [show, setShow] = useState(false);
-  console.log(imageSrc)
+  console.log(imageSrc);
   useEffect(() => {
     const toggleShow = () => {
       setImageSrc((prev) => {
-        return {img:images[prev.contador===6?0:prev.contador+1],contador:prev.contador===6?0:prev.contador+1}
-      })
+        return {
+          img: images[prev.contador === 6 ? 0 : prev.contador + 1],
+          contador: prev.contador === 6 ? 0 : prev.contador + 1,
+        };
+      });
       setShow((prev) => !prev);
-
     };
-    const intervalId = setInterval(toggleShow,5000);
-    return () => clearInterval(intervalId)
+    const intervalId = setInterval(toggleShow, 5000);
+    return () => clearInterval(intervalId);
   });
   useEffect(() => {});
   return (
@@ -812,23 +821,53 @@ const BecameTutor = () => {
           </Link>
         </div>
         <div className="w-[40%] h-[300px]">
-          {show?
-                  <img
-                  style={{ boxShadow: "12px 12px 0px 2px #f60954" }}
-                  className={`${show? 'appear-tutor': 'dissapear ' } transition-opacity duration-1000 opacity-1 relative w-full h-full rounded-xl object-cover`}
-                  alt="teacher"
-                  src={imageSrc.img}
-                ></img>: undefined  
-        }
-        {show===false?
-                  <img
-                  style={{ boxShadow: "12px 12px 0px 2px #f60954" }}
-                  className={`${show===false? 'appear-tutor': 'dissapear ' } transition-opacity duration-1000 opacity-1 relative w-full h-full rounded-xl object-cover`}
-                  alt="teacher"
-                  src={imageSrc.img}
-                ></img>
-              : undefined
-              }
+          {show ? (
+            <img
+              style={{ boxShadow: "12px 12px 0px 2px #f60954" }}
+              className={`${
+                show ? "appear-tutor" : "dissapear "
+              } transition-opacity duration-1000 opacity-1 relative w-full h-full rounded-xl object-cover`}
+              alt="teacher"
+              src={imageSrc.img}
+            ></img>
+          ) : undefined}
+          {show === false ? (
+            <img
+              style={{ boxShadow: "12px 12px 0px 2px #f60954" }}
+              className={`${
+                show === false ? "appear-tutor" : "dissapear "
+              } transition-opacity duration-1000 opacity-1 relative w-full h-full rounded-xl object-cover`}
+              alt="teacher"
+              src={imageSrc.img}
+            ></img>
+          ) : undefined}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const FinalMessage = () => {
+  return (
+    <section id="final-message" className="bg-second">
+      <div id="container-message" className="flex justify-center bg-white ">
+        <div className="flex flex-col gap-3 w-[85%] text-center items-center px-12 py-6">
+          <h6 className="text-4xl font-bold">Unlock Your Potential</h6>
+          <p className="font-medium">
+            Learning has never been this accessible. With ClassPro, you have the
+            power to connect with exceptional teachers from around the world at
+            your fingertips. Whether you want to master a new skill, get help
+            with your studies, or explore new hobbies, our community of
+            dedicated professionals is here to support your journey. Don't let
+            boundaries limit your aspirations. Dive into endless possibilities
+            and transform your future today!
+          </p>
+          <Link
+            href={"#"}
+            className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold flex"
+          >
+            Start Learning Now
+          </Link>
         </div>
       </div>
     </section>
