@@ -395,8 +395,8 @@ const Teachers = () => {
   return (
     <section id="teachers" className="bg-second pb-24">
       <div className="bg-white mx-[135px] px-12 py-16 shadow-md rounded-xl">
-        <div className=" flex justify-around items-center">
-          <div className="w-[30%] flex flex-col gap-4">
+        <div className=" flex justify-between items-center">
+          <div className="w-[37%] flex flex-col gap-4">
             <h4 className="text-4xl font-bold">
               Look at This Top Rated Tutors!
             </h4>
@@ -414,7 +414,7 @@ const Teachers = () => {
               See more
             </Link>
           </div>
-          <div id="cards" className="w-fit relative">
+          <div id="cards" className="w-[40%] relative flex justify-center mr-[100px]">
             <ChevronLeft
               className="cursor-pointer absolute w-[25%] h-auto -left-[8rem] top-[50%] -translate-y-2/4 rounded-full bg-main text-white z-10"
               onClick={() => {
@@ -808,7 +808,7 @@ const BecameTutor = () => {
             href={"#"}
             className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold flex"
           >
-            Became a Tutor <ArrowRight></ArrowRight>
+            Became a Tutor
           </Link>
         </div>
         <div className="w-[40%] h-[300px]">
