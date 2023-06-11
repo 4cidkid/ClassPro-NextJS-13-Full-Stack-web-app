@@ -9,11 +9,16 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true' />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
           rel="stylesheet"
@@ -47,14 +52,131 @@ export default function RootLayout({ children }) {
               </nav>
             </div>
             <div className="flex items-center text-xl font-bold gap-8">
-              <Link href={"#"} className="text-black">Login</Link>
-              <Link href={"#"} className="bg-main rounded-lg text-white px-5 py-2">
+              <Link href={"#"} className="text-black">
+                Login
+              </Link>
+              <Link
+                href={"#"}
+                className="bg-main rounded-lg text-white px-5 py-2"
+              >
                 Sign up
               </Link>
             </div>
           </div>
         </header>
         {children}
+        <footer className="bg-main pt-40 pb-2 w-full">
+          <div
+            id="container-footer"
+            className="w-[80%] mx-auto flex flex-col gap-12 pb-12"
+          >
+            <div id="logo-container" className="flex justify-between">
+              <div id="logo">
+                <p className="text-5xl text-white font-black">ClassPro</p>
+              </div>
+              <div id="social-media">
+                <ul className="flex gap-5">
+                  <li>
+                    <Link target="_blank" href={"https://icons8.com"}>
+                      <img src="https://img.icons8.com/color/48/facebook-new.png"></img>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link target="_blank" href={"https://icons8.com"}>
+                      <img src="https://img.icons8.com/color/48/instagram-new--v1.png"></img>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link target="_blank" href={"https://icons8.com"}>
+                      <img
+                        src="https://img.icons8.com/color/48/twitter--v1.png"
+                        alt="twitter--v1"
+                      />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link target="_blank" href={"https://icons8.com"}>
+                      <img
+                        src="https://img.icons8.com/color/48/youtube-play.png"
+                        alt="youtube-play"
+                      />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex justify-between w-full">
+              <div>
+                <p className="text-2xl text-white font-medium">Resources</p>
+                <ul className=" text-white">
+                  <li>
+                    <Link href={"#"}>Articles</Link>
+                  </li>
+                  <li>
+                    <Link href={"#"}>Blog</Link>
+                  </li>
+                  <li>
+                    <Link href={"#"}></Link>
+                  </li>
+                  <li>
+                    <Link href={"#"}></Link>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <p className="text-2xl text-white font-medium">Company</p>
+                <ul className=" text-white">
+                  <li>
+                    <Link href={"#"}>About us</Link>
+                  </li>
+                  <li>
+                    <Link href={"#"}>Careers</Link>
+                  </li>
+                  <li>
+                    <Link href={"#"}>NewsRoom</Link>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <p className="text-2xl text-white font-medium">Support</p>
+                <ul className=" text-white">
+                  <li>
+                    <Link href={"#"}>Contact</Link>
+                  </li>
+                  <li>
+                    <Link href={"#"}>FAQ</Link>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <p className="text-2xl text-white font-medium">Subjects</p>
+                <ul className="text-white">
+                  <li>
+                    <Link href={"#"}>Learn Spanish Online</Link>
+                  </li>
+                  <li>
+                    <Link href={"#"}>Learn Mathematics Online</Link>
+                  </li>
+                  <li>
+                    <Link href={"#"}>Learn English Online</Link>
+                  </li>
+                  <li>
+                    <Link href={"#"}>Learn Quantum Physics Online</Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="w-full border-t-2 border-white border-opacity-60">
+            <div className="w-[80%] mx-auto pt-4 text-white justify-between flex">
+            <p>© ClassPro 2023 All Rights Reserved</p>
+            <div className="flex gap-4">
+              <Link href={''}>Terms & Conditions</Link>
+              <Link href={''}>Privacy Policy</Link>
+            </div>
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
   );

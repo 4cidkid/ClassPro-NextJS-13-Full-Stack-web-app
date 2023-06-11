@@ -850,7 +850,7 @@ const BecameTutor = () => {
 const FinalMessage = () => {
   return (
     <section id="final-message" className="bg-second">
-      <div id="container-message" className="flex justify-center bg-white ">
+      <div id="container-message" className="flex justify-center bg-white mx-[135px] relative z-[10] -mb-24 rounded shadow-md">
         <div className="flex flex-col gap-3 w-[85%] text-center items-center px-12 py-6">
           <h6 className="text-4xl font-bold">Unlock Your Potential</h6>
           <p className="font-medium">
