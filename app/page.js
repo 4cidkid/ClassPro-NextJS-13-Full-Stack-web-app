@@ -8,6 +8,8 @@ import OnlineClasses from "@/public/licenced/onlineClasses.jsx";
 import Schedule from "@/public/licenced/schedule.jsx";
 import Attend from "@/public/licenced/attend.jsx";
 import Progress from "@/public/licenced/progress.jsx";
+import SectionHome from "@/components/home/section.jsx";
+import Button from "@/components/common/button.jsx";
 import {
   ArrowRight,
   ChevronLeft,
@@ -34,11 +36,11 @@ export default function Home() {
 
 const Hero = () => {
   return (
-    <section id="hero" className="h-fit pb-24">
+    <section id="hero">
       <div className="w-full h-[90vh] absolute top-0 bg-main z-[-2] clip-path"></div>
       <div
         id="hero-container"
-        className="px-[135px] flex items-center pt-[100px]"
+        className="px-[135px] flex items-center py-[100px] "
         style={{ overflowX: "clip" }}
       >
         <div className="w-3/6 text-white pr-12 flex flex-col gap-5">
@@ -68,7 +70,7 @@ const Hero = () => {
         </div>
         <div className="relative w-2/4">
           <div className="absolute top-0 w-full h-full">
-            <div className="z-[-4] absolute top-0 rounded-xl right-0 w-[300px] h-[150px] bg-main text-2xl font-bold text-white items-center shadow-md  flex text-center border-gray-500 appear-2">
+            <div className="z-[-4] absolute top-0 rounded-xl right-0 w-[300px] h-[150px] bg-main text-2xl font-bold text-white items-center shadow-2xl  flex text-center border-gray-500 appear-2">
               <div className="w-[70%] h-full rounded-bl-xl rounded-tl-xl">
                 <img
                   className="object-cover h-full rounded-bl-lg rounded-tl-lg"
@@ -112,7 +114,7 @@ const Services = () => {
     });
   };
   return (
-    <section id="services" className="bg-second pb-24">
+    <SectionHome id="services">
       <div className="services-container flex justify-center">
         <div className="w-[50%] flex items-center justify-between bg-white rounded-full shadow-md -mt-12 border-second border-2">
           <div className="flex flex-col py-5 pl-5">
@@ -335,12 +337,12 @@ const Services = () => {
           </div>
         </div>
       </div>
-    </section>
+    </SectionHome>
   );
 };
 const Connected = () => {
   return (
-    <section id="connected" className="bg-second pb-24">
+    <SectionHome id="connected">
       <div className="mx-[135px] bg-white rounded-xl shadow-lg">
         <div className="px-12 py-16 flex justify-between items-center">
           <div className="w-[40%] flex flex-col gap-3">
@@ -360,19 +362,18 @@ const Connected = () => {
               <li>Engaging and effective educational experience</li>
               <li>Transformative journey towards academic excellence</li>
             </ul>
-            <Link
-              href={"#"}
-              className="bg-main px-5 py-2 w-fit font-bold text-white rounded-lg"
+            <Button
+              link={"#"}
             >
               Join ClassPro
-            </Link>
+            </Button>
           </div>
           <div className="w-[40%]">
             <Connectad></Connectad>
           </div>
         </div>
       </div>
-    </section>
+    </SectionHome>
   );
 };
 const Teachers = () => {
@@ -394,8 +395,8 @@ const Teachers = () => {
     center: "relative z-[2] top-0 unblur",
   };
   return (
-    <section id="teachers" className="bg-second pb-24">
-      <div className="bg-white mx-[135px] px-12 py-16 shadow-md rounded-xl">
+    <SectionHome id="teachers">
+      <div className="bg-white mx-[135px] px-12 py-16 shadow-lg rounded-xl">
         <div className=" flex justify-between items-center">
           <div className="w-[37%] flex flex-col gap-4">
             <h4 className="text-4xl font-bold">
@@ -408,12 +409,11 @@ const Teachers = () => {
               of future generations. Prepare to be amazed by the incredible
               impact they make on education
             </p>
-            <Link
-              className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold"
-              href={"#"}
+            <Button
+              link={"#"}
             >
               See more
-            </Link>
+            </Button>
           </div>
           <div
             id="cards"
@@ -459,7 +459,7 @@ const Teachers = () => {
                 setDerech("");
               }}
             >
-              <div className="w-full h-full flex rounded-xl shadow-xl flex-col items-center gap-4">
+              <div className="w-full h-full flex rounded-xl shadow-lg flex-col items-center gap-4">
                 <div className="w-full h-[500px] flex flex-col items-center">
                   <div className="w-full h-[65%]">
                     <img
@@ -492,7 +492,7 @@ const Teachers = () => {
                 setDerech("");
               }}
             >
-              <div className="w-full h-full flex rounded-xl shadow-xl flex-col items-center gap-4">
+              <div className="w-full h-full flex rounded-xl shadow-lg flex-col items-center gap-4">
                 <div className="w-full h-[500px] flex flex-col items-center">
                   <div className="w-full h-[65%]">
                     <img
@@ -525,7 +525,7 @@ const Teachers = () => {
                 setDerech("");
               }}
             >
-              <div className="w-full h-full flex rounded-xl shadow-xl flex-col items-center gap-4">
+              <div className="w-full h-full flex rounded-xl shadow-lg flex-col items-center gap-4">
                 <div className="w-full h-[500px] flex flex-col items-center">
                   <div className="w-full h-[65%]">
                     <img
@@ -578,16 +578,16 @@ const Teachers = () => {
           </div>
         </div>
       </div>
-    </section>
+    </SectionHome>
   );
 };
 
 const HowItWorks = () => {
   return (
-    <section id="howItWorks" className="bg-second pb-24">
+    <SectionHome id="howItWorks" >
       <div
         id="container-works"
-        className="flex flex-col items-center bg-white mx-[135px] px-12 py-16 shadow-md rounded-xl gap-6"
+        className="flex flex-col items-center bg-white mx-[135px] px-12 py-16 shadow-lg rounded-xl gap-6"
       >
         <h5 className="text-4xl font-bold text-center">How It Works!</h5>
         <div className="w-[90%] flex items-center justify-evenly gap-5">
@@ -755,15 +755,14 @@ const HowItWorks = () => {
             </strong>{" "}
             Sign up now and embark on your educational adventure!
           </p>
-          <Link
-            href={"#"}
-            className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold"
+          <Button
+            link={"#"}
           >
             Find tutors Today!
-          </Link>
+          </Button>
         </div>
       </div>
-    </section>
+    </SectionHome>
   );
 };
 
@@ -800,10 +799,10 @@ const BecameTutor = () => {
   });
   useEffect(() => {});
   return (
-    <section id="becameTutor" className="bg-second pb-24">
+    <SectionHome id="becameTutor">
       <div
         id="container-became"
-        className="bg-white mx-[135px] px-12 py-16 flex justify-evenly rounded-xl shadow-md items-center"
+        className="bg-white mx-[135px] px-12 py-16 flex justify-evenly rounded-xl shadow-lg items-center"
       >
         <div className="w-[40%] flex flex-col gap-5">
           <h5 className="text-4xl font-bold">Want to Became a Tutor?</h5>
@@ -813,12 +812,10 @@ const BecameTutor = () => {
             progress, and create personalized experiences. Join now, inspire
             students, and make a global difference in just 50 words!
           </p>
-          <Link
-            href={"#"}
-            className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold flex"
-          >
+          <Button
+            link={"#"}          >
             Became a Tutor
-          </Link>
+          </Button>
         </div>
         <div className="w-[40%] h-[300px]">
           {show ? (
@@ -843,14 +840,14 @@ const BecameTutor = () => {
           ) : undefined}
         </div>
       </div>
-    </section>
+    </SectionHome>
   );
 };
 
 const FinalMessage = () => {
   return (
     <section id="final-message" className="bg-second">
-      <div id="container-message" className="flex justify-center bg-white mx-[135px] relative z-[10] -mb-24 rounded shadow-md">
+      <div id="container-message" className="flex justify-center bg-white mx-[135px] relative z-[10] -mb-24 rounded shadow-lg">
         <div className="flex flex-col gap-3 w-[85%] text-center items-center px-12 py-6">
           <h6 className="text-4xl font-bold">Unlock Your Potential</h6>
           <p className="font-medium">
@@ -862,12 +859,11 @@ const FinalMessage = () => {
             boundaries limit your aspirations. Dive into endless possibilities
             and transform your future today!
           </p>
-          <Link
-            href={"#"}
-            className="bg-main text-white px-5 py-2 rounded-lg w-fit font-bold flex"
+          <Button
+            link={"#"}
           >
             Start Learning Now
-          </Link>
+          </Button>
         </div>
       </div>
     </section>
