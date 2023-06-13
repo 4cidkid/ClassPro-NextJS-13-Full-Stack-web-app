@@ -1,7 +1,11 @@
+
+"use client"
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
+import { usePathname } from 'next/navigation'
+import { useEffect, useState } from "react";
 
 export const metadata = {
   title: "Create Next App",
@@ -9,9 +13,10 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-
+  const currentPath = usePathname()
   return (
     <html lang="en">
+
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -28,7 +33,7 @@ export default function RootLayout({ children }) {
         <header className="relative">
           <div
             id="header-container"
-            className="px-[135px] pt-[34px] flex items-center justify-between text-white"
+            className={`${currentPath === '/'? undefined : 'bg-main '} py-[10px] px-[135px] flex items-center justify-between text-white`}
           >
             <div className="flex items-center gap-5">
               <div id="logo">
@@ -37,7 +42,7 @@ export default function RootLayout({ children }) {
               <nav>
                 <ul className="flex before:content-['|'] text-xl gap-10">
                   <li>
-                    <Link href={"#"}>Find Tutors</Link>
+                    <Link href={"/tutors"}>Find Tutors</Link>
                   </li>
                   <li>
                     <Link href={"#"}>Became a Tutor</Link>
@@ -52,12 +57,12 @@ export default function RootLayout({ children }) {
               </nav>
             </div>
             <div className="flex items-center text-xl font-bold gap-8">
-              <Link href={"#"} className="text-black">
+              <Link href={"#"} className={`${currentPath === '/'? "text-main" : 'text-white'}`}>
                 Login
               </Link>
               <Link
                 href={"#"}
-                className="bg-main rounded-lg text-white px-5 py-2"
+                className="bg-main rounded-lg text-white px-5 py-2  border-2 boder-black"
               >
                 Sign up
               </Link>
