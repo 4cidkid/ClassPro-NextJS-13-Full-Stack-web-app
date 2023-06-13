@@ -10,6 +10,7 @@ import Attend from "@/public/licenced/attend.jsx";
 import Progress from "@/public/licenced/progress.jsx";
 import SectionHome from "@/components/home/section.jsx";
 import Button from "@/components/common/button.jsx";
+import SearchBar from "@/components/common/search.jsx";
 import {
   ArrowRight,
   ChevronLeft,
@@ -93,126 +94,10 @@ const Hero = () => {
   );
 };
 const Services = () => {
-  //this controlls input price range
-  const [inputOne, setInputOne] = useState({ one: 5, two: 100 });
-  const [priceRange, setPriceRange] = useState("$0 - $100");
-  const [selectPrice, setSelectPrice] = useState(false);
-  const smoothScrollOne = (event) => {
-    const input = event.target;
-    const value = input.value;
-    setInputOne((prev) => {
-      return { one: value, two: prev.two };
-    });
-  };
-  //set te value of input two
-  const smoothScrollTwo = (event) => {
-    const input = event.target;
-    const value = input.value;
-
-    setInputOne((prev) => {
-      return { one: prev.one, two: value };
-    });
-  };
   return (
     <SectionHome id="services">
       <div className="services-container flex justify-center">
-        <div className="w-[50%] flex items-center justify-between bg-white rounded-full shadow-md -mt-12 border-second border-2">
-          <div className="flex flex-col py-5 pl-5">
-            <label htmlFor="learn" className="font-bold text-xl text-[#A1A1A1]">
-              What You Want To Learn?
-            </label>
-            <input
-              className="text-xl"
-              name="learn"
-              type="text"
-              placeholder="Ex: Math"
-            ></input>
-          </div>
-          <p className="font-bold text-2xl text-[#A1A1A1]">|</p>
-          <div className="relative flex flex-col py-5">
-            <div
-              id="range"
-              className={`${
-                selectPrice ? "scale-1" : "scale-0"
-              } transition-transform absolute bottom-[130%] flex flex-col gap-2 items-center justify-center p-10  left-1/2  -translate-x-1/2  w-[300px] h-[200px] bg-white before:absolute before:content-[''] before:left-1/2 before:top-[100%]  before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-white before:rotate-180 shadow-2xl`}
-            >
-              <label className="font-bold text-xl">Select The Price</label>
-              <div className="flex w-full justify-evenly gap-3">
-                <div className="flex flex-col items-center w-2/5">
-                  <label>Min</label>
-                  <input
-                    type="text"
-                    value={`$${inputOne.one}`}
-                    className="w-full rounded-xl border-2"
-                    readOnly
-                  ></input>
-                </div>
-                <div className="flex flex-col items-center w-2/5">
-                  <label>Max</label>
-                  <input
-                    value={`$${inputOne.two}`}
-                    type="text"
-                    className="w-full rounded-xl bg-gray border-2"
-                    readOnly
-                  ></input>
-                </div>
-              </div>
-              <div className="flex relative">
-                <input
-                  className="thumb-bg-main text-main bg-transparent appearance-none"
-                  type="range"
-                  min="5"
-                  max="50"
-                  step={5}
-                  value={inputOne.one}
-                  onInput={smoothScrollOne}
-                ></input>
-                <input
-                  className="thumb-bg-main text-main bg-transparent appearance-none"
-                  type="range"
-                  min="50"
-                  max="100"
-                  step={5}
-                  value={inputOne.two}
-                  onInput={smoothScrollTwo}
-                ></input>
-                <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 w-full h-[3px] z-[-1] bg-black"></div>
-              </div>
-              <button
-                className="bg-main p-2 font-bold text-lg text-white rounded-xl"
-                onClick={(e) => {
-                  setPriceRange(`$${inputOne.one} - $${inputOne.two}`);
-                  setSelectPrice(false);
-                }}
-              >
-                Set Price Range
-              </button>
-            </div>
-            <label htmlFor="price" className="font-bold text-xl text-[#A1A1A1]">
-              Price Range
-            </label>
-            <button
-              id="price-range"
-              className="text-xl"
-              onClick={(e) => {
-                setSelectPrice((prev) => !prev);
-              }}
-            >
-              {priceRange}
-            </button>
-          </div>
-          <p className="font-bold text-2xl text-[#A1A1A1]">|</p>
-          <div className="flex flex-col py-5">
-            <label className="font-bold text-xl text-[#A1A1A1]">
-              Level of Classes
-            </label>
-            <input type="text" placeholder="Ex:beginner"></input>
-          </div>
-          <button className="h-full w-[10%]  rounded-tr-full rounded-br-full text-white bg-main">
-            {" "}
-            <Search className="w-full h-full p-4"></Search>
-          </button>
-        </div>
+        <SearchBar personalized='mt-[-48px]'></SearchBar>
       </div>
       <div className="services-list flex justify-center flex-col items-center mx-[135px] gap-4 mt-5 px-12 py-16 bg-white rounded-xl shadow-lg">
         <div className="w-[90%] text-center flex flex-col items-center font-bold text-4xl">
@@ -783,7 +668,6 @@ const BecameTutor = () => {
   });
   const [animation, setAnimation] = useState(false);
   const [show, setShow] = useState(false);
-  console.log(imageSrc);
   useEffect(() => {
     const toggleShow = () => {
       setImageSrc((prev) => {
