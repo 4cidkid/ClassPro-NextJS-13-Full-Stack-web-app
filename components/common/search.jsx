@@ -68,7 +68,6 @@ const SearchBar = ({ personalized }) => {
   return (
     <>
       <div
-        personalized
         className={`${personalized || ""} ${
           animationError ? "shake" : ""
         } w-[60%] flex items-center justify-between bg-white rounded-full shadow-md border-second border-2`}
@@ -110,14 +109,14 @@ const SearchBar = ({ personalized }) => {
                 subject === "" && animationError
                   ? "opacity-1 before:z-[999]"
                   : "before:z-[-999] before:opacity-0"
-              } before:content-[""]  before:border-2 before:border-main before:w-full before:h-full before:absolute before:top-0 before:left-0  `}
+              } before:content-[""]   before:border-2 before:border-main before:w-full before:h-full before:absolute before:top-0 before:left-0  `}
             ></div>
           </div>
           <div
             id="searchCat"
             className={`${
               selectSubject ? "scale-1" : "scale-0"
-            } transition-transform z-[10] absolute top-[130%] flex flex-col gap-2 items-center justify-center pl-1 text-white  left-1/2  -translate-x-1/2  w-[300px] max-h-[200px] bg-main before:absolute before:content-[''] before:left-1/2 before:bottom-[100%]   before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-main before:shadow-2xl`}
+            } transition-transform z-[10] bg-opacity-[0.9] absolute top-[130%] flex flex-col gap-2 items-center justify-center pl-1 text-white  left-1/2  -translate-x-1/2  w-[300px] max-h-[200px] bg-main before:absolute before:content-[''] before:left-1/2 before:bottom-[100%]   before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-main before:shadow-2xl`}
           >
             <ul className="w-full h-full p-2 overflow-y-auto font-xl text-lg font-semibold">
               <SearchCat
@@ -134,7 +133,7 @@ const SearchBar = ({ personalized }) => {
             id="range-ab"
             className={`${
               selectPrice ? "scale-1" : "scale-0"
-            } transition-transform z-[10] absolute top-[130%] flex flex-col gap-2 items-center justify-center p-10 text-white  left-1/2  -translate-x-1/2  w-[300px] h-[200px] bg-main before:absolute before:content-[''] before:left-1/2 before:bottom-[100%]   before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-main before:shadow-2xl`}
+            } transition-transform z-[10] bg-opacity-[0.9] absolute top-[130%] flex flex-col gap-2 items-center justify-center p-10 text-white  left-1/2  -translate-x-1/2  w-[300px] h-[200px] bg-main before:absolute before:content-[''] before:left-1/2 before:bottom-[100%]   before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-main before:shadow-2xl`}
           >
             <label className="font-bold text-xl">Select The Price</label>
             <div className="flex w-full justify-evenly gap-3">
@@ -249,7 +248,7 @@ const SearchBar = ({ personalized }) => {
             id="levelCat"
             className={`${
               selectLevel ? "scale-1" : "scale-0"
-            } shadow-2xl absolute z-[10] top-[130%] right-0 bg-black  w-[300px] max-h-[200px] transition-transform flex flex-col gap-2 items-center justify-center text-white bg-main before:absolute before:content-[''] before:left-1/2 before:bottom-[100%]   before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-main before:shadow-2xl`}
+            } shadow-2xl absolute z-[10] bg-opacity-[0.9] top-[130%] right-0 bg-black  w-[300px] max-h-[200px] transition-transform flex flex-col gap-2 items-center justify-center text-white bg-main before:absolute before:content-[''] before:left-1/2 before:bottom-[100%]   before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-main before:shadow-2xl`}
           >
             <ul className="w-full h-full p-2 overflow-y-auto font-xl text-lg font-semibold">
               <li
