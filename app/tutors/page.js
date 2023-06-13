@@ -5,6 +5,8 @@ import Router from "next/router";
 import searchFor from "./search";
 import { useEffect, useState } from "react";
 import SearchBar from "@/components/common/search";
+import TutorsCards from "@/components/tutors/tutorsCard";
+import { usePathname } from "next/navigation";
 export function Tutors() {
   const searchParams = useSearchParams();
   const subject = searchParams.get("subject");
@@ -27,15 +29,9 @@ export function Tutors() {
         >
           <h1
             className="text-4xl text-center text-white font-bold"
-            style={{ textShadow: "0px 3px 2px #000000;" }}
+            style={{ textShadow: "0px 3px 2px #000000" }}
           >
-            Find{" "}
-            <strong
-              className="text-second text-5xl"
-            >
-              Perfect Tutors
-            </strong>{" "}
-            Today
+            Find <strong className=" text-5xl">Perfect Tutors</strong> Today
           </h1>
           <SearchBar></SearchBar>
         </div>
@@ -52,7 +48,7 @@ export function Tutors() {
   );
 }
 
-const GridTutors = ({subject,level,min,max}) => {
+const GridTutors = ({ subject, level, min, max }) => {
   const [dataApi, setData] = useState();
   useEffect(() => {
     async function fetchData() {
@@ -69,7 +65,11 @@ const GridTutors = ({subject,level,min,max}) => {
 
   return (
     <section id="grid-tutors" className="h-[100vh]">
-
+      <div id="tutors-container" className="px-[135px]">
+        <div id="tutors-cards">
+          <TutorsCards></TutorsCards>
+        </div>
+      </div>
     </section>
   );
 };
