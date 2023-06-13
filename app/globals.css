@@ -156,18 +156,32 @@ body {
   }
 }
 
-
-@keyframes disappear{
-  from{
+@keyframes disappear {
+  from {
     opacity: 1;
   }
-  to{
+  to {
     opacity: 0;
   }
 }
 
-
-
+@keyframes horizontal-shaking {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 
 @layer utilities {
   .clip-path {
@@ -246,16 +260,19 @@ body {
     animation: mover 3s infinite;
     animation-direction: alternate-reverse;
   }
-  .disappear{
+  .disappear {
     animation: disappear 600ms ease;
   }
-  .appear-tutor{
+  .appear-tutor {
     animation: disappear 600ms reverse;
+  }
+  .shake {
+    animation: horizontal-shaking 1s ease;
   }
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  background-color: #f60954;
+  background-color: white;
   height: 1rem;
   width: 1rem;
   border-radius: 100%;
