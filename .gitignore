@@ -39,3 +39,6 @@ public/licenced
 
 #tailwind
 tailwind.config.js
+
+#env 
+.env
