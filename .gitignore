@@ -34,8 +34,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#images
-public/licenced
 
 #tailwind
 tailwind.config.js
