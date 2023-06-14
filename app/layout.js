@@ -1,11 +1,8 @@
-"use client";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
-import { usePathname } from "next/navigation";
 export default function RootLayout({ children }) {
-  const currentPath = usePathname();
   return (
     <html lang="en">
       <head>
@@ -25,7 +22,7 @@ export default function RootLayout({ children }) {
           <div
             id="header-container"
             className={`${
-              currentPath === "/" ? undefined : "bg-main "
+              "currentPath" === "/" ? undefined : "bg-main "
             } py-[10px] px-[135px] flex items-center justify-between text-white`}
           >
             <div className="flex items-center gap-5">
@@ -53,7 +50,7 @@ export default function RootLayout({ children }) {
               <Link
                 href={"#"}
                 className={`${
-                  currentPath === "/" ? "text-main" : "text-white"
+                  "currentPath" === "/" ? "text-main" : "text-white"
                 }`}
               >
                 Login
