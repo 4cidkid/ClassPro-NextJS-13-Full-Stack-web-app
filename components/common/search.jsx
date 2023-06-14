@@ -296,32 +296,24 @@ const SearchBar = ({ personalized }) => {
 const SearchCat = (props) => {
   const setSelectSubject = props.subjectSelect;
   const setSubject = props.set;
-  const subjects = [
-    "Mathematics",
-    "Language and Literature",
-    "Physics",
-    "Chemistry",
-    "Biology",
-    "History",
-    "Geography",
-    "Social Sciences",
-    "English",
-    "Programming",
-    "Economics",
-    "Art and Design",
-    "Music",
-    "Physical Education",
-    "Psychology",
-  ];
+  const [localSubject, setLocalSubjects] = useState([]);
+  useEffect(() => {
+    const getSubjects = async () => {
+      const data = await fetch("http://localhost:3000/api/subjects");
+      const subjects = await data.json();
+      setLocalSubjects(subjects.subjects);
+    };
+    getSubjects();
+  }, []);
   let subjectsToShow = [];
   const target = props.search;
   if (target != "") {
-    for (let i of subjects) {
+    for (let i of localSubject) {
       if (
-        i.toLowerCase().includes(target.toLowerCase()) &&
-        !subjectsToShow.includes(i)
+        i.subject_name.toLowerCase().includes(target.toLowerCase()) &&
+        !subjectsToShow.includes(i.subject_name)
       ) {
-        subjectsToShow.push(i);
+        subjectsToShow.push(i.subject_name);
       }
     }
   }
@@ -340,17 +332,17 @@ const SearchCat = (props) => {
               {subj}
             </li>
           ))
-        : subjects.map((subj, i) =>
+        : localSubject?.map((subj, i) =>
             target === "" ? (
               <li
-                key={subj}
+                key={subj.subject_name}
                 onClick={(e) => {
                   setSelectSubject(false);
                   setSubject(e.target.innerText);
                 }}
                 className="hover:bg-white hover:text-main cursor-pointer"
               >
-                {subj}
+                {subj.subject_name}
               </li>
             ) : i == 0 ? (
               <li key={subj} className="hover:bg-white hover:text-main">
