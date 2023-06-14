@@ -295,7 +295,6 @@ const SearchBar = ({ personalized }) => {
 
 const SearchCat = (props) => {
   const setSelectSubject = props.subjectSelect;
-  console.log(props.search);
   const setSubject = props.set;
   const subjects = [
     "Mathematics",
@@ -326,7 +325,6 @@ const SearchCat = (props) => {
       }
     }
   }
-  console.log(subjectsToShow);
   return (
     <>
       {subjectsToShow.length > 0
