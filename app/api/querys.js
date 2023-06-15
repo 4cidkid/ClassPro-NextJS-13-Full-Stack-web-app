@@ -116,7 +116,7 @@ JOIN
 WHERE
     tutors.tutor_hourly_wage BETWEEN ${min}::money AND ${max}::money
     AND LOWER(subjects.subject_name) = '${subject.toLowerCase()}' 
-	AND LOWER(advertisements.advertisements_level) = '${level.toLowerCase()}'
+	AND advertisements.advertisements_level = '${level.toLowerCase()}'
 GROUP BY
     tutors.tutor_id,
     subjects.subject_name,
