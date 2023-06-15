@@ -9,13 +9,5 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-async function fetchStudents() {
-  try {
-    const result = await pool.query('SELECT * FROM students');
-    console.log(result.rows);
-  } catch (err) {
-    console.error('Error executing query', err.stack);
-  }
-}
 
 export default pool;
