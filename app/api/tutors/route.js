@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import pool from "../db";
-import { selectAdvertisements,selectAnyAdvertisements,selectTutorLanguages } from "../querys";
+import { selectAdvertisements,selectAnyAdvertisements,selectTutorLanguages,selectTutorLanguagesFilter } from "../querys";
 export async function GET(request) {
   const searchParams = request.nextUrl.searchParams;
 
@@ -13,10 +13,11 @@ export async function GET(request) {
   try{
     if(subject && level && min && max){
       response =  await pool.query(selectAdvertisements(subject,min,max,level))
-      language = await pool.query(selectTutorLanguages())
+      language = await pool.query(selectTutorLanguagesFilter(subject, min, max, level))
+      
     }else{
       response = await pool.query(selectAnyAdvertisements())
-      language = await pool.query(selectTutorLanguages(subject, min, max, level))
+      language = await pool.query(selectTutorLanguages())
     }
   }catch(err) 
   {
