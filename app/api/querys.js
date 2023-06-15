@@ -8,10 +8,11 @@ export const selectAdvertisements = (subject, min, max, level) => {
 };
 export const selectAnyAdvertisements = () => {
   return `
-  SELECT advertisements.advertisements_title, advertisements.advertisements_description, advertisements.advertisements_level, advertisements.advertisements_price, tutors.tutor_name,tutors.tutor_lastname, subjects.subject_name
+  SELECT advertisements.advertisements_title,country.iso, advertisements.advertisements_description, advertisements.advertisements_level, advertisements.advertisements_price, tutors.tutor_name,tutors.tutor_lastname, subjects.subject_name
   FROM advertisements
   JOIN tutors ON advertisements.tutor_id = tutors.tutor_id
   JOIN subjects ON advertisements.subject_id = subjects.subject_id
+  JOIN country ON tutors.country_id = country.id
   ORDER BY advertisements.advertisements_price;
   `;
 };
