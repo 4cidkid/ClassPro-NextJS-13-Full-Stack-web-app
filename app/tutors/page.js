@@ -8,6 +8,7 @@ import SearchBar from "@/components/common/search";
 import TutorsCards from "@/components/tutors/tutorsCard";
 import { usePathname } from "next/navigation";
 import { Loader } from "@/components/common/loading";
+import { dummyData } from "./dummyData";
 export function Tutors() {
   const searchParams = useSearchParams();
   const subject = searchParams.get("subject");
@@ -61,13 +62,12 @@ const GridTutors = ({ subject, level, min, max }) => {
           min,
           max,
         });
+        console.log(data === false)
         if (data === false) {
           const data = await searchAny();
           setData(data);
           setFalseData(true)
-          console.log('se ejecuto')
         } else {
-          console.log(data)
           setFalseData(false)
           setData(data);
         }
@@ -93,18 +93,26 @@ const GridTutors = ({ subject, level, min, max }) => {
           id="tutors-cards"
           className="flex flex-col items-center gap-5  w-[70%]"
         >
-          {falseData && (<p>We didn't find any tutor, but Here is Nice Tutors!</p>)}
+          {falseData && (<p>We didn't find any tutor, but Here is some Nice Tutors!</p>)}
           {(dataApi && (
-            dataApi?.map((tutor) => {
+            dataApi.response?.map((tutor) => {
+              const languages = dataApi.language.filter((lang) => {
+               
+                if(tutor.tu_id === lang.tu_id){
+                  return lang;
+                }
+              })
               return (
                 <TutorsCards
-                  key={tutor.advertisements_title + tutor.tutor_lastname}
+                  key={tutor.ad_title + tutor.tu_lastname}
                   tutor={tutor}
+                  languages={languages[0].language_names}
                 ></TutorsCards>
               );
             })
           ))}
-          {!dataApi &&  <Loader></Loader>}
+          {!dataApi && dummyData.map((data) => <TutorsCards key={data.id} class={'blur-lg'} dummy={true} tutor={data}></TutorsCards>)}
+          {!dataApi &&  <Loader show={dataApi?false:true}></Loader>}
           
           
         </div>
