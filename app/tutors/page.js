@@ -2,11 +2,12 @@
 import { Search } from "react-feather";
 import { useSearchParams } from "next/navigation";
 import Router from "next/router";
-import searchFor from "./search";
+import { searchFor, searchAny } from "./search";
 import { useEffect, useState } from "react";
 import SearchBar from "@/components/common/search";
 import TutorsCards from "@/components/tutors/tutorsCard";
 import { usePathname } from "next/navigation";
+import { Loader } from "@/components/common/loading";
 export function Tutors() {
   const searchParams = useSearchParams();
   const subject = searchParams.get("subject");
@@ -50,24 +51,62 @@ export function Tutors() {
 
 const GridTutors = ({ subject, level, min, max }) => {
   const [dataApi, setData] = useState();
+  const [falseData,setFalseData] = useState(false)
   useEffect(() => {
     async function fetchData() {
-      const data = await searchFor({
-        subject,
-        level,
-        min,
-        max,
-      });
-      setData(data);
+      if (subject && level && min && max) {
+        const data = await searchFor({
+          subject,
+          level,
+          min,
+          max,
+        });
+        if (data === false) {
+          const data = await searchAny();
+          setData(data);
+          setFalseData(true)
+          console.log('se ejecuto')
+        } else {
+          console.log(data)
+          setFalseData(false)
+          setData(data);
+        }
+      }
     }
     fetchData();
   }, [subject, level, min, max]);
-
+  useEffect(() => {
+    async function fetchData() {
+      if (!subject || !level || !min || !max) {
+        const data = await searchAny();
+        setFalseData(false)
+        setData(data);
+      }
+    }
+    fetchData();
+  }, []);
   return (
-    <section id="grid-tutors" className="h-[100vh]">
-      <div id="tutors-container" className="px-[135px]">
-        <div id="tutors-cards">
-          <TutorsCards></TutorsCards>
+    <section id="grid-tutors" className="h-fit">
+      <div id="tutors-container" className="px-[135px] py-[48px] flex">
+        <div className="w-[30%]">asdfasdfasdf</div>
+        <div
+          id="tutors-cards"
+          className="flex flex-col items-center gap-5  w-[70%]"
+        >
+          {falseData && (<p>We didn't find any tutor, but Here is Nice Tutors!</p>)}
+          {(dataApi && (
+            dataApi?.map((tutor) => {
+              return (
+                <TutorsCards
+                  key={tutor.advertisements_title + tutor.tutor_lastname}
+                  tutor={tutor}
+                ></TutorsCards>
+              );
+            })
+          ))}
+          {!dataApi &&  <Loader></Loader>}
+          
+          
         </div>
       </div>
     </section>
