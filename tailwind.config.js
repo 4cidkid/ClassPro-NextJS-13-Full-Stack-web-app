@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         main: "#F60954",
         second: '#f2f2f2',
+        blackNot: '#303030'
       },
       backgroundImage: {
         wavy: "url('/img/wavyback.svg')",
