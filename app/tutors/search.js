@@ -3,16 +3,15 @@ export async function searchFor({ subject, level, min, max }) {
     `http://localhost:3000/api/tutors?subject=${subject}&level=${level}&min=${min}&max=${max}`
   );
   const data = await response.json();
-  console.log(data.length)
-  if(!data.length){
+  if(!data.response.length){
     return false
   }else{
-    return data.response;
+    return data;
   }
 }
 export async function searchAny() {
   const response = await fetch(`http://localhost:3000/api/tutors`);
   const data = await response.json();
-  return data.response;
+  return data;
 }
 
