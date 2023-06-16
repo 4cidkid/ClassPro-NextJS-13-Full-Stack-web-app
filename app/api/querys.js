@@ -14,7 +14,8 @@ export const selectAdvertisements = (subject, min, max, level) => {
   round(AVG(reviews.review_rating)::numeric,2) AS average_rating,
   COUNT(reviews.review_rating) AS number_reviews,
   tutors.tutor_hourly_wage as tu_hourly,
-  tutors.tutor_id as tu_id
+  tutors.tutor_id as tu_id,
+  tutors.tutor_first_free as first_class
 FROM
   advertisements
 JOIN
@@ -37,7 +38,8 @@ GROUP BY
   tutors.tutor_lastname,
   subjects.subject_name,
   tutors.tutor_hourly_wage,
-  tutors.tutor_id
+  tutors.tutor_id,
+  tutors.tutor_first_free
 ORDER BY
   AVG(reviews.review_rating) DESC;
   `;
@@ -59,7 +61,8 @@ export const selectAdvertisementsAll = (min, max, level) => {
   round(AVG(reviews.review_rating)::numeric,2) AS average_rating,
   COUNT(reviews.review_rating) AS number_reviews,
   tutors.tutor_hourly_wage as tu_hourly,
-  tutors.tutor_id as tu_id
+  tutors.tutor_id as tu_id,
+  tutors.tutor_first_free as first_class
 FROM
   advertisements
 JOIN
@@ -82,7 +85,8 @@ GROUP BY
   tutors.tutor_lastname,
   subjects.subject_name,
   tutors.tutor_hourly_wage,
-  tutors.tutor_id
+  tutors.tutor_id,
+  tutors.tutor_first_free
 ORDER BY
   AVG(reviews.review_rating) DESC;
   `;
@@ -103,7 +107,8 @@ export const selectAdvertisementsLevel = (subject, min, max) => {
   round(AVG(reviews.review_rating)::numeric,2) AS average_rating,
   COUNT(reviews.review_rating) AS number_reviews,
   tutors.tutor_hourly_wage as tu_hourly,
-  tutors.tutor_id as tu_id
+  tutors.tutor_id as tu_id,
+  tutors.tutor_first_free as first_class
 FROM
   advertisements
 JOIN
@@ -126,7 +131,8 @@ GROUP BY
   tutors.tutor_lastname,
   subjects.subject_name,
   tutors.tutor_hourly_wage,
-  tutors.tutor_id
+  tutors.tutor_id,
+  tutors.tutor_first_free
 ORDER BY
   AVG(reviews.review_rating) DESC;
   `;
@@ -147,7 +153,8 @@ export const selectAdvertisementsMin = (min, max) => {
   round(AVG(reviews.review_rating)::numeric,2) AS average_rating,
   COUNT(reviews.review_rating) AS number_reviews,
   tutors.tutor_hourly_wage as tu_hourly,
-  tutors.tutor_id as tu_id
+  tutors.tutor_id as tu_id,
+  tutors.tutor_first_free as first_class
 FROM
   advertisements
 JOIN
@@ -170,7 +177,8 @@ GROUP BY
   tutors.tutor_lastname,
   subjects.subject_name,
   tutors.tutor_hourly_wage,
-  tutors.tutor_id
+  tutors.tutor_id,
+  tutors.tutor_first_free
 ORDER BY
   AVG(reviews.review_rating) DESC;
   `;
@@ -191,7 +199,8 @@ export const selectAnyAdvertisements = () => {
   round(AVG(reviews.review_rating)::numeric, 2) AS average_rating,
   COUNT(reviews.review_rating) AS number_reviews,
   tutors.tutor_hourly_wage as tu_hourly,
-  tutors.tutor_id as tu_id
+  tutors.tutor_id as tu_id,
+  tutors.tutor_first_free as first_class
 FROM
   advertisements
 JOIN
@@ -214,7 +223,8 @@ GROUP BY
   tutors.tutor_lastname,
   subjects.subject_name,
   tutors.tutor_hourly_wage,
-  tutors.tutor_id
+  tutors.tutor_id,
+  tutors.tutor_first_free
 ORDER BY
   average_rating DESC;
   `;
