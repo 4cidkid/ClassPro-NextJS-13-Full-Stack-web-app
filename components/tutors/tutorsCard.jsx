@@ -148,7 +148,7 @@ const TutorsCards = (props) => {
             {props.tutor.tu_hourly} USD per Hour
           </p>
         </div>
-        <p>{props.tutor.tu_desc}</p>
+        <p>{props.tutor.ad_desc}</p>
       </div>
     </div>
   );
