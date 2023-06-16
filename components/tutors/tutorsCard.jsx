@@ -25,7 +25,7 @@ const TutorsCards = (props) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   return (
-     <div
+    <div
       id="card"
       className={`relative w-full h-full`}
     >
@@ -152,7 +152,6 @@ const TutorsCards = (props) => {
         1st Class Free!
         </div>}
     </div>
-    </Link>
   );
 };
 
