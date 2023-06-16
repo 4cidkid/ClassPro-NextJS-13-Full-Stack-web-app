@@ -319,6 +319,9 @@ const SearchCat = (props) => {
       }
     }
   }
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
   return (
     <>
       {subjectsToShow.length > 0
@@ -331,7 +334,7 @@ const SearchCat = (props) => {
               }}
               className="hover:bg-white hover:text-main cursor-pointer"
             >
-              {subj}
+              {capitalizeFirstLetter(subj)}
             </li>
           ))
         : localSubject?.map((subj, i) =>
@@ -344,7 +347,7 @@ const SearchCat = (props) => {
                 }}
                 className="hover:bg-white hover:text-main cursor-pointer"
               >
-                {subj.subject_name}
+                {capitalizeFirstLetter(subj.subject_name)}
               </li>
             ) : i == 0 ? (
               <li key={subj} className="hover:bg-white hover:text-main">
