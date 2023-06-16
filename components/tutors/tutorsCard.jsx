@@ -34,7 +34,7 @@ const TutorsCards = (props) => {
           className="h-full w-full object-cover rounded-xl"
           src={`${
             props.dummy
-              ? "https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/200w.gif?cid=6c09b952542dzbun2w1r7f3dk1x94igjth33h99grfpijkha&ep=v1_gifs_search&rid=200w.gif&ct=g"
+              ? "/img/usuario.png"
               : "https://images.pexels.com/photos/16786066/pexels-photo-16786066/free-photo-of-moda-hombre-gente-mujer.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           }`}
         ></img>
