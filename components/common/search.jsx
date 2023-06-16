@@ -251,6 +251,15 @@ const SearchBar = ({ personalized }) => {
             } shadow-2xl absolute z-[10] bg-opacity-[0.9] top-[130%] right-0 bg-black  w-[300px] max-h-[200px] transition-transform flex flex-col gap-2 items-center justify-center text-white bg-main before:absolute before:content-[''] before:left-1/2 before:bottom-[100%]   before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-main before:shadow-2xl`}
           >
             <ul className="w-full h-full p-2 overflow-y-auto font-xl text-lg font-semibold">
+            <li
+                onClick={(e) => {
+                  setSelectLevel(false);
+                  setLevel(e.target.innerText);
+                }}
+                className="hover:bg-white hover:text-main cursor-pointer"
+              >
+                All
+              </li>
               <li
                 onClick={(e) => {
                   setSelectLevel(false);
