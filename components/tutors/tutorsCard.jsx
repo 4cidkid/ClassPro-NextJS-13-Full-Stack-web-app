@@ -54,8 +54,8 @@ const TutorsCards = (props) => {
           </div>
           <div>
             <ul className="font-normal text-white flex gap-6 list-disc">
-              {props.tutor.tu_skill?.map((skill) => (
-                <li>{skill}</li>
+              {props.tutor.tu_skill?.map((skill,i) => (
+                <li key={skill + i}>{skill}</li>
               ))}
             </ul>
           </div>
@@ -67,7 +67,7 @@ const TutorsCards = (props) => {
             <p className="text-xl font-bold">Speaks:</p>
             <ul className="flex gap-2 items-end">
               {languages?.map((lang, i) => (
-                <li className="text-lg font-semibold">
+                <li key={lang} className="text-lg font-semibold">
                   {lang}
                   {i != languages.length - 1 && languages.length != 1 && ","}
                 </li>
