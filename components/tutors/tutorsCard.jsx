@@ -25,11 +25,10 @@ const TutorsCards = (props) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   return (
-    <div
+    <Link href={'#'} className={`${props.class ? props.class : ""} w-full h-[250px] rounded-xl border-[1px] border-blackNot shadow-lg bg-white`}>
+     <div
       id="card"
-      className={`${
-        props.class ? props.class : ""
-      } bg-white relative w-full h-[250px] rounded-xl border-[1px] border-blackNot shadow-lg`}
+      className={`relative w-full h-full`}
     >
       <div className="top-[50%] -translate-y-1/2 absolute left-0 w-[220px] h-[200px] self-center rounded-xl pl-5">
         <img
@@ -154,6 +153,7 @@ const TutorsCards = (props) => {
         1st Class Free!
         </div>}
     </div>
+    </Link>
   );
 };
 
