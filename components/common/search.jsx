@@ -301,7 +301,9 @@ const SearchCat = (props) => {
     const getSubjects = async () => {
       const data = await fetch("http://localhost:3000/api/subjects");
       const subjects = await data.json();
-      setLocalSubjects(subjects.subjects);
+      const newArray = [{subject_id:0,subject_name:'All'}].concat(subjects.subjects)
+      setLocalSubjects(newArray);
+      
     };
     getSubjects();
   }, []);
