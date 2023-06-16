@@ -13,6 +13,17 @@ const TutorsCards = (props) => {
   newDescription = newDescription.join("");
   const reviews = [1, 2, 3, 4, 5];
   let contador = 0;
+  let languages = [];
+  if (props.languages) {
+    const indexEnglish = props.languages.indexOf("English");
+    languages.push(props.languages[indexEnglish]);
+    for (let i = indexEnglish - 1; i >= 0; i--) {
+      languages.push(props.languages[i]);
+    }
+  }
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   return (
     <div
       id="card"
@@ -42,11 +53,34 @@ const TutorsCards = (props) => {
             ></img>
           </div>
           <div>
-            <p className="font-normal text-white flex">{newDescription}</p>
+            <ul className="font-normal text-white flex gap-6 list-disc">
+              {props.tutor.tu_skill?.map((skill) => (
+                <li>{skill}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
-      <div className="pl-[230px] pt-2">
+      <div className="pl-[230px] pt-2 flex flex-col gap-2">
+        <div className="flex items-center gap-5">
+          <div className="flex gap-2">
+            <p className="text-xl font-bold">Speaks:</p>
+            <ul className="flex gap-2 items-end">
+              {languages?.map((lang, i) => (
+                <li className="text-lg font-semibold">
+                  {lang}
+                  {i != languages.length - 1 && languages.length != 1 && ","}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex gap-2">
+            <p className="text-xl font-bold">Teach:</p>
+            <p className="text-lg font-semibold">
+              {capitalizeFirstLetter(props.tutor.subject)}
+            </p>
+          </div>
+        </div>
         <div id="reviews" className="flex items-center">
           <div
             id="stars"
@@ -114,6 +148,7 @@ const TutorsCards = (props) => {
             {props.tutor.tu_hourly} USD per Hour
           </p>
         </div>
+        <p>{props.tutor.tu_desc}</p>
       </div>
     </div>
   );
