@@ -136,12 +136,11 @@ const TutorsCards = (props) => {
           <p className="after:content-['|'] after:text-black after:text-base after:content-['|'] after:mx-2">
             {props.tutor.average_rating}
           </p>
-          <Link
+          <div
             className="text-link after:text-black after:text-base after:content-['|'] after:mx-2"
-            href={"#"}
           >
             {props.tutor.number_reviews} Reviews
-          </Link>
+          </div>
           <p className="text-main font-semibold text-xl">
             {props.tutor.tu_hourly} USD per Hour
           </p>
