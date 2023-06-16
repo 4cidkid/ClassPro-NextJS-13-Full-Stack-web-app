@@ -18,6 +18,7 @@ export const dummyData = [
       "Problem-solving",
       "Digital marketing")
     ],
+    first_class: true
   },
   {
     id: 2,
@@ -38,6 +39,7 @@ export const dummyData = [
       "Problem-solving",
       "Digital marketing")
     ],
+    first_class: true
   },
   {
     id: 3,
@@ -58,6 +60,7 @@ export const dummyData = [
       "Problem-solving",
       "Digital marketing")
     ],
+    first_class: true
   },
   {
     id: 4,
@@ -78,6 +81,7 @@ export const dummyData = [
       "Problem-solving",
       "Digital marketing")
     ],
+    first_class: true
   },
   {
     id: 5,
@@ -98,5 +102,6 @@ export const dummyData = [
       "Problem-solving",
       "Digital marketing")
     ],
+    first_class: true
   },
 ];
