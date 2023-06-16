@@ -108,8 +108,17 @@ const GridTutors = ({ subject, level, min, max }) => {
                   languages={languages[0].language_names}
                 ></TutorsCards>
               );
-            })
-          ))}
+            })}
+          {!dataApi &&
+            dummyData.map((data) => (
+              <div className="blur-lg bg-white relative w-full h-[250px] rounded-xl border-[1px] border-blackNot shadow-lg">
+                                <TutorsCards
+                  key={data.id}
+                  dummy={true}
+                  tutor={data}
+                ></TutorsCards>
+                </div>
+            ))}
           {!dataApi && dummyData.map((data) => <TutorsCards key={data.id} class={'blur-lg'} dummy={true} tutor={data}></TutorsCards>)}
           {!dataApi &&  <Loader show={dataApi?false:true}></Loader>}
           

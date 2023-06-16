@@ -25,7 +25,6 @@ const TutorsCards = (props) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   return (
-    <Link href={'#'} className={`${props.class ? props.class : ""} w-full h-[250px] rounded-xl border-[1px] border-blackNot shadow-lg bg-white`}>
      <div
       id="card"
       className={`relative w-full h-full`}
