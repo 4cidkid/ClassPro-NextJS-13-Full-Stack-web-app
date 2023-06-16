@@ -9,6 +9,7 @@ import TutorsCards from "@/components/tutors/tutorsCard";
 import { usePathname } from "next/navigation";
 import { Loader } from "@/components/common/loading";
 import { dummyData } from "./dummyData";
+import Link from "next/link";
 export function Tutors() {
   const searchParams = useSearchParams();
   const subject = searchParams.get("subject");
@@ -52,7 +53,7 @@ export function Tutors() {
 
 const GridTutors = ({ subject, level, min, max }) => {
   const [dataApi, setData] = useState();
-  const [falseData,setFalseData] = useState(false)
+  const [falseData, setFalseData] = useState(false);
   useEffect(() => {
     async function fetchData() {
       if (subject && level && min && max) {
@@ -65,9 +66,9 @@ const GridTutors = ({ subject, level, min, max }) => {
         if (data === false) {
           const data = await searchAny();
           setData(data);
-          setFalseData(true)
+          setFalseData(true);
         } else {
-          setFalseData(false)
+          setFalseData(false);
           setData(data);
         }
       }
@@ -78,7 +79,7 @@ const GridTutors = ({ subject, level, min, max }) => {
     async function fetchData() {
       if (!subject || !level || !min || !max) {
         const data = await searchAny();
-        setFalseData(false)
+        setFalseData(false);
         setData(data);
       }
     }
@@ -92,21 +93,28 @@ const GridTutors = ({ subject, level, min, max }) => {
           id="tutors-cards"
           className="flex flex-col items-center gap-5  w-[70%]"
         >
-          {falseData && (<p>We didn't find any tutor, but Here is some Nice Tutors!</p>)}
-          {(dataApi && (
+          {falseData && (
+            <p>We didn't find any tutor, but Here is some Nice Tutors!</p>
+          )}
+          {dataApi &&
             dataApi.response?.map((tutor) => {
               const languages = dataApi.language.filter((lang) => {
-               
-                if(tutor.tu_id === lang.tu_id){
+                if (tutor.tu_id === lang.tu_id) {
                   return lang;
                 }
-              })
+              });
+              console.log(tutor);
               return (
-                <TutorsCards
-                  key={tutor.ad_title + tutor.tu_lastname}
-                  tutor={tutor}
-                  languages={languages[0].language_names}
-                ></TutorsCards>
+                <Link
+                  className={`bg-white relative w-full h-[250px] rounded-xl border-[1px] border-blackNot shadow-lg`}
+                  href={`tutors/${tutor.tu_id}`}
+                >
+                  <TutorsCards
+                    key={tutor.ad_title + tutor.tu_lastname}
+                    tutor={tutor}
+                    languages={languages[0].language_names}
+                  ></TutorsCards>
+                </Link>
               );
             })}
           {!dataApi &&
@@ -119,10 +127,7 @@ const GridTutors = ({ subject, level, min, max }) => {
                 ></TutorsCards>
                 </div>
             ))}
-          {!dataApi && dummyData.map((data) => <TutorsCards key={data.id} class={'blur-lg'} dummy={true} tutor={data}></TutorsCards>)}
-          {!dataApi &&  <Loader show={dataApi?false:true}></Loader>}
-          
-          
+          {!dataApi && <Loader show={dataApi ? false : true}></Loader>}
         </div>
       </div>
     </section>
