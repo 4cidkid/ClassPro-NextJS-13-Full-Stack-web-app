@@ -62,7 +62,6 @@ const GridTutors = ({ subject, level, min, max }) => {
           min,
           max,
         });
-        console.log(data === false)
         if (data === false) {
           const data = await searchAny();
           setData(data);
