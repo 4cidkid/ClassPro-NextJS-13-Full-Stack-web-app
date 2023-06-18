@@ -21,7 +21,7 @@ export async function GET(request) {
   const max = searchParams.get("max");
   let response;
   let language;
-
+//if subject && level && min && max are defined then send a query
   if (subject && level && min && max) {
     if (subject.toLowerCase() === "all" && level.toLowerCase() != "all") {
       response = await pool.query(selectAdvertisementsAll(min, max, level));
@@ -47,6 +47,7 @@ export async function GET(request) {
       );
     }
   } else {
+    //if none of the params are defined, then send a query to get all tutors
     response = await pool.query(selectAnyAdvertisements());
     language = await pool.query(selectTutorLanguages());
   }

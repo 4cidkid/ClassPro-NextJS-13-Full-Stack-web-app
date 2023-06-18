@@ -1,3 +1,4 @@
+//get tutors with specific params
 export const selectAdvertisements = (subject, min, max, level) => {
   return `
   SELECT
@@ -40,6 +41,7 @@ ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
 };
+//get tutors with min, max & level param
 
 export const selectAdvertisementsAll = (min, max, level) => {
   return `
@@ -66,6 +68,7 @@ JOIN
   reviews ON reviews.tutor_id = tutors.tutor_id
 JOIN
   subjects ON subjects.subject_id = tutors_subjects.subject_id
+  WHERE tutors.tutor_hourly_wage BETWEEN ${min}::money AND ${max}::money
 GROUP BY
   country.iso,
   tutors.tutor_description,
@@ -76,10 +79,14 @@ GROUP BY
   tutors.tutor_id,
   tutors.tutor_first_free,
   subjects.subject_name
+  HAVING
+  '${level.toLowerCase()}' = ANY(ARRAY_AGG(tutors_subjects.subject_level))
 ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
 };
+//get tutors with subject,min, & max param
+
 export const selectAdvertisementsLevel = (subject, min, max) => {
   return `
   SELECT
@@ -121,6 +128,8 @@ ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
 };
+//get tutors with min & max param
+
 export const selectAdvertisementsMin = (min, max) => {
   return `
   SELECT
@@ -161,6 +170,8 @@ ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
 };
+
+// select all tutors
 export const selectAnyAdvertisements = () => {
   return `
   SELECT
@@ -199,6 +210,9 @@ ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
 };
+
+//get tutorsLanguages
+
 export const selectTutorLanguages = () => {
   return `
   SELECT tutors_language.tutor_id as tu_id, array_agg(languages.name) AS language_names

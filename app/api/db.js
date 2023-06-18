@@ -1,6 +1,7 @@
 import { Pool } from 'pg';
 require('dotenv').config();
 
+//create pool to connect to PG DB
 const pool = new Pool({
   user: process.env.DB_USER,
   host: 'localhost',

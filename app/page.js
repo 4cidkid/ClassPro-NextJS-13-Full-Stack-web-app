@@ -22,6 +22,7 @@ import {
 import Link from "next/link";
 import { useEffect, useState } from "react";
 export default function Home() {
+  //main component
   return (
     <>
       <Hero></Hero>
@@ -36,6 +37,7 @@ export default function Home() {
 }
 
 const Hero = () => {
+  //hero component
   return (
     <section id="hero">
       <div className="w-full h-[90vh] absolute top-0 bg-main z-[-2] clip-path"></div>
@@ -94,6 +96,7 @@ const Hero = () => {
   );
 };
 const Services = () => {
+  //services component
   return (
     <SectionHome id="services">
       <div className="services-container flex justify-center">
@@ -226,6 +229,7 @@ const Services = () => {
   );
 };
 const Connected = () => {
+  //section connected
   return (
     <SectionHome id="connected">
       <div className="mx-[135px] bg-white rounded-xl shadow-lg">
@@ -262,14 +266,20 @@ const Connected = () => {
   );
 };
 const Teachers = () => {
+  //teachers section with custom slider
+
+  //define slides
   const [slider, setSlider] = useState({
     left: "slider-left",
     right: "slider-right",
     center: "slider-center",
   });
+
+  //define what slider has been clicked
   const [izquier, setIzquier] = useState("");
   const [derech, setDerech] = useState("");
 
+  //atributes of each slide
   const attributes = {
     left: `absolute translate-x-[-8rem] top-0 scale-90 blur-sm -rotate-12 blur ${
       izquier == true && izquier != "" ? "z-[3]" : "z-[0]"
@@ -468,6 +478,7 @@ const Teachers = () => {
 };
 
 const HowItWorks = () => {
+  //how it works section
   return (
     <SectionHome id="howItWorks" >
       <div
@@ -652,6 +663,8 @@ const HowItWorks = () => {
 };
 
 const BecameTutor = () => {
+
+  //became a tutor with animation of image
   const images = [
     "https://images.pexels.com/photos/5303549/pexels-photo-5303549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     "https://images.pexels.com/photos/4145190/pexels-photo-4145190.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -662,12 +675,15 @@ const BecameTutor = () => {
     "https://images.pexels.com/photos/7516347/pexels-photo-7516347.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     "https://images.pexels.com/photos/5905718/pexels-photo-5905718.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   ];
+  //define initial imageSrc and counter to control range 
   const [imageSrc, setImageSrc] = useState({
     img: "https://images.pexels.com/photos/5303549/pexels-photo-5303549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     contador: 0,
   });
   const [animation, setAnimation] = useState(false);
   const [show, setShow] = useState(false);
+
+  //define interval to run toggleShow again and again
   useEffect(() => {
     const toggleShow = () => {
       setImageSrc((prev) => {
@@ -729,6 +745,7 @@ const BecameTutor = () => {
 };
 
 const FinalMessage = () => {
+  //final Message section
   return (
     <section id="final-message" className="bg-second">
       <div id="container-message" className="flex justify-center bg-white mx-[135px] relative z-[10] -mb-24 rounded shadow-lg">

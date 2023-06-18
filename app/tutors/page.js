@@ -11,6 +11,7 @@ import { Loader } from "@/components/common/loading";
 import { dummyData } from "./dummyData";
 import Link from "next/link";
 export function Tutors() {
+  //get params from url
   const searchParams = useSearchParams();
   const subject = searchParams.get("subject");
   const level = searchParams.get("level");
@@ -52,17 +53,22 @@ export function Tutors() {
 }
 
 const GridTutors = ({ subject, level, min, max }) => {
+  //data from the api
   const [dataApi, setData] = useState();
+  //Work's like a switch, if DataApi hasn't loaded yet, falseData switch to true
   const [falseData, setFalseData] = useState(false);
   const [defaultPage, setDefaultPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  //slice number of tutors to show
   const [slice, setSlice] = useState({ start: 0, end: 6 });
   let mapMe = [];
+  //get total number of tutors to make pagination
   if (totalPages != 0) {
     for (let i = 0; i <= totalPages - 1; i++) {
       mapMe.push(i);
     }
   }
+  //fetchData from the api with params
   useEffect(() => {
     async function fetchData() {
       if (subject && level && min && max) {
@@ -75,6 +81,7 @@ const GridTutors = ({ subject, level, min, max }) => {
         if (data === false) {
           const data = await searchAny();
           setData(data);
+          //calculate the total number of pages that we need
           setTotalPages(Math.round(data.response.length / 6));
           setFalseData(true);
         } else {
@@ -86,6 +93,8 @@ const GridTutors = ({ subject, level, min, max }) => {
     }
     fetchData();
   }, [subject, level, min, max]);
+
+  //FetchData from the api without any params
   useEffect(() => {
     async function fetchData() {
       if (!subject || !level || !min || !max) {
