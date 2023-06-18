@@ -119,10 +119,9 @@ const GridTutors = ({ subject, level, min, max }) => {
                 <Link
                   className={`bg-white relative w-full h-[250px] rounded-xl border-[1px] border-blackNot shadow-lg`}
                   href={`tutors/${tutor.tu_id}`}
-                  key={tutor.ad_title + tutor.tu_lastname}
+                  key={tutor.tu_name + tutor.tu_lastname}
                 >
                   <TutorsCards
-                    key={tutor.ad_title + tutor.tu_lastname}
                     tutor={tutor}
                     languages={languages[0].language_names}
                   ></TutorsCards>
