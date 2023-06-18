@@ -169,6 +169,26 @@ const GridTutors = ({ subject, level, min, max }) => {
           ></ChevronLeft>
           {mapMe?.map((num) => (
             <li
+             onClick={(e) => {
+              if(defaultPage === parseInt(e.target.innerText)){
+                return;
+              }else{
+                if(defaultPage<parseInt(e.target.innerText)){
+                  const goTo = parseInt(e.target.innerText)-defaultPage
+                  setSlice((prev) => {
+                    return {start:prev.start+goTo*6,end:prev.end+goTo*6}
+                  })
+                  setDefaultPage(parseInt(e.target.innerText))
+                }else{
+                  const goTo = parseInt(e.target.innerText)-defaultPage
+                  setSlice((prev) => {
+                    return {start:prev.start+goTo*6,end:prev.end+goTo*6}
+                  })
+                  setDefaultPage(parseInt(e.target.innerText))
+                }
+              }
+             }
+             }
               key={num}
               className={`${
                 num + 1 === defaultPage
