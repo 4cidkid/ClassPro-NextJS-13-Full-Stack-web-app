@@ -4,13 +4,6 @@ import StarFill from "@/public/reviews/starFill";
 import React from "react";
 import Link from "next/link";
 const TutorsCards = (props) => {
-  let description = props.tutor.tu_desc;
-  let newDescription = [];
-  description
-    .split("")
-    .map((letter, i) => i <= 80 && newDescription.push(letter));
-  newDescription.push("...");
-  newDescription = newDescription.join("");
   const reviews = [1, 2, 3, 4, 5];
   let contador = 0;
   let languages = [];
@@ -25,10 +18,7 @@ const TutorsCards = (props) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   return (
-    <div
-      id="card"
-      className={`relative w-full h-full`}
-    >
+    <div id="card" className={`relative w-full h-full`}>
       <div className="top-[50%] -translate-y-1/2 absolute left-0 w-[220px] h-[200px] self-center rounded-xl pl-5">
         <img
           className="h-full w-full object-cover rounded-xl"
@@ -52,7 +42,7 @@ const TutorsCards = (props) => {
           </div>
           <div>
             <ul className="font-normal text-white flex gap-6 list-disc">
-              {props.tutor.tu_skill?.map((skill,i) => (
+              {props.tutor.tu_skill?.map((skill, i) => (
                 <li key={skill + i}>{skill}</li>
               ))}
             </ul>
@@ -73,10 +63,19 @@ const TutorsCards = (props) => {
             </ul>
           </div>
           <div className="flex gap-2">
-            <p className="text-xl font-bold">Teach:</p>
-            <p className="text-lg font-semibold">
-              {capitalizeFirstLetter(props.tutor.subject)}
-            </p>
+            <ul className="text-xl font-bold flex items-center gap-2">
+              Teach:
+              {props.tutor.subject_names.map((sub, i) => {
+                return (
+                  <li key={sub} className="text-lg font-semibold list-none">
+                    {capitalizeFirstLetter(sub)}{" "}
+                    {props.tutor.subject_names.length > 1 &&
+                      i != props.tutor.subject_names.length - 1 &&
+                      ","}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
         <div id="reviews" className="flex items-center">
@@ -136,20 +135,19 @@ const TutorsCards = (props) => {
           <p className="after:content-['|'] after:text-black after:text-base after:content-['|'] after:mx-2">
             {props.tutor.average_rating}
           </p>
-          <div
-            className="text-link after:text-black after:text-base after:content-['|'] after:mx-2"
-          >
+          <div className="text-link after:text-black after:text-base after:content-['|'] after:mx-2">
             {props.tutor.number_reviews} Reviews
           </div>
           <p className="text-main font-semibold text-xl">
             {props.tutor.tu_hourly} USD per Hour
           </p>
         </div>
-        <p>{props.tutor.ad_desc}</p>
       </div>
-      {props.tutor.first_class && <div className="font-semibold text-3xl text-first_class opacity-[0.92] absolute right-5 top-[60%] translate-[-50%,-50%]">
-        1st Class Free!
-        </div>}
+      {props.tutor.first_class && (
+        <div className="font-semibold text-3xl text-first_class opacity-[0.92] absolute right-5 top-[60%] translate-[-50%,-50%]">
+          1st Class Free!
+        </div>
+      )}
     </div>
   );
 };
