@@ -17,7 +17,6 @@ const TutorsCards = (props) => {
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  console.log(props);
   return (
     <div id="card" className={`relative w-full h-full`}>
       <div className="top-[50%] -translate-y-1/2 absolute left-0 w-[220px] h-[200px] self-center rounded-xl pl-5">
