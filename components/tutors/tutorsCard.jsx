@@ -68,16 +68,16 @@ const TutorsCards = (props) => {
               Teach:
               {props.tutor.subject_names.map((sub, i) => {
                 return (
-                  <div className="flex items-center">
+                  <div className="flex items-center" key={sub}> 
                     <li
-                      key={sub}
+                      
                       className="text-lg font-semibold list-none hover:bg-black"
                     >
                       {capitalizeFirstLetter(sub)}&nbsp;-
                     </li>
                     {props.tutor.subject_levels[i].map((subt, i) => (
-                      <li
-                        key={sub}
+                      <li key={sub + props.tutor.subject_levels[i]}
+                        
                         className="text-base font-normal list-none hover:bg-black"
                       >
                         &nbsp;{capitalizeFirstLetter(subt)}&nbsp;
