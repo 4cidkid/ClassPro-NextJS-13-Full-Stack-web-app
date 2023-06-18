@@ -57,14 +57,12 @@ const GridTutors = ({ subject, level, min, max }) => {
   const [defaultPage, setDefaultPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [slice, setSlice] = useState({ start: 0, end: 6 });
-  console.log(slice);
   let mapMe = [];
   if (totalPages != 0) {
     for (let i = 0; i <= totalPages - 1; i++) {
       mapMe.push(i);
     }
   }
-  console.log(mapMe);
   useEffect(() => {
     async function fetchData() {
       if (subject && level && min && max) {
