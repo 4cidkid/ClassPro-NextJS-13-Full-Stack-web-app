@@ -81,12 +81,9 @@ const GridTutors = ({ subject, level, min, max }) => {
         if (data === false) {
           const data = await searchAny();
           setData(data);
-          //calculate the total number of pages that we need
-          setTotalPages(Math.round(data.response.length / 6));
           setFalseData(true);
         } else {
           setFalseData(false);
-          setTotalPages(Math.round(data.response.length / 6));
           setData(data);
         }
       }
@@ -100,12 +97,18 @@ const GridTutors = ({ subject, level, min, max }) => {
       if (!subject || !level || !min || !max) {
         const data = await searchAny();
         setFalseData(false);
-        setTotalPages(Math.round(data.response.length / 6));
         setData(data);
       }
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (dataApi?.response) {
+      setTotalPages(Math.floor(dataApi.response.length / 6) + 1);
+    }
+  }, [dataApi]);
+
   return (
     <section id="grid-tutors" className="h-fit">
       <div id="tutors-container" className="px-[135px] py-[48px] flex">
@@ -169,26 +172,31 @@ const GridTutors = ({ subject, level, min, max }) => {
           ></ChevronLeft>
           {mapMe?.map((num) => (
             <li
-             onClick={(e) => {
-              if(defaultPage === parseInt(e.target.innerText)){
-                return;
-              }else{
-                if(defaultPage<parseInt(e.target.innerText)){
-                  const goTo = parseInt(e.target.innerText)-defaultPage
-                  setSlice((prev) => {
-                    return {start:prev.start+goTo*6,end:prev.end+goTo*6}
-                  })
-                  setDefaultPage(parseInt(e.target.innerText))
-                }else{
-                  const goTo = parseInt(e.target.innerText)-defaultPage
-                  setSlice((prev) => {
-                    return {start:prev.start+goTo*6,end:prev.end+goTo*6}
-                  })
-                  setDefaultPage(parseInt(e.target.innerText))
+              onClick={(e) => {
+                if (defaultPage === parseInt(e.target.innerText)) {
+                  return;
+                } else {
+                  if (defaultPage < parseInt(e.target.innerText)) {
+                    const goTo = parseInt(e.target.innerText) - defaultPage;
+                    setSlice((prev) => {
+                      return {
+                        start: prev.start + goTo * 6,
+                        end: prev.end + goTo * 6,
+                      };
+                    });
+                    setDefaultPage(parseInt(e.target.innerText));
+                  } else {
+                    const goTo = parseInt(e.target.innerText) - defaultPage;
+                    setSlice((prev) => {
+                      return {
+                        start: prev.start + goTo * 6,
+                        end: prev.end + goTo * 6,
+                      };
+                    });
+                    setDefaultPage(parseInt(e.target.innerText));
+                  }
                 }
-              }
-             }
-             }
+              }}
               key={num}
               className={`${
                 num + 1 === defaultPage
