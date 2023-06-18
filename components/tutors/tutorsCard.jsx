@@ -17,6 +17,7 @@ const TutorsCards = (props) => {
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+  console.log(props);
   return (
     <div id="card" className={`relative w-full h-full`}>
       <div className="top-[50%] -translate-y-1/2 absolute left-0 w-[220px] h-[200px] self-center rounded-xl pl-5">
@@ -50,7 +51,7 @@ const TutorsCards = (props) => {
         </div>
       </div>
       <div className="pl-[230px] pt-2 flex flex-col gap-2">
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col items-start gap-2">
           <div className="flex gap-2">
             <p className="text-xl font-bold">Speaks:</p>
             <ul className="flex gap-2 items-end">
@@ -67,12 +68,23 @@ const TutorsCards = (props) => {
               Teach:
               {props.tutor.subject_names.map((sub, i) => {
                 return (
-                  <li key={sub} className="text-lg font-semibold list-none">
-                    {capitalizeFirstLetter(sub)}{" "}
-                    {props.tutor.subject_names.length > 1 &&
-                      i != props.tutor.subject_names.length - 1 &&
-                      ","}
-                  </li>
+                  <div className="flex items-center">
+                    <li
+                      key={sub}
+                      className="text-lg font-semibold list-none hover:bg-black"
+                    >
+                      {capitalizeFirstLetter(sub)}&nbsp;-
+                    </li>
+                    {props.tutor.subject_levels[i].map((subt, i) => (
+                      <li
+                        key={sub}
+                        className="text-base font-normal list-none hover:bg-black"
+                      >
+                        &nbsp;{capitalizeFirstLetter(subt)}&nbsp;
+                        {props.tutor.subject_levels.length > i ? "-" : ""}
+                      </li>
+                    ))}
+                  </div>
                 );
               })}
             </ul>
@@ -144,7 +156,7 @@ const TutorsCards = (props) => {
         </div>
       </div>
       {props.tutor.first_class && (
-        <div className="font-semibold text-3xl text-first_class opacity-[0.92] absolute right-5 top-[60%] translate-[-50%,-50%]">
+        <div className="font-semibold text-3xl text-first_class opacity-[0.92] absolute right-5 top-[40%] translate-[-50%,-50%]">
           1st Class Free!
         </div>
       )}
