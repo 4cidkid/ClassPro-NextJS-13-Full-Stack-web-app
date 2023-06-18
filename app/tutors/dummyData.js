@@ -16,6 +16,8 @@ export const dummyData = [
     tu_lastname: "Davis",
     tu_name: "Matthew",
     tu_skill: ["Creative writing", "Digital marketing"],
+    subject_names: ['la'],
+    subject_levels: [['any'],['any']]
   },
   {
     ad_desc: "learn what you want...",
@@ -34,6 +36,8 @@ export const dummyData = [
     tu_lastname: "Davis",
     tu_name: "Matthew",
     tu_skill: ["Creative writing", "Digital marketing"],
+    subject_names: ['le'],
+    subject_levels: [['any'],['any']]
   },
   {
     ad_desc: "learn what you want...",
@@ -52,6 +56,8 @@ export const dummyData = [
     tu_lastname: "Davis",
     tu_name: "Matthew",
     tu_skill: ["Creative writing", "Digital marketing"],
+    subject_names: ['li'],
+    subject_levels: [['any'],['any']]
   },
   {
     ad_desc: "learn what you want...",
@@ -70,5 +76,7 @@ export const dummyData = [
     tu_lastname: "Davis",
     tu_name: "Matthew",
     tu_skill: ["Creative writing", "Digital marketing"],
+    subject_names: ['loi'],
+    subject_levels: [['any'],['any']]
   },
 ];
