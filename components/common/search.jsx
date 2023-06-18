@@ -177,7 +177,7 @@ const SearchBar = ({ personalized }) => {
                 value={inputOne.two}
                 onInput={smoothScrollTwo}
               ></input>
-              <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 w-full h-[3px] z-[-1] bg-black"></div>
+              <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 w-full h-[3px] z-[-1] bg-white bg-opacity-[0.5]"></div>
             </div>
             <button
               className="bg-main p-2 font-bold text-lg text-white rounded-xl border-2 border-white"
