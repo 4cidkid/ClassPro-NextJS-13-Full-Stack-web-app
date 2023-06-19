@@ -1,5 +1,5 @@
 "use client";
-import { ChevronLeft, ChevronRight, Search } from "react-feather";
+import { ChevronLeft, ChevronRight, Filter, Search } from "react-feather";
 import { useSearchParams } from "next/navigation";
 import Router from "next/router";
 import { searchFor, searchAny } from "./search";
@@ -10,6 +10,11 @@ import { usePathname } from "next/navigation";
 import { Loader } from "@/components/common/loading";
 import { dummyData } from "./dummyData";
 import Link from "next/link";
+import StarFill from "@/public/reviews/starFill";
+import HalfStar from "@/public/reviews/halfStar";
+import Star from "@/public/reviews/star";
+import { Star as ReactStar } from "react-feather";
+
 export function Tutors() {
   //get params from url
   const searchParams = useSearchParams();
@@ -52,6 +57,73 @@ export function Tutors() {
   );
 }
 
+const FilterTutors = (props) => {
+  return (
+    <div className="sticky top-[100px] bg-white rounded-xl shadow-lg h-[70vh]">
+      <div className="flex flex-col gap-3">
+        <p className="text-4xl mx-auto font-normal flex items-center w-full p-5 border-b justify-center border-[rgba(105, 105, 105, 0.21)]">
+          Filters <Filter></Filter>
+        </p>
+        <div className="flex flex-col gap-2 items-start px-5">
+          <p className="text-xl text-blackNot font-semibold">
+            In what Language?
+          </p>
+          <input
+            placeholder="English, Spanish, French, Chinese...."
+            className="text-base w-full p-1 rounded-sm border-2 border-[rgba(105, 105, 105, 0.21)] shadow-sm"
+          ></input>
+        </div>
+        <div className="flex flex-col gap-2 items-start px-5">
+          <div className="flex gap-2 items-center">
+            <p className="text-xl text-blackNot font-semibold">
+              Minimum Rating:
+            </p>
+            <div className="flex items-center">
+              <p className="text-3xl  font-semibold ">{props.rating}</p>
+              <ReactStar className=""></ReactStar>
+            </div>
+          </div>
+          <div className="relative flex child:w-full gap-7" id="range-rating">
+            <ChevronLeft
+              onClick={() =>
+                props.setRating((prev) => (prev > 1 ? prev - 1 : prev))
+              }
+              className="cursor-pointer select-none"
+            ></ChevronLeft>
+            <StarFill classname={"w-full"}></StarFill>
+            {props.rating >= 2 ? (
+              <StarFill classname={"w-full"}></StarFill>
+            ) : (
+              <Star classname={"w-full"}></Star>
+            )}
+            {props.rating >= 3 ? (
+              <StarFill classname={"w-full"}></StarFill>
+            ) : (
+              <Star classname={"w-full"}></Star>
+            )}
+            {props.rating >= 4 ? (
+              <StarFill classname={"w-full"}></StarFill>
+            ) : (
+              <Star classname={"w-full"}></Star>
+            )}
+            {props.rating >= 5 ? (
+              <StarFill classname={"w-full"}></StarFill>
+            ) : (
+              <Star classname={"w-full"}></Star>
+            )}
+            <ChevronRight
+              onClick={() =>
+                props.setRating((prev) => (prev < 5 ? prev + 1 : prev))
+              }
+              className="cursor-pointer select-none"
+            ></ChevronRight>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const GridTutors = ({ subject, level, min, max }) => {
   //data from the api
   const [dataApi, setData] = useState();
@@ -62,8 +134,15 @@ const GridTutors = ({ subject, level, min, max }) => {
   //slice number of tutors to show
   const [slice, setSlice] = useState({ start: 0, end: 6 });
   const [slicePagination, setSlicePagination] = useState({ start: 0, end: 5 });
+
+  //saves the original data to not mutate dataApi with rating
+  const [originalData, setOriginalData] = useState();
+
+  //saves the rating variable for the FilterTutors Component
+  const [rating, setRating] = useState(1);
+
   let mapMe = [];
-  
+
   //get number of pages in an array
   if (totalPages != 0) {
     for (let i = 0; i <= totalPages - 1; i++) {
@@ -83,10 +162,12 @@ const GridTutors = ({ subject, level, min, max }) => {
         if (data === false) {
           const data = await searchAny();
           setData(data);
+          setOriginalData(data);
           setFalseData(true);
         } else {
           setFalseData(false);
           setData(data);
+          setOriginalData(data);
         }
       }
     }
@@ -100,6 +181,7 @@ const GridTutors = ({ subject, level, min, max }) => {
         const data = await searchAny();
         setFalseData(false);
         setData(data);
+        setOriginalData(data);
       }
     }
     fetchData();
@@ -111,10 +193,28 @@ const GridTutors = ({ subject, level, min, max }) => {
     }
   }, [dataApi]);
 
+  //update data by rating
+  useEffect(() => {
+    let newData = originalData?.response.filter((tutor) => {
+      if (tutor.average_rating > rating - 0.5) {
+        return tutor;
+      }
+    });
+    if (dataApi?.response && newData) {
+      setData((prev) => {
+        return { response: newData, language: prev.language };
+      });
+    }
+  }, [rating]);
   return (
     <section id="grid-tutors" className="h-fit">
-      <div id="tutors-container" className="px-[135px] py-[48px] flex">
-        <div className="w-[30%]">asdfasdfasdf</div>
+      <div
+        id="tutors-container"
+        className="px-[135px] py-[48px] flex justify-between"
+      >
+        <div className="w-[25%] sticky overflow-visible">
+          <FilterTutors rating={rating} setRating={setRating}></FilterTutors>
+        </div>
         <div
           id="tutors-cards"
           className="flex flex-col items-center gap-5  w-[70%]"
@@ -131,7 +231,7 @@ const GridTutors = ({ subject, level, min, max }) => {
               });
               return (
                 <Link
-                  className={`bg-white relative w-full h-[250px] rounded-xl border-[1px] border-blackNot shadow-lg`}
+                  className={`bg-white relative w-full h-[250px] rounded-xl shadow-lg`}
                   href={`tutors/${tutor.tu_id}`}
                   key={tutor.tu_name + tutor.tu_lastname}
                 >
