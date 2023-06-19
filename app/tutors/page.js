@@ -61,6 +61,7 @@ const GridTutors = ({ subject, level, min, max }) => {
   const [totalPages, setTotalPages] = useState(0);
   //slice number of tutors to show
   const [slice, setSlice] = useState({ start: 0, end: 6 });
+  const [slicePagination, setSlicePagination] = useState({ start: 0, end: 5 });
   let mapMe = [];
   //get total number of tutors to make pagination
   if (totalPages != 0) {
