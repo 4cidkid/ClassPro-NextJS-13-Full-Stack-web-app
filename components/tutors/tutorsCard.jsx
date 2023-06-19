@@ -70,14 +70,14 @@ const TutorsCards = (props) => {
                   <div className="flex items-center" key={sub}> 
                     <li
                       
-                      className="text-lg font-semibold list-none hover:bg-black"
+                      className="text-lg font-semibold list-none"
                     >
                       {capitalizeFirstLetter(sub)}&nbsp;-
                     </li>
                     {props.tutor.subject_levels[i].map((subt, i) => (
                       <li key={sub + props.tutor.subject_levels[i]}
                         
-                        className="text-base font-normal list-none hover:bg-black"
+                        className="text-base font-normal list-none"
                       >
                         &nbsp;{capitalizeFirstLetter(subt)}&nbsp;
                         {props.tutor.subject_levels.length > i ? "-" : ""}
@@ -105,6 +105,7 @@ const TutorsCards = (props) => {
                   contador++;
                   return (
                     <HalfStar
+                    classname={'w-[24px]'}
                       key={
                         props.tutor.tu_name +
                         props.tutor.tu_lastname +
@@ -118,6 +119,7 @@ const TutorsCards = (props) => {
                   contador++;
                   return (
                     <StarFill
+                    classname={'w-[24px]'}
                       key={
                         props.tutor.tu_name +
                         props.tutor.tu_lastname +
@@ -132,6 +134,7 @@ const TutorsCards = (props) => {
                 contador++;
                 return (
                   <Star
+                  classname={'w-[24px]'}
                     key={
                       props.tutor.tu_name +
                       "starNormal" +
