@@ -63,7 +63,8 @@ const GridTutors = ({ subject, level, min, max }) => {
   const [slice, setSlice] = useState({ start: 0, end: 6 });
   const [slicePagination, setSlicePagination] = useState({ start: 0, end: 5 });
   let mapMe = [];
-  //get total number of tutors to make pagination
+  
+  //get number of pages in an array
   if (totalPages != 0) {
     for (let i = 0; i <= totalPages - 1; i++) {
       mapMe.push(i);
@@ -103,7 +104,7 @@ const GridTutors = ({ subject, level, min, max }) => {
     }
     fetchData();
   }, []);
-
+  //calculate total pages
   useEffect(() => {
     if (dataApi?.response) {
       setTotalPages(Math.floor(dataApi.response.length / 6) + 1);
@@ -153,13 +154,19 @@ const GridTutors = ({ subject, level, min, max }) => {
           {!dataApi && <Loader show={dataApi ? false : true}></Loader>}
         </div>
       </div>
-      <div className="px-[135px] py-[48px]">
-        <ul className="flex gap-x-12 justify-center items-center child:cursor-pointer">
+      <div className="px-[135px] py-[48px] flex justify-center">
+        <div className="flex gap-x-12 w-2/4  justify-around items-center child:cursor-pointer">
           <ChevronLeft
             onClick={() => {
+              if (slicePagination.start != 0) {
+                setSlicePagination((prev) => {
+                  return { start: prev.start - 1, end: prev.end - 1 };
+                });
+              }
               setSlice((prev) => {
                 if (prev.start > 0) {
                   document.getElementById("tutors-container").scrollIntoView();
+
                   return { start: prev.start - 6, end: prev.end - 6 };
                 } else {
                   return { start: prev.start, end: prev.end };
@@ -171,48 +178,58 @@ const GridTutors = ({ subject, level, min, max }) => {
             }}
             className="bg-main rounded-full text-white w-[45px] h-[45px]"
           ></ChevronLeft>
-          {mapMe?.map((num) => (
-            <li
-              onClick={(e) => {
-                if (defaultPage === parseInt(e.target.innerText)) {
-                  return;
-                } else {
-                  if (defaultPage < parseInt(e.target.innerText)) {
-                    const goTo = parseInt(e.target.innerText) - defaultPage;
-                    setSlice((prev) => {
-                      return {
-                        start: prev.start + goTo * 6,
-                        end: prev.end + goTo * 6,
-                      };
-                    });
-                    setDefaultPage(parseInt(e.target.innerText));
-                  } else {
-                    const goTo = parseInt(e.target.innerText) - defaultPage;
-                    setSlice((prev) => {
-                      return {
-                        start: prev.start + goTo * 6,
-                        end: prev.end + goTo * 6,
-                      };
-                    });
-                    setDefaultPage(parseInt(e.target.innerText));
-                  }
-                }
-              }}
-              key={num}
-              className={`${
-                num + 1 === defaultPage
-                  ? "scale-[1.5] font-bold text-main"
-                  : "scale-[1] text-black"
-              } text-3xl transition-transform duration-300 transition-colors`}
-            >
-              {num + 1}
-            </li>
-          ))}
+          <ul className="flex gap-12">
+            {mapMe
+              ?.slice(slicePagination.start, slicePagination.end)
+              .map((num) => (
+                <li
+                  key={num}
+                  onClick={(e) => {
+                    if (defaultPage === parseInt(e.target.innerText)) {
+                      return;
+                    } else {
+                      if (defaultPage < parseInt(e.target.innerText)) {
+                        const goTo = parseInt(e.target.innerText) - defaultPage;
+                        setSlice((prev) => {
+                          return {
+                            start: prev.start + goTo * 6,
+                            end: prev.end + goTo * 6,
+                          };
+                        });
+                        setDefaultPage(parseInt(e.target.innerText));
+                      } else {
+                        const goTo = parseInt(e.target.innerText) - defaultPage;
+                        setSlice((prev) => {
+                          return {
+                            start: prev.start + goTo * 6,
+                            end: prev.end + goTo * 6,
+                          };
+                        });
+                        setDefaultPage(parseInt(e.target.innerText));
+                      }
+                    }
+                  }}
+                  className={`${
+                    num + 1 === defaultPage
+                      ? "scale-[1.5] font-bold text-main"
+                      : "scale-[1] text-black"
+                  } text-3xl transition-transform duration-300 transition-colors`}
+                >
+                  {num + 1}
+                </li>
+              ))}
+          </ul>
           <ChevronRight
             onClick={() => {
+              if (slicePagination.end != totalPages) {
+                setSlicePagination((prev) => {
+                  return { start: prev.start + 1, end: prev.end + 1 };
+                });
+              }
               setSlice((prev) => {
                 if (prev.end < dataApi.response.length) {
                   document.getElementById("tutors-container").scrollIntoView();
+
                   return { start: prev.end, end: prev.end + 6 };
                 } else {
                   return { start: prev.start, end: prev.end };
@@ -224,7 +241,7 @@ const GridTutors = ({ subject, level, min, max }) => {
             }}
             className="bg-main rounded-full text-white w-[45px] h-[45px]"
           ></ChevronRight>
-        </ul>
+        </div>
       </div>
     </section>
   );
