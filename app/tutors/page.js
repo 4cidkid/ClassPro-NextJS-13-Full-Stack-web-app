@@ -321,7 +321,7 @@ const GridTutors = ({ subject, level, min, max }) => {
           </ul>
           <ChevronRight
             onClick={() => {
-              if (slicePagination.end != totalPages) {
+              if (slicePagination.end != totalPages && slicePagination.end<totalPages) {
                 setSlicePagination((prev) => {
                   return { start: prev.start + 1, end: prev.end + 1 };
                 });
