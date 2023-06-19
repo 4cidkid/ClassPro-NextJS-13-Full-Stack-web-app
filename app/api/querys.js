@@ -338,3 +338,9 @@ ORDER BY
     tutors.tutor_id;
   `;
 };
+
+export const getAllLanguagesList = () => {
+  return(
+    'SELECT name FROM languages'
+  );
+}
