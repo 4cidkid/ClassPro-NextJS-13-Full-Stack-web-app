@@ -1,11 +1,12 @@
 import React from "react";
 
-function StarFill() {
+function StarFill({classname}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width={classname?'':"24"}
+      height={classname?'':"24"}
+      className={classname}
       viewBox="0 0 24 24"
       fill="#FFCC31"
     >
