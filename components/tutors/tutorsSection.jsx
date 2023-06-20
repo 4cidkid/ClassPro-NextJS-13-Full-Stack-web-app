@@ -48,23 +48,23 @@ export const GridTutors = ({ subject, level, min, max }) => {
   const [country, setCountry] = useState("");
   //list of countries avalible
   const [countryList, setCountryList] = useState();
-  //fire country search event
-  const [fireCountry, setfireCountry] = useState(false);
 
   //set Language list
   useEffect(() => {
     let languagesListSetter = [];
-    console.log(dataApi)
     if (dataApi?.language) {
-        for(let tutor of dataApi.response){
-            for (let langObj of dataApi.language) {
-                for (let arrayOfLang of langObj.language_names) {
-                  if (!languagesListSetter.includes(arrayOfLang) && tutor.tu_id === langObj.tu_id) {
-                    languagesListSetter.push(arrayOfLang);
-                  }
-                }
-              }
+      for (let tutor of dataApi.response) {
+        for (let langObj of dataApi.language) {
+          for (let arrayOfLang of langObj.language_names) {
+            if (
+              !languagesListSetter.includes(arrayOfLang) &&
+              tutor.tu_id === langObj.tu_id
+            ) {
+              languagesListSetter.push(arrayOfLang);
+            }
+          }
         }
+      }
     }
     setListLanguages(languagesListSetter);
   }, [dataApi]);
@@ -295,7 +295,6 @@ export const GridTutors = ({ subject, level, min, max }) => {
             country={country}
             setCountry={setCountry}
             countryList={countryList}
-            setfireCountry={setfireCountry}
             listLanguajes={listLanguajes}
             setListLanguages={setListLanguages}
           ></FilterTutors>
