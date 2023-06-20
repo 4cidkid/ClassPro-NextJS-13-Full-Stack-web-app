@@ -308,6 +308,15 @@ export const GridTutors = ({ subject, level, min, max }) => {
     }
   }, [dataApi]);
 
+  //calculate total pages is dataApi.response.length is 0
+  useEffect(() => {
+    if(dataApi?.response && dataApi.response.length === 0){
+      setTotalPages(Math.floor(originalData.response.length / 6) + 1);
+    }
+  },[dataApi])
+
+
+  //capitalize the first letter of string, helper function
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
