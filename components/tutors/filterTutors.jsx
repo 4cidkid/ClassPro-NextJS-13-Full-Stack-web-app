@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, ChevronLeft, ChevronRight, Filter } from "react-feather";
+import { X, ChevronLeft, ChevronRight, Filter } from "react-feather";
 import { useEffect, useState } from "react";
 import StarFill from "@/public/reviews/starFill";
 import Star from "@/public/reviews/star";
@@ -16,9 +16,9 @@ export const FilterTutors = (props) => {
   //set language on father element
   const setLanguages = props.setLanguages;
   //list of languages
-  const listLanguajes = props.listLanguajes
+  const listLanguajes = props.listLanguajes;
   //set list of language
-  const setListLanguages = props.setListLanguages
+  const setListLanguages = props.setListLanguages;
   //the dropdown menu of country should be on view?
   const [showCount, setShowCount] = useState(false);
   //the dropdown menu of language should be on view?
@@ -36,30 +36,6 @@ export const FilterTutors = (props) => {
     });
     setListLanguages(newLanguages);
   }, [dataPros]);
-  //find te language that the user need
-  let languagesToShow = [];
-  if (languages != "" && listLanguajes != "" && languages) {
-    for (let i of listLanguajes) {
-      if (
-        i.toLowerCase().includes(languages.toLowerCase()) &&
-        !languagesToShow.includes(i)
-      ) {
-        languagesToShow.push(i);
-      }
-    }
-  }
-  //find the country that the user need
-  let countriesToShow = [];
-  if (country != "" && countryList != "" && country) {
-    for (let i of countryList) {
-      if (
-        i.toLowerCase().includes(country.toLowerCase()) &&
-        !countriesToShow.includes(i)
-      ) {
-        countriesToShow.push(i);
-      }
-    }
-  }
   //handle click outside input
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -130,35 +106,18 @@ export const FilterTutors = (props) => {
                     );
                   })
                 : listLanguajes?.map((lang, i) => {
-                    if (
-                      languages != "" &&
-                      languages &&
-                      languagesToShow.length === 0
-                    ) {
-                      if (i === 0) {
-                        return (
-                          <li
-                            key={lang + 1}
-                            className="text-white hover:bg-white text-lg font-normal hover:text-main"
-                          >
-                            No se encontraron resultados :(
-                          </li>
-                        );
-                      }
-                    } else {
-                      return (
-                        <li
-                          className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
-                          key={lang}
-                          onClick={(e) => {
-                            setLanguages(e.target.innerText);
-                            setShow(false);
-                          }}
-                        >
-                          {lang}
-                        </li>
-                      );
-                    }
+                    return (
+                      <li
+                        className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
+                        key={lang}
+                        onClick={(e) => {
+                          setLanguages(e.target.innerText);
+                          setShow(false);
+                        }}
+                      >
+                        {lang}
+                      </li>
+                    );
                   })}
             </ul>
           </div>
@@ -205,35 +164,18 @@ export const FilterTutors = (props) => {
                     );
                   })
                 : countryList?.map((coun, i) => {
-                    if (
-                      country != "" &&
-                      country &&
-                      countriesToShow.length === 0
-                    ) {
-                      if (i === 0) {
-                        return (
-                          <li
-                            key={coun + "list-no-result"}
-                            className="text-white hover:bg-white text-lg font-normal hover:text-main"
-                          >
-                            No se encontraron resultados :(
-                          </li>
-                        );
-                      }
-                    } else {
-                      return (
-                        <li
-                          className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
-                          key={coun + "list"}
-                          onClick={(e) => {
-                            setCountry(e.target.innerText);
-                            setShowCount(false);
-                          }}
-                        >
-                          {coun}
-                        </li>
-                      );
-                    }
+                    return (
+                      <li
+                        className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
+                        key={coun + "list"}
+                        onClick={(e) => {
+                          setCountry(e.target.innerText);
+                          setShowCount(false);
+                        }}
+                      >
+                        {coun}
+                      </li>
+                    );
                   })}
             </ul>
           </div>
