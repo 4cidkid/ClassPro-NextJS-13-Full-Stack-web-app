@@ -107,6 +107,7 @@ export const FilterTutors = (props) => {
               }}
               readOnly
             ></input>
+            <X className="cursor-pointer" onClick={() => setLanguages("")}></X>
             <ul
               id="dropdown-menu"
               className={`${
@@ -181,9 +182,7 @@ export const FilterTutors = (props) => {
               }}
               readOnly
             ></input>
-            <ArrowRight
-              className="cursor-pointer"
-            ></ArrowRight>
+            <X className="cursor-pointer" onClick={() => setCountry("")}></X>
             <ul
               id="dropdown-menu-2"
               className={`${
