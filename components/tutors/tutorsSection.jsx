@@ -19,30 +19,224 @@ export const GridTutors = ({ subject, level, min, max }) => {
   const [dataApi, setData] = useState();
   //Work's like a switch, if DataApi hasn't loaded yet, falseData switch to true
   const [falseData, setFalseData] = useState(false);
+  //current page
   const [defaultPage, setDefaultPage] = useState(1);
+  //total numers of page calculated based on total number of tutors
   const [totalPages, setTotalPages] = useState(0);
   //slice number of tutors to show
   const [slice, setSlice] = useState({ start: 0, end: 6 });
   //slice numbers in pagination
   const [slicePagination, setSlicePagination] = useState({ start: 0, end: 5 });
-  //fire language search
-  const [fireLanguage, setFireLanguage] = useState(false);
   //saves the original data to not mutate dataApi with rating
   const [originalData, setOriginalData] = useState();
   //saves the rating variable for the FilterTutors Component
+
+  /* ------------ RATING ------------ */
   const [rating, setRating] = useState(1);
+  /* ------------ LANGUAGE STATES ------------ */
+
   //languages state for languages filter
   const [languages, setLanguages] = useState("");
-  //specific country filter
+  //fire language search event
+  const [fireLanguage, setFireLanguage] = useState(false);
+  //list of languages avalible 
+  const [listLanguajes, setListLanguages] = useState([
+    "English",
+    "Spanish",
+    "French",
+  ]);
+  /* ------------ Country States ------------ */
+  //specific country filter state
   const [country, setCountry] = useState("");
-  //list of countries
+  //list of countries avalible
   const [countryList, setCountryList] = useState();
-  //fire country search
+  //fire country search event
   const [fireCountry, setfireCountry] = useState(false);
 
+
+  //set Language list 
+  useEffect(() => {
+    let languagesListSetter = []
+    if(dataApi?.language){
+        for(let langObj of dataApi.language){
+            for(let arrayOfLang of langObj.language_names){
+                if(!languagesListSetter.includes(arrayOfLang)){
+                    languagesListSetter.push(arrayOfLang)
+                }
+            }
+        }
+    }
+    setListLanguages(languagesListSetter)
+  },[dataApi])
+
+
+  //set country List
+  useEffect(() => {
+    let countries = [];
+    dataApi?.response.map((tutor) => {
+      if (
+        !countries.includes(
+          capitalizeFirstLetter(tutor.country_name.toLowerCase())
+        )
+      ) {
+        countries.push(capitalizeFirstLetter(tutor.country_name.toLowerCase()));
+      }
+    });
+    setCountryList(countries);
+  }, [dataApi]);
+
+  /* ------------ FILTERS EVENTS ------------ */
+  useEffect(() => {
+    //if only rating exist
+    if ((rating != 1) & (country === "") & (languages === "")) {
+      let languagesToShow = [];
+      const tutorsToShow = originalData.response.filter((tutor) => {
+        if (tutor.average_rating > rating - 0.6) {
+          languagesToShow.push(tutor);
+        }
+      });
+      if (languagesToShow) {
+        setData((prev) => {
+          return { response: languagesToShow, language: prev.language };
+        });
+      }
+ 
+    }
+    //if only country exist
+    if ((rating === 1) & (country != "") & (languages === "")) {
+      let languagesToShow = [];
+      const tutorsToShow = originalData.response.filter((tutor) => {
+        if (tutor.country_name.toLowerCase() === country.toLowerCase()) {
+          languagesToShow.push(tutor);
+        }
+      });
+      if (languagesToShow) {
+        setData((prev) => {
+          return { response: languagesToShow, language: prev.language };
+        });
+      }
+    }
+
+    //if only language exist
+    if (country === "" && languages != "" && rating === 1) {
+      let languagesToShow = [];
+      const tutorsToShow = originalData.response.filter((tutor) => {
+        dataApi.language.filter((lang) => {
+          if (
+            lang.tu_id === tutor.tu_id &&
+            lang.language_names.includes(languages)
+          ) {
+            languagesToShow.push(tutor);
+          }
+        });
+      });
+      if (languagesToShow) {
+        setData((prev) => {
+          return { response: languagesToShow, language: prev.language };
+        });
+      }
+    }
+    //if country & language exist
+    if (
+        (rating === 1) &
+        (country != "") &
+        (languages != "")
+      ) {
+        let languagesToShow = [];
+        const tutorsToShow = originalData.response.filter((tutor) => {
+          dataApi.language.filter((lang) => {
+            if (
+              lang.tu_id === tutor.tu_id &&
+              lang.language_names.includes(languages) &&
+              tutor.country_name.toLowerCase() === country.toLowerCase()
+            ) {
+              languagesToShow.push(tutor);
+            }
+          });
+        });
+        if (languagesToShow) {
+          setData((prev) => {
+            return { response: languagesToShow, language: prev.language };
+          });
+        }
+
+      }
+    
+    //if country & rating exist
+    if ((rating != 1) & (country != "") & (languages === "")) {
+      let languagesToShow = [];
+      const tutorsToShow = originalData.response.filter((tutor) => {
+        if (
+          tutor.country_name.toLowerCase() === country.toLowerCase() &&
+          tutor.average_rating > rating - 0.6
+        ) {
+          languagesToShow.push(tutor);
+        }
+      });
+      if (languagesToShow) {
+        setData((prev) => {
+          return { response: languagesToShow, language: prev.language };
+        });
+      }
+    }
+
+    //if languages & rating exist
+    if (country === "" && languages != "" && rating != 1) {
+      let languagesToShow = [];
+      const tutorsToShow = originalData.response.filter((tutor) => {
+        dataApi.language.filter((lang) => {
+          if (
+            lang.tu_id === tutor.tu_id &&
+            lang.language_names.includes(languages) &&
+            tutor.average_rating > rating - 0.6
+          ) {
+            languagesToShow.push(tutor);
+          }
+        });
+      });
+      if (languagesToShow) {
+        setData((prev) => {
+          return { response: languagesToShow, language: prev.language };
+        });
+      }
+    }
+    //if all variables exist
+    if (
+      (rating != 1) &
+      (country != "" ) &
+      (languages != "" )
+    ) {
+      let languagesToShow = [];
+      const tutorsToShow = originalData.response.filter((tutor) => {
+        dataApi.language.filter((lang) => {
+          if (
+            lang.tu_id === tutor.tu_id &&
+            lang.language_names.includes(languages) &&
+            tutor.country_name.toLowerCase() === country.toLowerCase() &&
+            tutor.average_rating > rating - 0.6
+          ) {
+            languagesToShow.push(tutor);
+          }
+        });
+      });
+      if (languagesToShow) {
+        setData((prev) => {
+          return { response: languagesToShow, language: prev.language };
+        });
+      }
+
+    }
+    //if none of the variables exist
+    if (rating === 1 && country === "" && languages === "") {
+      setData(originalData);
+    }
+  }, [rating, country, languages]);
+  //fire country && fire language if rating is changed
+
+  //define the array of numbers
   let mapMe = [];
 
-  //get number of pages in an array
+  //define numbers of pages to map through array and return (i)
   if (totalPages != 0) {
     for (let i = 0; i <= totalPages - 1; i++) {
       mapMe.push(i);
@@ -89,148 +283,10 @@ export const GridTutors = ({ subject, level, min, max }) => {
   useEffect(() => {
     if (dataApi?.response) {
       setTotalPages(Math.floor(dataApi.response.length / 6) + 1);
-    }
-  }, [dataApi]);
-
-  //update data by rating
-  useEffect(() => {
-    if (languages === "" && country === "") {
-      let newData = originalData?.response.filter((tutor) => {
-        if (tutor.average_rating > rating - 0.5) {
-          return tutor;
-        }
-      });
-      if (dataApi?.response && newData) {
-        setData((prev) => {
-          return { response: newData, language: prev.language };
-        });
-      }
     } else {
-      let newData = dataApi?.response.filter((tutor) => {
-        if (
-          tutor.average_rating > rating - 0.5 &&
-          tutor.country_name.toLowerCase() === country.toLowerCase()
-        ) {
-          if (languages != "") {
-            const toSearch = dataApi.language.filter((lang) => {
-              if (lang.tu_id === tutor.tu_id) {
-                return tutor;
-              }
-            });
-            if (toSearch) {
-              return toSearch;
-            } else {
-              return null;
-            }
-          } else {
-            return tutor;
-          }
-        }
-      });
-      if (dataApi?.response && newData) {
-        setData((prev) => {
-          return { response: newData, language: prev.language };
-        });
-      }
+      setTotalPages(6);
     }
-  }, [rating]);
-
-  //handle language search event
-  useEffect(() => {
-    if (fireLanguage && languages != "") {
-      if (country === "") {
-        let newData = originalData?.response.filter((tutor) => {
-          for (let i of originalData.language) {
-            if (tutor.tu_id === i.tu_id) {
-              const lowerCase = i.language_names.map((lang) => {
-                return lang.toLowerCase();
-              });
-              if (lowerCase.includes(languages.toLowerCase())) {
-                return tutor;
-              }
-            }
-          }
-        });
-        if (dataApi?.response && newData) {
-          setData((prev) => {
-            return { response: newData, language: prev.language };
-          });
-        }
-      } else {
-        let newData = dataApi?.response.filter((tutor) => {
-          for (let i of dataApi.language) {
-            if (tutor.tu_id === i.tu_id) {
-              const lowerCase = i.language_names.map((lang) => {
-                return lang.toLowerCase();
-              });
-              if (lowerCase.includes(languages.toLowerCase())) {
-                return tutor;
-              }
-            }
-          }
-        });
-        if (dataApi?.response && newData) {
-          setData((prev) => {
-            return { response: newData, language: prev.language };
-          });
-        }
-      }
-    } else if (languages === "") {
-      if (dataApi?.response) {
-        if (country === "" && rating === 1) {
-          setData(originalData);
-        }
-      }
-    }
-    setFireLanguage(false);
-  }, [fireLanguage, languages]);
-  //map countries to set country list
-  useEffect(() => {
-    let countriesToGet = [];
-    dataApi?.response.map((coun) => {
-      if (
-        !countriesToGet.includes(
-          capitalizeFirstLetter(coun.country_name.toLowerCase())
-        )
-      ) {
-        countriesToGet.push(
-          capitalizeFirstLetter(coun.country_name.toLowerCase())
-        );
-      }
-    });
-    setCountryList(countriesToGet);
   }, [dataApi]);
-  //handle country search event
-  useEffect(() => {
-    if (fireCountry && country != "") {
-      let newData = originalData?.response.filter((tutor) => {
-        if (tutor.country_name.toLowerCase() === country.toLowerCase()) {
-          const languageVar = originalData?.language.filter((lang) => {
-            if (tutor.tu_id === lang.tu_id) {
-              return tutor;
-            }
-          });
-          if (languageVar) {
-            return languageVar;
-          } else {
-            return null;
-          }
-        }
-      });
-      if (dataApi?.response && newData) {
-        setData((prev) => {
-          return { response: newData, language: prev.language };
-        });
-      }
-    } else if (country === "") {
-      if (dataApi?.response) {
-        if (languages === "" && rating === 1) {
-          setData(originalData);
-        }
-      }
-    }
-    setfireCountry(false);
-  }, [fireCountry, country]);
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -253,6 +309,8 @@ export const GridTutors = ({ subject, level, min, max }) => {
             setCountry={setCountry}
             countryList={countryList}
             setfireCountry={setfireCountry}
+            listLanguajes={listLanguajes}
+            setListLanguages={setListLanguages}
           ></FilterTutors>
         </div>
         <div
