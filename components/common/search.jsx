@@ -293,16 +293,25 @@ const SearchBar = ({ personalized }) => {
               setSelectLevel(true);
             }}
           >
-            <p
-              type="text"
-              name="level"
-              className="text-xl w-fit font-semibold text-[#292929]"
-              placeholder="Ex:Beginner"
-              readOnly
-              required
-            >
-              {level}
-            </p>
+            {level ? (
+              <p
+                type="text"
+                name="level"
+                className="text-xl w-fit font-semibold text-[#292929]"
+                required
+              >
+                {level}
+              </p>
+            ) : (
+              <p
+                type="text"
+                name="level"
+                className="text-xl w-fit font-semibold text-[#A1A1A1]"
+                required
+              >
+                Ex:Beginner
+              </p>
+            )}
             <ChevronDown></ChevronDown>
             <div
               className={`${
