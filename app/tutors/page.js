@@ -87,6 +87,9 @@ const FilterTutors = (props) => {
       const newLanguages = data.languages.filter((lang) => {
         if (dataPros) {
           let dataToSearch = [];
+          /* Later on i figured out a better way to do this, i only have to
+          receive languages from the father and then put it on the list,
+          so, my bad, one thing to fix! */
           dataToSearch = dataPros.map((languageSearch) => {
             for (let i of languageSearch.language_names) {
               if (!dataToSearch.includes(i)) {
