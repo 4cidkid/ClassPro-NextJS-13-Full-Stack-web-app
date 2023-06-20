@@ -232,7 +232,7 @@ GROUP BY tutors_language.tutor_id
 ORDER BY tutors_language.tutor_id;
   `;
 };
-export const selectTutorLanguagesAll = (min, max, level) => {
+export const selectTutorLanguagesLevel = (min, max, level) => {
   return `
   SELECT
     tutors.tutor_id as tu_id,
@@ -261,7 +261,7 @@ ORDER BY
     tutors.tutor_id;
   `;
 };
-export const selectTutorLanguageLevel = (subject, min, max) => {
+export const selectTutorLanguageSubject = (subject, min, max) => {
   return `
   SELECT
     tutors.tutor_id as tu_id,
