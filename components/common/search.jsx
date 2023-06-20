@@ -5,7 +5,6 @@ import { ChevronDown, Search } from "react-feather";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 const SearchBar = ({ personalized }) => {
-
   //get params from current url
   const searchParams = useSearchParams();
   const subjectParam = searchParams.get("subject");
@@ -27,13 +26,14 @@ const SearchBar = ({ personalized }) => {
   }, []);
   /* if url contains certains params => convert the searchbar to an 'active' state */
   useEffect(() => {
+    console.log(subjectParam);
     if (subjectParam && levelParam && min && max) {
       setLevel(levelParam);
       setSubject(subjectParam);
       setInputOne({ one: min, two: max });
       setPriceColor("##292929");
     }
-    if (localSubject.length != 0) {
+    if (localSubject.length != 0 && subjectParam && levelParam && min && max) {
       if (
         subjectParam &&
         !localSubject.includes(subjectParam.toLowerCase()) &&
@@ -41,7 +41,6 @@ const SearchBar = ({ personalized }) => {
         min &&
         max
       ) {
-
         router.replace(
           `/tutors?subject=All&level=${levelParam}&min=${min}&max=${max}`
         );
@@ -58,6 +57,11 @@ const SearchBar = ({ personalized }) => {
           `/tutors?subject=${subjectParam}&level=All&min=${min}&max=${max}`
         );
       }
+    } else {
+      setInputOne({ one: 5, two: 100 });
+      setSubject("");
+      setLevel("");
+      setPriceColor("#A1A1A1");
     }
   }, [subjectParam, levelParam, min, max, localSubject]);
   /*To replace current url on submit*/
@@ -72,11 +76,10 @@ const SearchBar = ({ personalized }) => {
   const [selectPrice, setSelectPrice] = useState(false);
   const [selectSubject, setSelectSubject] = useState(false);
   const [selectLevel, setSelectLevel] = useState(false);
-  //default color of range pricing 
+  //default color of range pricing
   const [priceColor, setPriceColor] = useState("#A1A1A1");
   //animation if subject OR level are empty
   const [animationError, setAnimationError] = useState(false);
-
 
   const smoothScrollOne = (event) => {
     const input = event.target;
