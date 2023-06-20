@@ -19,6 +19,8 @@ export const GridTutors = ({ subject, level, min, max }) => {
   const [dataApi, setData] = useState();
   //Work's like a switch, if DataApi hasn't loaded yet, falseData switch to true
   const [falseData, setFalseData] = useState(false);
+  //loading state control
+  const [shouldLoad, setShouldLoad] = useState(false);
   //current page
   const [defaultPage, setDefaultPage] = useState(1);
   //total numers of page calculated based on total number of tutors
@@ -90,9 +92,9 @@ export const GridTutors = ({ subject, level, min, max }) => {
 
   /* ------------ FILTERS EVENTS ------------ */
   useEffect(() => {
-    //if only first class free exist
     //if only rating exist
     if ((rating != 1) & (country === "") & (languages === "")) {
+      setShouldLoad(true);
       let languagesToShow = [];
       const tutorsToShow = originalData.response.filter((tutor) => {
         if (
@@ -107,9 +109,11 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
+      setTimeout(() => setShouldLoad(false), 700);
     }
     //if only country exist
     if ((rating === 1) & (country != "") & (languages === "")) {
+      setShouldLoad(true);
       let languagesToShow = [];
       const tutorsToShow = originalData.response.filter((tutor) => {
         if (
@@ -124,10 +128,12 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
+      setTimeout(() => setShouldLoad(false), 700);
     }
 
     //if only language exist
     if (country === "" && languages != "" && rating === 1) {
+      setShouldLoad(true);
       let languagesToShow = [];
       const tutorsToShow = originalData.response.filter((tutor) => {
         dataApi.language.filter((lang) => {
@@ -145,9 +151,11 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
+      setTimeout(() => setShouldLoad(false), 700);
     }
     //if country & language exist
     if ((rating === 1) & (country != "") & (languages != "")) {
+      setShouldLoad(true);
       let languagesToShow = [];
       const tutorsToShow = originalData.response.filter((tutor) => {
         dataApi.language.filter((lang) => {
@@ -166,10 +174,12 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
+      setTimeout(() => setShouldLoad(false), 700);
     }
 
     //if country & rating exist
     if ((rating != 1) & (country != "") & (languages === "")) {
+      setShouldLoad(true);
       let languagesToShow = [];
       const tutorsToShow = originalData.response.filter((tutor) => {
         if (
@@ -185,10 +195,12 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
+      setTimeout(() => setShouldLoad(false), 700);
     }
 
     //if languages & rating exist
     if (country === "" && languages != "" && rating != 1) {
+      setShouldLoad(true);
       let languagesToShow = [];
       const tutorsToShow = originalData.response.filter((tutor) => {
         dataApi.language.filter((lang) => {
@@ -207,9 +219,12 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
+      setTimeout(() => setShouldLoad(false), 700);
     }
     //if all variables exist
     if ((rating != 1) & (country != "") & (languages != "")) {
+      setShouldLoad(true);
+
       let languagesToShow = [];
       const tutorsToShow = originalData.response.filter((tutor) => {
         dataApi.language.filter((lang) => {
@@ -229,6 +244,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
+      setTimeout(() => setShouldLoad(false), 700);
     }
     //if none of the variables exist
     // && tutor.first_class === switchFirst
@@ -238,6 +254,8 @@ export const GridTutors = ({ subject, level, min, max }) => {
       languages === "" &&
       originalData?.response
     ) {
+      setShouldLoad(true);
+
       let languagesToShow = [];
       originalData.response.filter((tutor) => {
         if (tutor.first_class === switchFirst) {
@@ -249,6 +267,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
+      setTimeout(() => setShouldLoad(false), 700);
     }
   }, [rating, country, languages, switchFirst]);
   //fire country && fire language if rating is changed
@@ -310,11 +329,10 @@ export const GridTutors = ({ subject, level, min, max }) => {
 
   //calculate total pages is dataApi.response.length is 0
   useEffect(() => {
-    if(dataApi?.response && dataApi.response.length === 0){
+    if (dataApi?.response && dataApi.response.length === 0) {
       setTotalPages(Math.floor(originalData.response.length / 6) + 1);
     }
-  },[dataApi])
-
+  }, [dataApi]);
 
   //capitalize the first letter of string, helper function
   function capitalizeFirstLetter(string) {
@@ -322,10 +340,12 @@ export const GridTutors = ({ subject, level, min, max }) => {
   }
   return (
     <section id="grid-tutors" className="h-fit">
+      {shouldLoad && <Loader show={shouldLoad}></Loader>}
       <div
         id="tutors-container"
-        className="px-[135px] py-[48px] flex justify-between"
+        className={`${shouldLoad? 'blur-md' : ''} px-[135px] py-[48px] flex justify-between`}
       >
+        
         <div className="w-[25%] sticky overflow-visible">
           <FilterTutors
             languages={languages}
@@ -342,12 +362,12 @@ export const GridTutors = ({ subject, level, min, max }) => {
             setSwitchFirst={setSwitchFirst}
           ></FilterTutors>
         </div>
-        <div
-          id="tutors-cards"
-          className="flex flex-col gap-5  w-[70%]"
-        >
+        <div id="tutors-cards" className="flex flex-col gap-5  w-[70%]">
+          
           {dataApi?.response.length === 0 && (
-            <p className="flex-start text-2xl font-semibold text-blackNot">We didn't find any tutor, but Here is some Nice Tutors!</p>
+            <p className="flex-start text-2xl font-semibold text-blackNot">
+              We didn't find any tutor With that Filters, but Here is some Nice Tutors!
+            </p>
           )}
           {dataApi?.response.length === 0 &&
             originalData.response
