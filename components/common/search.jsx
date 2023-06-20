@@ -35,7 +35,8 @@ const SearchBar = ({ personalized }) => {
     }
     if (localSubject.length != 0) {
       if (
-        (subjectParam && !localSubject.includes(subjectParam.toLowerCase())) &&
+        subjectParam &&
+        !localSubject.includes(subjectParam.toLowerCase()) &&
         levelParam &&
         min &&
         max
