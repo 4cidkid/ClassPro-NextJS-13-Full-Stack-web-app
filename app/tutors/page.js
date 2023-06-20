@@ -71,9 +71,9 @@ const FilterTutors = (props) => {
   const setLanguages = props.setLanguages;
   //list of languages
   const [listLanguajes, setListLanguages] = useState([
-    { name: "English" },
-    { name: "Spanish" },
-    { name: "French" },
+    "English",
+    "Spanish",
+    "French",
   ]);
   //the dropdown menu of input should be on view?
   const [show, setShow] = useState(false);
@@ -82,39 +82,26 @@ const FilterTutors = (props) => {
   //get list of languages
   const dataPros = props.dataApi;
   useEffect(() => {
-    async function fetchLang() {
-      const data = await getLanguages();
-      const newLanguages = data.languages.filter((lang) => {
-        if (dataPros) {
-          let dataToSearch = [];
-          /* Later on i figured out a better way to do this, i only have to
-          receive languages from the father and then put it on the list,
-          so, my bad, one thing to fix! */
-          dataToSearch = dataPros.map((languageSearch) => {
-            for (let i of languageSearch.language_names) {
-              if (!dataToSearch.includes(i)) {
-                return i.toLowerCase();
-              }
-            }
-          });
-          if (dataToSearch.includes(lang.name.toLowerCase())) {
-            return lang;
-          }
+    let newLanguages = [];
+    console.log(dataPros);
+    dataPros?.map((lang) => {
+      for (let i of lang.language_names) {
+        if (!newLanguages.includes(i)) {
+          newLanguages.push(i);
         }
-      });
-      setListLanguages(newLanguages);
-    }
-    fetchLang();
+      }
+    });
+    setListLanguages(newLanguages);
   }, [dataPros]);
   //find te language that the user need
   let languagesToShow = [];
   if (languages != "" && listLanguajes != "" && languages) {
     for (let i of listLanguajes) {
       if (
-        i.name.toLowerCase().includes(languages.toLowerCase()) &&
-        !languagesToShow.includes(i.name)
+        i.toLowerCase().includes(languages.toLowerCase()) &&
+        !languagesToShow.includes(i)
       ) {
-        languagesToShow.push(i.name);
+        languagesToShow.push(i);
       }
     }
   }
@@ -143,7 +130,7 @@ const FilterTutors = (props) => {
           <p className="text-xl text-blackNot font-semibold">
             In what Language?
           </p>
-          <div className="flex relative  text-base w-full p-1 rounded-sm border-2 border-[rgba(105, 105, 105, 0.21)] shadow-sm">
+          <div className="flex relative text-base w-full p-1 rounded-sm border-2 border-[rgba(105, 105, 105, 0.21)] shadow-sm">
             <input
               placeholder="English, Spanish, French"
               className="w-full"
@@ -199,13 +186,13 @@ const FilterTutors = (props) => {
                       return (
                         <li
                           className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
-                          key={lang.name}
+                          key={lang}
                           onClick={(e) => {
                             setLanguages(e.target.innerText);
                             setShow(false);
                           }}
                         >
-                          {lang.name}
+                          {lang}
                         </li>
                       );
                     }
