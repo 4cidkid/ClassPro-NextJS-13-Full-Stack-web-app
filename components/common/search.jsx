@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Search } from "react-feather";
+import { ChevronDown, Search } from "react-feather";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 const SearchBar = ({ personalized }) => {
@@ -11,13 +11,13 @@ const SearchBar = ({ personalized }) => {
   const min = parseInt(searchParams.get("min"));
   const max = parseInt(searchParams.get("max"));
   useEffect(() => {
-    if(subjectParam && levelParam && min && max){
-      setLevel(levelParam)
-      setSubject(subjectParam)
-      setInputOne({one:min,two:max})
+    if (subjectParam && levelParam && min && max) {
+      setLevel(levelParam);
+      setSubject(subjectParam);
+      setInputOne({ one: min, two: max });
       setPriceColor("##292929");
     }
-  },[subjectParam,levelParam,min,max])
+  }, [subjectParam, levelParam, min, max]);
   const router = useRouter();
   const [inputOne, setInputOne] = useState({ one: 5, two: 100 });
   const [priceRange, setPriceRange] = useState("$5 - $100");
@@ -231,25 +231,29 @@ const SearchBar = ({ personalized }) => {
           <label className="font-bold text-xl text-[#A1A1A1]">
             Level of Classes
           </label>
-          <div className="relative">
-            <input
+          <div
+            className="relative flex items-center cursor-pointer"
+            onClick={() => {
+              if (selectSubject) {
+                setSelectSubject(false);
+              }
+              if (selectPrice) {
+                setSelectPrice(false);
+              }
+              setSelectLevel(true);
+            }}
+          >
+            <p
               type="text"
               name="level"
-              className="text-xl font-semibold text-[#292929]"
-              value={level}
-              onClick={() => {
-                if (selectSubject) {
-                  setSelectSubject(false);
-                }
-                if (selectPrice) {
-                  setSelectPrice(false);
-                }
-                setSelectLevel(true);
-              }}
+              className="text-xl w-fit font-semibold text-[#292929]"
               placeholder="Ex:Beginner"
               readOnly
               required
-            ></input>
+            >
+              {level}
+            </p>
+            <ChevronDown></ChevronDown>
             <div
               className={`${
                 level === "" && animationError
@@ -265,7 +269,7 @@ const SearchBar = ({ personalized }) => {
             } shadow-2xl absolute z-[10] bg-opacity-[0.9] top-[130%] right-0 bg-black  w-[300px] max-h-[200px] transition-transform flex flex-col gap-2 items-center justify-center text-white bg-main before:absolute before:content-[''] before:left-1/2 before:bottom-[100%]   before:w-[0] before:h-[0] before:-translate-x-1/2 before:border-main before:border-[20px] before:border-transparent before:border-b-[20px] before:border-t-[0] before:border-b-main before:shadow-2xl`}
           >
             <ul className="w-full h-full p-2 overflow-y-auto text-lg font-semibold">
-            <li
+              <li
                 onClick={(e) => {
                   setSelectLevel(false);
                   setLevel(e.target.innerText);
@@ -324,9 +328,10 @@ const SearchCat = (props) => {
     const getSubjects = async () => {
       const data = await fetch("http://localhost:3000/api/subjects");
       const subjects = await data.json();
-      const newArray = [{subject_id:0,subject_name:'All'}].concat(subjects.subjects)
+      const newArray = [{ subject_id: 0, subject_name: "All" }].concat(
+        subjects.subjects
+      );
       setLocalSubjects(newArray);
-      
     };
     getSubjects();
   }, []);
@@ -344,7 +349,7 @@ const SearchCat = (props) => {
   }
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
+  }
   return (
     <>
       {subjectsToShow.length > 0
@@ -373,7 +378,10 @@ const SearchCat = (props) => {
                 {capitalizeFirstLetter(subj.subject_name)}
               </li>
             ) : i == 0 ? (
-              <li key={subj} className="hover:bg-white font-normal hover:text-main">
+              <li
+                key={subj}
+                className="hover:bg-white font-normal hover:text-main"
+              >
                 No se encontraron resultados :(
               </li>
             ) : undefined
