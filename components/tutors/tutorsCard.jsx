@@ -42,9 +42,9 @@ const TutorsCards = (props) => {
               className="h-[20px] w-[30px]"
               src={`/countriesFlags/${props.tutor.country.toLowerCase()}.png`}
             ></img>
-            <sup className="font-bold text-xs text-white">
+            <p className="font-bold text-xs text-white">
               {props.tutor.country_name}
-            </sup>
+            </p>
           </div>
           <div>
             <ul className="font-normal text-white flex gap-6 list-disc">
