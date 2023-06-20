@@ -101,7 +101,10 @@ export const FilterTutors = (props) => {
               onChange={(e) => {
                 setLanguages(e.target.value);
               }}
-              onClick={() => setShow(true)}
+              onClick={() => {
+                setShowCount(false)
+                setShow(true)
+              }}
               readOnly
             ></input>
             <ul
@@ -172,7 +175,10 @@ export const FilterTutors = (props) => {
               onChange={(e) => {
                 setCountry(e.target.value);
               }}
-              onClick={() => setShowCount(true)}
+              onClick={() => {
+                setShowCount(true)
+                setShow(false)
+              }}
               readOnly
             ></input>
             <ArrowRight
