@@ -90,22 +90,7 @@ export const FilterTutors = (props) => {
                 show ? "scale-1" : "scale-0"
               } transition-transform border-2 border-main p-1 flex flex-col gap-1 left-0 top-[100%] z-[15] pl-2 text-xl absolute bg-main w-full max-h-[200px] overflow-y-scroll`}
             >
-              {languagesToShow.length > 0
-                ? languagesToShow.map((lang) => {
-                    return (
-                      <li
-                        className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
-                        key={lang}
-                        onClick={(e) => {
-                          setLanguages(e.target.innerText);
-                          setShow(false);
-                        }}
-                      >
-                        {lang}
-                      </li>
-                    );
-                  })
-                : listLanguajes?.map((lang, i) => {
+              {listLanguajes?.map((lang, i) => {
                     return (
                       <li
                         className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
@@ -148,22 +133,7 @@ export const FilterTutors = (props) => {
                 showCount ? "scale-1" : "scale-0"
               } transition-transform border-2 border-main p-1 flex flex-col gap-1 left-0 top-[100%] z-[15] pl-2 text-xl absolute bg-main w-full max-h-[200px] overflow-y-scroll`}
             >
-              {countriesToShow.length > 0
-                ? countriesToShow.map((coun) => {
-                    return (
-                      <li
-                        className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
-                        key={coun + "country"}
-                        onClick={(e) => {
-                          setCountry(e.target.innerText);
-                          setShowCount(false);
-                        }}
-                      >
-                        {coun}
-                      </li>
-                    );
-                  })
-                : countryList?.map((coun, i) => {
+              {countryList?.map((coun, i) => {
                     return (
                       <li
                         className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
