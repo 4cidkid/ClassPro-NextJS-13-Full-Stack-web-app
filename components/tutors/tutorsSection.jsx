@@ -37,9 +37,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
 
   //languages state for languages filter
   const [languages, setLanguages] = useState("");
-  //fire language search event
-  const [fireLanguage, setFireLanguage] = useState(false);
-  //list of languages avalible 
+  //list of languages avalible
   const [listLanguajes, setListLanguages] = useState([
     "English",
     "Spanish",
@@ -53,22 +51,23 @@ export const GridTutors = ({ subject, level, min, max }) => {
   //fire country search event
   const [fireCountry, setfireCountry] = useState(false);
 
-
-  //set Language list 
+  //set Language list
   useEffect(() => {
-    let languagesListSetter = []
-    if(dataApi?.language){
-        for(let langObj of dataApi.language){
-            for(let arrayOfLang of langObj.language_names){
-                if(!languagesListSetter.includes(arrayOfLang)){
-                    languagesListSetter.push(arrayOfLang)
+    let languagesListSetter = [];
+    console.log(dataApi)
+    if (dataApi?.language) {
+        for(let tutor of dataApi.response){
+            for (let langObj of dataApi.language) {
+                for (let arrayOfLang of langObj.language_names) {
+                  if (!languagesListSetter.includes(arrayOfLang) && tutor.tu_id === langObj.tu_id) {
+                    languagesListSetter.push(arrayOfLang);
+                  }
                 }
-            }
+              }
         }
     }
-    setListLanguages(languagesListSetter)
-  },[dataApi])
-
+    setListLanguages(languagesListSetter);
+  }, [dataApi]);
 
   //set country List
   useEffect(() => {
@@ -100,7 +99,6 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
- 
     }
     //if only country exist
     if ((rating === 1) & (country != "") & (languages === "")) {
@@ -137,31 +135,26 @@ export const GridTutors = ({ subject, level, min, max }) => {
       }
     }
     //if country & language exist
-    if (
-        (rating === 1) &
-        (country != "") &
-        (languages != "")
-      ) {
-        let languagesToShow = [];
-        const tutorsToShow = originalData.response.filter((tutor) => {
-          dataApi.language.filter((lang) => {
-            if (
-              lang.tu_id === tutor.tu_id &&
-              lang.language_names.includes(languages) &&
-              tutor.country_name.toLowerCase() === country.toLowerCase()
-            ) {
-              languagesToShow.push(tutor);
-            }
-          });
+    if ((rating === 1) & (country != "") & (languages != "")) {
+      let languagesToShow = [];
+      const tutorsToShow = originalData.response.filter((tutor) => {
+        dataApi.language.filter((lang) => {
+          if (
+            lang.tu_id === tutor.tu_id &&
+            lang.language_names.includes(languages) &&
+            tutor.country_name.toLowerCase() === country.toLowerCase()
+          ) {
+            languagesToShow.push(tutor);
+          }
         });
-        if (languagesToShow) {
-          setData((prev) => {
-            return { response: languagesToShow, language: prev.language };
-          });
-        }
-
+      });
+      if (languagesToShow) {
+        setData((prev) => {
+          return { response: languagesToShow, language: prev.language };
+        });
       }
-    
+    }
+
     //if country & rating exist
     if ((rating != 1) & (country != "") & (languages === "")) {
       let languagesToShow = [];
@@ -201,11 +194,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
       }
     }
     //if all variables exist
-    if (
-      (rating != 1) &
-      (country != "" ) &
-      (languages != "" )
-    ) {
+    if ((rating != 1) & (country != "") & (languages != "")) {
       let languagesToShow = [];
       const tutorsToShow = originalData.response.filter((tutor) => {
         dataApi.language.filter((lang) => {
@@ -224,7 +213,6 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
-
     }
     //if none of the variables exist
     if (rating === 1 && country === "" && languages === "") {
@@ -303,7 +291,6 @@ export const GridTutors = ({ subject, level, min, max }) => {
             setLanguages={setLanguages}
             rating={rating}
             setRating={setRating}
-            setFireLanguage={setFireLanguage}
             dataApi={dataApi?.language}
             country={country}
             setCountry={setCountry}
