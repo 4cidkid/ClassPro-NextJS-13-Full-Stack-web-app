@@ -11,26 +11,19 @@ export const FilterTutors = (props) => {
   const setCountry = props.setCountry;
   //list of countries
   const countryList = props.countryList;
-  //set country language
-  const setfireCountry = props.setfireCountry;
   //get prop variable from father
-
   const languages = props.languages;
   //set language on father element
   const setLanguages = props.setLanguages;
   //list of languages
-  const [listLanguajes, setListLanguages] = useState([
-    "English",
-    "Spanish",
-    "French",
-  ]);
+  const listLanguajes = props.listLanguajes
+  //set list of language
+  const setListLanguages = props.setListLanguages
   //the dropdown menu of country should be on view?
   const [showCount, setShowCount] = useState(false);
   //the dropdown menu of language should be on view?
   const [show, setShow] = useState(false);
   //props fire language search
-  const setFireLanguage = props.setFireLanguage;
-  //get list of languages
   const dataPros = props.dataApi;
   useEffect(() => {
     let newLanguages = [];
@@ -109,11 +102,8 @@ export const FilterTutors = (props) => {
                 setLanguages(e.target.value);
               }}
               onClick={() => setShow(true)}
+              readOnly
             ></input>
-            <ArrowRight
-              className="cursor-pointer"
-              onClick={() => setFireLanguage(true)}
-            ></ArrowRight>
             <ul
               id="dropdown-menu"
               className={`${
@@ -183,10 +173,10 @@ export const FilterTutors = (props) => {
                 setCountry(e.target.value);
               }}
               onClick={() => setShowCount(true)}
+              readOnly
             ></input>
             <ArrowRight
               className="cursor-pointer"
-              onClick={() => setfireCountry(true)}
             ></ArrowRight>
             <ul
               id="dropdown-menu-2"
