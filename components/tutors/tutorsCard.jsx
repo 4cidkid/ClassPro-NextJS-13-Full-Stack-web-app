@@ -8,10 +8,13 @@ const TutorsCards = (props) => {
   let contador = 0;
   let languages = [];
   if (props.languages) {
-    const indexEnglish = props.languages.indexOf("English");
-    languages.push(props.languages[indexEnglish]);
-    for (let i = indexEnglish - 1; i >= 0; i--) {
-      languages.push(props.languages[i]);
+    if (props.languages.includes("English")) {
+      languages.push("English");
+    }
+    for (let i = props.languages.length - 1; i >= 0; i--) {
+      if (props.languages[i] != "English") {
+        languages.push(props.languages[i]);
+      }
     }
   }
   function capitalizeFirstLetter(string) {
@@ -39,7 +42,9 @@ const TutorsCards = (props) => {
               className="h-[20px] w-[30px]"
               src={`/countriesFlags/${props.tutor.country.toLowerCase()}.png`}
             ></img>
-            <upper className="font-bold text-xs text-white" >{props.tutor.country_name}</upper>
+            <sup className="font-bold text-xs text-white">
+              {props.tutor.country_name}
+            </sup>
           </div>
           <div>
             <ul className="font-normal text-white flex gap-6 list-disc">
@@ -68,16 +73,13 @@ const TutorsCards = (props) => {
               Teach:
               {props.tutor.subject_names.map((sub, i) => {
                 return (
-                  <div className="flex items-center" key={sub}> 
-                    <li
-                      
-                      className="text-lg font-semibold list-none"
-                    >
+                  <div className="flex items-center" key={sub}>
+                    <li className="text-lg font-semibold list-none">
                       {capitalizeFirstLetter(sub)}&nbsp;-
                     </li>
                     {props.tutor.subject_levels[i].map((subt, i) => (
-                      <li key={sub + props.tutor.subject_levels[i]}
-                        
+                      <li
+                        key={sub + props.tutor.subject_levels[i]}
                         className="text-base font-normal list-none"
                       >
                         &nbsp;{capitalizeFirstLetter(subt)}&nbsp;
@@ -106,7 +108,7 @@ const TutorsCards = (props) => {
                   contador++;
                   return (
                     <HalfStar
-                    classname={'w-[24px]'}
+                      classname={"w-[24px]"}
                       key={
                         props.tutor.tu_name +
                         props.tutor.tu_lastname +
@@ -120,7 +122,7 @@ const TutorsCards = (props) => {
                   contador++;
                   return (
                     <StarFill
-                    classname={'w-[24px]'}
+                      classname={"w-[24px]"}
                       key={
                         props.tutor.tu_name +
                         props.tutor.tu_lastname +
@@ -135,7 +137,7 @@ const TutorsCards = (props) => {
                 contador++;
                 return (
                   <Star
-                  classname={'w-[24px]'}
+                    classname={"w-[24px]"}
                     key={
                       props.tutor.tu_name +
                       "starNormal" +
@@ -159,7 +161,7 @@ const TutorsCards = (props) => {
         </div>
       </div>
       {props.tutor.first_class && (
-        <div className="font-semibold text-3xl text-first_class opacity-[0.92] absolute right-5 top-[50%] translate-[-50%,-50%]">
+        <div className="font-semibold text-3xl text-first_class opacity-[0.92] absolute right-5 top-[45%] translate-[-50%,-50%]">
           1st Class Free!
         </div>
       )}
