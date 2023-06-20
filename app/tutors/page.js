@@ -1,8 +1,14 @@
 "use client";
-import { ChevronLeft, ChevronRight, Filter, Search } from "react-feather";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Filter,
+  Search,
+} from "react-feather";
 import { useSearchParams } from "next/navigation";
 import Router from "next/router";
-import { searchFor, searchAny } from "./search";
+import { searchFor, searchAny, getLanguages } from "./search";
 import { useEffect, useState } from "react";
 import SearchBar from "@/components/common/search";
 import TutorsCards from "@/components/tutors/tutorsCard";
@@ -14,6 +20,7 @@ import StarFill from "@/public/reviews/starFill";
 import HalfStar from "@/public/reviews/halfStar";
 import Star from "@/public/reviews/star";
 import { Star as ReactStar } from "react-feather";
+import { Input } from "postcss";
 
 export function Tutors() {
   //get params from url
@@ -58,6 +65,71 @@ export function Tutors() {
 }
 
 const FilterTutors = (props) => {
+  //get prop variable from father
+  const languages = props.languages;
+  //set language on father element
+  const setLanguages = props.setLanguages;
+  //list of languages
+  const [listLanguajes, setListLanguages] = useState([
+    { name: "English" },
+    { name: "Spanish" },
+    { name: "French" },
+  ]);
+  //the dropdown menu of input should be on view?
+  const [show, setShow] = useState(false);
+  //props fire language search
+  const setFireLanguage = props.setFireLanguage;
+  //get list of languages
+  const dataPros = props.dataApi;
+  useEffect(() => {
+    async function fetchLang() {
+      const data = await getLanguages();
+      const newLanguages = data.languages.filter((lang) => {
+        if (dataPros) {
+          let dataToSearch = [];
+          dataToSearch = dataPros.map((languageSearch) => {
+            for (let i of languageSearch.language_names) {
+              if (!dataToSearch.includes(i)) {
+                return i.toLowerCase();
+              }
+            }
+          });
+          if (dataToSearch.includes(lang.name.toLowerCase())) {
+            return lang;
+          }
+        }
+      });
+      setListLanguages(newLanguages);
+    }
+    fetchLang();
+  }, [dataPros]);
+  //find te language that the user need
+  let languagesToShow = [];
+  if (languages != "" && listLanguajes != "" && languages) {
+    for (let i of listLanguajes) {
+      if (
+        i.name.toLowerCase().includes(languages.toLowerCase()) &&
+        !languagesToShow.includes(i.name)
+      ) {
+        languagesToShow.push(i.name);
+      }
+    }
+  }
+  //handle click outside input
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      var subject = document.getElementById("dropdown-menu");
+      if (
+        !subject.contains(e.target) &&
+        subject.classList.contains("scale-1")
+      ) {
+        setShow(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  });
+
   return (
     <div className="sticky top-[100px] bg-white rounded-xl shadow-lg h-[70vh]">
       <div className="flex flex-col gap-3">
@@ -68,10 +140,75 @@ const FilterTutors = (props) => {
           <p className="text-xl text-blackNot font-semibold">
             In what Language?
           </p>
-          <input
-            placeholder="English, Spanish, French, Chinese...."
-            className="text-base w-full p-1 rounded-sm border-2 border-[rgba(105, 105, 105, 0.21)] shadow-sm"
-          ></input>
+          <div className="flex relative  text-base w-full p-1 rounded-sm border-2 border-[rgba(105, 105, 105, 0.21)] shadow-sm">
+            <input
+              placeholder="English, Spanish, French"
+              className="w-full"
+              id="language-input"
+              value={languages}
+              onChange={(e) => {
+                setLanguages(e.target.value);
+              }}
+              onClick={() => setShow(true)}
+            ></input>
+            <ArrowRight
+              className="cursor-pointer"
+              onClick={setFireLanguage}
+            ></ArrowRight>
+            <ul
+              id="dropdown-menu"
+              className={`${
+                show ? "scale-1" : "scale-0"
+              } transition-transform border-2 border-main p-1 flex flex-col gap-1 left-0 top-[100%] z-[15] pl-2 text-xl absolute bg-main w-full max-h-[200px] overflow-y-scroll`}
+            >
+              {languagesToShow.length > 0
+                ? languagesToShow.map((lang) => {
+                    return (
+                      <li
+                        className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
+                        key={lang}
+                        onClick={(e) => {
+                          setLanguages(e.target.innerText);
+                          setShow(false);
+                        }}
+                      >
+                        {lang}
+                      </li>
+                    );
+                  })
+                : listLanguajes?.map((lang, i) => {
+                    if (
+                      languages != "" &&
+                      languages &&
+                      languagesToShow.length === 0
+                    ) {
+                      if (i === 0) {
+                        return (
+                          <li
+                            key={lang + 1}
+                            className="text-white hover:bg-white text-lg font-normal hover:text-main"
+                          >
+                            No se encontraron resultados :(
+                          </li>
+                        );
+                      }
+                    } else {
+                      return (
+                        <li
+                          className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
+                          key={lang.name}
+                          onClick={(e) => {
+                            setLanguages(e.target.innerText);
+                            setShow(false);
+                          }}
+                        >
+                          {lang.name}
+                        </li>
+                      );
+                    }
+                  })}
+            </ul>
+          </div>
         </div>
         <div className="flex flex-col gap-2 items-start px-5">
           <div className="flex gap-2 items-center">
@@ -134,13 +271,15 @@ const GridTutors = ({ subject, level, min, max }) => {
   //slice number of tutors to show
   const [slice, setSlice] = useState({ start: 0, end: 6 });
   const [slicePagination, setSlicePagination] = useState({ start: 0, end: 5 });
-
+  //fire language search
+  const [fireLanguage, setFireLanguage] = useState(false);
   //saves the original data to not mutate dataApi with rating
   const [originalData, setOriginalData] = useState();
 
   //saves the rating variable for the FilterTutors Component
   const [rating, setRating] = useState(1);
-
+  //languages state for languages filter
+  const [languages, setLanguages] = useState("");
   let mapMe = [];
 
   //get number of pages in an array
@@ -206,6 +345,35 @@ const GridTutors = ({ subject, level, min, max }) => {
       });
     }
   }, [rating]);
+
+  //handle language search event
+  useEffect(() => {
+    if (fireLanguage && languages != "") {
+      let newData = originalData?.response.filter((tutor) => {
+        for (let i of originalData.language) {
+          if (tutor.tu_id === i.tu_id) {
+            const lowerCase = i.language_names.map((lang) => {
+              return lang.toLowerCase();
+            });
+            if (lowerCase.includes(languages.toLowerCase())) {
+              return tutor;
+            }
+          }
+        }
+      });
+      if (dataApi?.response && newData) {
+        setData((prev) => {
+          return { response: newData, language: prev.language };
+        });
+      }
+    } else if (languages === "") {
+      if (dataApi?.response) {
+        setData(originalData);
+      }
+    }
+    setFireLanguage(false);
+  }, [fireLanguage, languages]);
+
   return (
     <section id="grid-tutors" className="h-fit">
       <div
@@ -213,7 +381,14 @@ const GridTutors = ({ subject, level, min, max }) => {
         className="px-[135px] py-[48px] flex justify-between"
       >
         <div className="w-[25%] sticky overflow-visible">
-          <FilterTutors rating={rating} setRating={setRating}></FilterTutors>
+          <FilterTutors
+            languages={languages}
+            setLanguages={setLanguages}
+            rating={rating}
+            setRating={setRating}
+            setFireLanguage={setFireLanguage}
+            dataApi={dataApi?.language}
+          ></FilterTutors>
         </div>
         <div
           id="tutors-cards"
@@ -255,7 +430,7 @@ const GridTutors = ({ subject, level, min, max }) => {
         </div>
       </div>
       <div className="px-[135px] py-[48px] flex justify-center">
-        <div className="flex gap-x-12 w-2/4  justify-around items-center child:cursor-pointer">
+        <div className="flex gap-x-12   justify-around items-center child:cursor-pointer">
           <ChevronLeft
             onClick={() => {
               if (slicePagination.start != 0) {
@@ -321,7 +496,10 @@ const GridTutors = ({ subject, level, min, max }) => {
           </ul>
           <ChevronRight
             onClick={() => {
-              if (slicePagination.end != totalPages && slicePagination.end<totalPages) {
+              if (
+                slicePagination.end != totalPages &&
+                slicePagination.end < totalPages
+              ) {
                 setSlicePagination((prev) => {
                   return { start: prev.start + 1, end: prev.end + 1 };
                 });
