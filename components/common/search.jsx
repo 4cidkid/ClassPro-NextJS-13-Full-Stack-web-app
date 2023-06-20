@@ -5,11 +5,27 @@ import { ChevronDown, Search } from "react-feather";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 const SearchBar = ({ personalized }) => {
+
+  //get params from current url
   const searchParams = useSearchParams();
   const subjectParam = searchParams.get("subject");
   const levelParam = searchParams.get("level");
   const min = parseInt(searchParams.get("min"));
   const max = parseInt(searchParams.get("max"));
+  /* get all subjects */
+  const [localSubject, setLocalSubjects] = useState([]);
+  useEffect(() => {
+    const getSubjects = async () => {
+      const data = await fetch("http://localhost:3000/api/subjects");
+      const subjects = await data.json();
+      const newArray = subjects.subjects.map((sub) => {
+        return sub.subject_name.toLowerCase();
+      });
+      setLocalSubjects(newArray);
+    };
+    getSubjects();
+  }, []);
+  /* if url contains certains params => convert the searchbar to an 'active' state */
   useEffect(() => {
     if (subjectParam && levelParam && min && max) {
       setLevel(levelParam);
@@ -17,17 +33,50 @@ const SearchBar = ({ personalized }) => {
       setInputOne({ one: min, two: max });
       setPriceColor("##292929");
     }
-  }, [subjectParam, levelParam, min, max]);
+    if (localSubject.length != 0) {
+      if (
+        !localSubject.includes(subjectParam.toLowerCase()) &&
+        levelParam &&
+        min &&
+        max
+      ) {
+
+        router.replace(
+          `/tutors?subject=All&level=${levelParam}&min=${min}&max=${max}`
+        );
+      }
+      if (
+        subjectParam &&
+        min &&
+        max &&
+        !["all", "beginner", "intermediate", "advanced"].includes(
+          levelParam.toLowerCase()
+        )
+      ) {
+        router.replace(
+          `/tutors?subject=${subjectParam}&level=All&min=${min}&max=${max}`
+        );
+      }
+    }
+  }, [subjectParam, levelParam, min, max, localSubject]);
+  /*To replace current url on submit*/
   const router = useRouter();
+
+  /*Values of price range, subject and level*/
   const [inputOne, setInputOne] = useState({ one: 5, two: 100 });
   const [priceRange, setPriceRange] = useState("$5 - $100");
   const [subject, setSubject] = useState("");
   const [level, setLevel] = useState("");
+  /*which one of the inputs is active */
   const [selectPrice, setSelectPrice] = useState(false);
   const [selectSubject, setSelectSubject] = useState(false);
   const [selectLevel, setSelectLevel] = useState(false);
+  //default color of range pricing 
   const [priceColor, setPriceColor] = useState("#A1A1A1");
+  //animation if subject OR level are empty
   const [animationError, setAnimationError] = useState(false);
+
+
   const smoothScrollOne = (event) => {
     const input = event.target;
     const value = input.value;
@@ -58,6 +107,7 @@ const SearchBar = ({ personalized }) => {
       );
     }
   };
+  //Hide current active dropdown menu on click outside targets
   useEffect(() => {
     const handleClickOutside = (e) => {
       var subject = document.getElementById("searchCat");
@@ -320,6 +370,7 @@ const SearchBar = ({ personalized }) => {
   );
 };
 
+//get all categories and filter on user input
 const SearchCat = (props) => {
   const setSelectSubject = props.subjectSelect;
   const setSubject = props.set;
