@@ -2,6 +2,7 @@
 export const selectAdvertisements = (subject, min, max, level) => {
   return `
   SELECT
+  country.name as country_name,
   country.iso as country,
   tutors.tutor_description as tu_desc,
   tutors.tutor_skills as tu_skill,
@@ -34,7 +35,8 @@ GROUP BY
   tutors.tutor_hourly_wage,
   tutors.tutor_id,
   tutors.tutor_first_free,
-  subjects.subject_name
+  subjects.subject_name,
+  country.name
   HAVING
   '${level.toLowerCase()}' = ANY(ARRAY_AGG(tutors_subjects.subject_level))
 ORDER BY
@@ -43,9 +45,10 @@ AVG(reviews.review_rating) DESC;
 };
 //get tutors with min, max & level param
 
-export const selectAdvertisementsAll = (min, max, level) => {
+export const selectAdvertisementsLevel = (min, max, level) => {
   return `
   SELECT
+  country.name as country_name,
   country.iso as country,
   tutors.tutor_description as tu_desc,
   tutors.tutor_skills as tu_skill,
@@ -78,7 +81,8 @@ GROUP BY
   tutors.tutor_hourly_wage,
   tutors.tutor_id,
   tutors.tutor_first_free,
-  subjects.subject_name
+  subjects.subject_name,
+  country.name
   HAVING
   '${level.toLowerCase()}' = ANY(ARRAY_AGG(tutors_subjects.subject_level))
 ORDER BY
@@ -87,9 +91,10 @@ AVG(reviews.review_rating) DESC;
 };
 //get tutors with subject,min, & max param
 
-export const selectAdvertisementsLevel = (subject, min, max) => {
+export const selectAdvertisementsSubject = (subject, min, max) => {
   return `
   SELECT
+  country.name as country_name,
   country.iso as country,
   tutors.tutor_description as tu_desc,
   tutors.tutor_skills as tu_skill,
@@ -122,7 +127,8 @@ GROUP BY
   tutors.tutor_hourly_wage,
   tutors.tutor_id,
   tutors.tutor_first_free,
-  subjects.subject_name
+  subjects.subject_name,
+  country.name
 
 ORDER BY
 AVG(reviews.review_rating) DESC;
@@ -133,6 +139,7 @@ AVG(reviews.review_rating) DESC;
 export const selectAdvertisementsMin = (min, max) => {
   return `
   SELECT
+  country.name as country_name,
   country.iso as country,
   tutors.tutor_description as tu_desc,
   tutors.tutor_skills as tu_skill,
@@ -165,6 +172,7 @@ GROUP BY
   tutors.tutor_hourly_wage,
   tutors.tutor_id,
   tutors.tutor_first_free,
+  country.name
 
 ORDER BY
 AVG(reviews.review_rating) DESC;
@@ -175,6 +183,7 @@ AVG(reviews.review_rating) DESC;
 export const selectAnyAdvertisements = () => {
   return `
   SELECT
+  country.name as country_name,
   country.iso as country,
   tutors.tutor_description as tu_desc,
   tutors.tutor_skills as tu_skill,
@@ -205,7 +214,8 @@ GROUP BY
   tutors.tutor_lastname,
   tutors.tutor_hourly_wage,
   tutors.tutor_id,
-  tutors.tutor_first_free
+  tutors.tutor_first_free,
+  country.name
 ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
