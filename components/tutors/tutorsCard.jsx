@@ -158,7 +158,7 @@ const TutorsCards = (props) => {
         </div>
       </div>
       {props.tutor.first_class && (
-        <div className="font-semibold text-3xl text-first_class opacity-[0.92] absolute right-5 top-[40%] translate-[-50%,-50%]">
+        <div className="font-semibold text-3xl text-first_class opacity-[0.92] absolute right-5 top-[50%] translate-[-50%,-50%]">
           1st Class Free!
         </div>
       )}
