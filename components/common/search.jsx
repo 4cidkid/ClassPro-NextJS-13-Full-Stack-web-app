@@ -3,7 +3,21 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Search } from "react-feather";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 const SearchBar = ({ personalized }) => {
+  const searchParams = useSearchParams();
+  const subjectParam = searchParams.get("subject");
+  const levelParam = searchParams.get("level");
+  const min = parseInt(searchParams.get("min"));
+  const max = parseInt(searchParams.get("max"));
+  useEffect(() => {
+    if(subjectParam && levelParam && min && max){
+      setLevel(levelParam)
+      setSubject(subjectParam)
+      setInputOne({one:min,two:max})
+      setPriceColor("##292929");
+    }
+  },[subjectParam,levelParam,min,max])
   const router = useRouter();
   const [inputOne, setInputOne] = useState({ one: 5, two: 100 });
   const [priceRange, setPriceRange] = useState("$5 - $100");
