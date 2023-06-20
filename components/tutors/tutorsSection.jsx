@@ -285,6 +285,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
   useEffect(() => {
     async function fetchData() {
       if (subject && level && min && max) {
+        setShouldLoad(true);
         const data = await searchFor({
           subject,
           level,
@@ -301,6 +302,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
           setData(data);
           setOriginalData(data);
         }
+        setTimeout(() => setShouldLoad(false), 700);
       }
     }
     fetchData();
@@ -310,10 +312,12 @@ export const GridTutors = ({ subject, level, min, max }) => {
   useEffect(() => {
     async function fetchData() {
       if (!subject || !level || !min || !max) {
+
         const data = await searchAny();
         setFalseData(false);
         setData(data);
         setOriginalData(data);
+
       }
     }
     fetchData();
@@ -343,9 +347,10 @@ export const GridTutors = ({ subject, level, min, max }) => {
       {shouldLoad && <Loader show={shouldLoad}></Loader>}
       <div
         id="tutors-container"
-        className={`${shouldLoad? 'blur-md' : ''} px-[135px] py-[48px] flex justify-between`}
+        className={`${
+          shouldLoad ? "blur-md" : ""
+        } px-[135px] py-[48px] flex justify-between`}
       >
-        
         <div className="w-[25%] sticky overflow-visible">
           <FilterTutors
             languages={languages}
@@ -363,10 +368,10 @@ export const GridTutors = ({ subject, level, min, max }) => {
           ></FilterTutors>
         </div>
         <div id="tutors-cards" className="flex flex-col gap-5  w-[70%]">
-          
           {dataApi?.response.length === 0 && (
             <p className="flex-start text-2xl font-semibold text-blackNot">
-              We didn't find any tutor With that Filters, but Here is some Nice Tutors!
+              We didn't find any tutor With that Filters, but Here is some Nice
+              Tutors!
             </p>
           )}
           {dataApi?.response.length === 0 &&
