@@ -21,6 +21,5 @@ export async function searchAny() {
 export async function getLanguages(){
   const response = await fetch('http://localhost:3000/api/languages')
   const data = await response.json()
-  console.log(data)
   return data;
 }
