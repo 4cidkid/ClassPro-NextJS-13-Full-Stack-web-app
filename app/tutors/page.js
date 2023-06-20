@@ -65,7 +65,16 @@ export function Tutors() {
 }
 
 const FilterTutors = (props) => {
+  //get country variable from father
+  const country = props.country;
+  //get country setter from father
+  const setCountry = props.setCountry;
+  //list of countries
+  const countryList = props.countryList;
+  //set country language
+  const setfireCountry = props.setfireCountry;
   //get prop variable from father
+
   const languages = props.languages;
   //set language on father element
   const setLanguages = props.setLanguages;
@@ -75,7 +84,9 @@ const FilterTutors = (props) => {
     "Spanish",
     "French",
   ]);
-  //the dropdown menu of input should be on view?
+  //the dropdown menu of country should be on view?
+  const [showCount, setShowCount] = useState(false);
+  //the dropdown menu of language should be on view?
   const [show, setShow] = useState(false);
   //props fire language search
   const setFireLanguage = props.setFireLanguage;
@@ -83,7 +94,7 @@ const FilterTutors = (props) => {
   const dataPros = props.dataApi;
   useEffect(() => {
     let newLanguages = [];
-    console.log(dataPros);
+    console.log(dataPros, "asdas");
     dataPros?.map((lang) => {
       for (let i of lang.language_names) {
         if (!newLanguages.includes(i)) {
@@ -105,15 +116,34 @@ const FilterTutors = (props) => {
       }
     }
   }
+  //find the country that the user need
+  let countriesToShow = [];
+  if (country != "" && countryList != "" && country) {
+    for (let i of countryList) {
+      if (
+        i.toLowerCase().includes(country.toLowerCase()) &&
+        !countriesToShow.includes(i)
+      ) {
+        countriesToShow.push(i);
+      }
+    }
+  }
   //handle click outside input
   useEffect(() => {
     const handleClickOutside = (e) => {
       var subject = document.getElementById("dropdown-menu");
+      var subjectTwo = document.getElementById("dropdown-menu-2");
       if (
         !subject.contains(e.target) &&
         subject.classList.contains("scale-1")
       ) {
         setShow(false);
+      }
+      if (
+        !subjectTwo.contains(e.target) &&
+        subjectTwo.classList.contains("scale-1")
+      ) {
+        setShowCount(false);
       }
     };
     document.addEventListener("click", handleClickOutside);
@@ -143,7 +173,7 @@ const FilterTutors = (props) => {
             ></input>
             <ArrowRight
               className="cursor-pointer"
-              onClick={setFireLanguage}
+              onClick={() => setFireLanguage(true)}
             ></ArrowRight>
             <ul
               id="dropdown-menu"
@@ -193,6 +223,80 @@ const FilterTutors = (props) => {
                           }}
                         >
                           {lang}
+                        </li>
+                      );
+                    }
+                  })}
+            </ul>
+          </div>
+        </div>
+        <div className="px-5">
+          <div className="text-xl text-blackNot font-semibold">
+            <p>Any specific Country?</p>
+          </div>
+          <div className="flex relative text-base w-full p-1 rounded-sm border-2 border-[rgba(105, 105, 105, 0.21)] shadow-sm">
+            <input
+              placeholder="US, Spain, France"
+              className="w-full"
+              id="language-input"
+              value={country}
+              onChange={(e) => {
+                setCountry(e.target.value);
+              }}
+              onClick={() => setShowCount(true)}
+            ></input>
+            <ArrowRight
+              className="cursor-pointer"
+              onClick={() => setfireCountry(true)}
+            ></ArrowRight>
+            <ul
+              id="dropdown-menu-2"
+              className={`${
+                showCount ? "scale-1" : "scale-0"
+              } transition-transform border-2 border-main p-1 flex flex-col gap-1 left-0 top-[100%] z-[15] pl-2 text-xl absolute bg-main w-full max-h-[200px] overflow-y-scroll`}
+            >
+              {countriesToShow.length > 0
+                ? countriesToShow.map((coun) => {
+                    return (
+                      <li
+                        className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
+                        key={coun + "country"}
+                        onClick={(e) => {
+                          setCountry(e.target.innerText);
+                          setShowCount(false);
+                        }}
+                      >
+                        {coun}
+                      </li>
+                    );
+                  })
+                : countryList?.map((coun, i) => {
+                    if (
+                      country != "" &&
+                      country &&
+                      countriesToShow.length === 0
+                    ) {
+                      if (i === 0) {
+                        return (
+                          <li
+                            key={coun + "list-no-result"}
+                            className="text-white hover:bg-white text-lg font-normal hover:text-main"
+                          >
+                            No se encontraron resultados :(
+                          </li>
+                        );
+                      }
+                    } else {
+                      return (
+                        <li
+                          className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
+                          key={coun + "list"}
+                          onClick={(e) => {
+                            setCountry(e.target.innerText);
+                            setShowCount(false);
+                          }}
+                        >
+                          {coun}
                         </li>
                       );
                     }
@@ -260,16 +364,23 @@ const GridTutors = ({ subject, level, min, max }) => {
   const [totalPages, setTotalPages] = useState(0);
   //slice number of tutors to show
   const [slice, setSlice] = useState({ start: 0, end: 6 });
+  //slice numbers in pagination
   const [slicePagination, setSlicePagination] = useState({ start: 0, end: 5 });
   //fire language search
   const [fireLanguage, setFireLanguage] = useState(false);
   //saves the original data to not mutate dataApi with rating
   const [originalData, setOriginalData] = useState();
-
   //saves the rating variable for the FilterTutors Component
   const [rating, setRating] = useState(1);
   //languages state for languages filter
   const [languages, setLanguages] = useState("");
+  //specific country filter
+  const [country, setCountry] = useState("");
+  //list of countries
+  const [countryList, setCountryList] = useState();
+  //fire country search
+  const [fireCountry, setfireCountry] = useState(false);
+
   let mapMe = [];
 
   //get number of pages in an array
@@ -363,7 +474,45 @@ const GridTutors = ({ subject, level, min, max }) => {
     }
     setFireLanguage(false);
   }, [fireLanguage, languages]);
-
+  //map countries to set country list
+  useEffect(() => {
+    let countriesToGet = [];
+    dataApi?.response.map((coun) => {
+      if (
+        !countriesToGet.includes(
+          capitalizeFirstLetter(coun.country_name.toLowerCase())
+        )
+      ) {
+        countriesToGet.push(
+          capitalizeFirstLetter(coun.country_name.toLowerCase())
+        );
+      }
+    });
+    setCountryList(countriesToGet);
+  }, [dataApi]);
+  //handle country search event
+  useEffect(() => {
+    if (fireCountry && country != "") {
+      let newData = originalData?.response.filter((tutor) => {
+        if (tutor.country_name.toLowerCase() === country.toLowerCase()) {
+          return tutor;
+        }
+      });
+      if (dataApi?.response && newData) {
+        setData((prev) => {
+          return { response: newData, language: prev.language };
+        });
+      }
+    } else if (country === "") {
+      if (dataApi?.response) {
+        setData(originalData);
+      }
+    }
+    setfireCountry(false);
+  }, [fireCountry, country]);
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   return (
     <section id="grid-tutors" className="h-fit">
       <div
@@ -378,6 +527,10 @@ const GridTutors = ({ subject, level, min, max }) => {
             setRating={setRating}
             setFireLanguage={setFireLanguage}
             dataApi={dataApi?.language}
+            country={country}
+            setCountry={setCountry}
+            countryList={countryList}
+            setfireCountry={setfireCountry}
           ></FilterTutors>
         </div>
         <div
@@ -394,6 +547,7 @@ const GridTutors = ({ subject, level, min, max }) => {
                   return lang;
                 }
               });
+              console.log(languages, "languages");
               return (
                 <Link
                   className={`bg-white relative w-full h-[250px] rounded-xl shadow-lg`}
@@ -402,7 +556,19 @@ const GridTutors = ({ subject, level, min, max }) => {
                 >
                   <TutorsCards
                     tutor={tutor}
-                    languages={languages[0].language_names}
+                    languages={
+                      languages[0]?.language_names || [{
+                        advertisements_level: "beginner",
+                        language_names: [
+                          "(Afan)/Oromoor/Oriya",
+                          "Afar",
+                          "English",
+                          "Latin",
+                        ],
+                        subject_name: "mathematics",
+                        tu_id: 1,
+                      }]
+                    }
                   ></TutorsCards>
                 </Link>
               );
@@ -419,7 +585,7 @@ const GridTutors = ({ subject, level, min, max }) => {
           {!dataApi && <Loader show={dataApi ? false : true}></Loader>}
         </div>
       </div>
-      <div className="px-[135px] py-[48px] flex justify-center">
+      <div className="px-[135px] py-[48px] flex justify-center flex items-center gap-5">
         <div className="flex gap-x-12   justify-around items-center child:cursor-pointer">
           <ChevronLeft
             onClick={() => {
@@ -450,10 +616,21 @@ const GridTutors = ({ subject, level, min, max }) => {
                 <li
                   key={num}
                   onClick={(e) => {
+                    document
+                      .getElementById("tutors-container")
+                      .scrollIntoView();
                     if (defaultPage === parseInt(e.target.innerText)) {
                       return;
                     } else {
                       if (defaultPage < parseInt(e.target.innerText)) {
+                        if (
+                          slicePagination.end != totalPages &&
+                          slicePagination.end < totalPages
+                        ) {
+                          setSlicePagination((prev) => {
+                            return { start: prev.start + 1, end: prev.end + 1 };
+                          });
+                        }
                         const goTo = parseInt(e.target.innerText) - defaultPage;
                         setSlice((prev) => {
                           return {
@@ -463,6 +640,11 @@ const GridTutors = ({ subject, level, min, max }) => {
                         });
                         setDefaultPage(parseInt(e.target.innerText));
                       } else {
+                        if (slicePagination.start != 0) {
+                          setSlicePagination((prev) => {
+                            return { start: prev.start - 1, end: prev.end - 1 };
+                          });
+                        }
                         const goTo = parseInt(e.target.innerText) - defaultPage;
                         setSlice((prev) => {
                           return {
@@ -509,6 +691,9 @@ const GridTutors = ({ subject, level, min, max }) => {
             }}
             className="bg-main rounded-full text-white w-[45px] h-[45px]"
           ></ChevronRight>
+        </div>
+        <div className="text-xl font-bold">
+          {defaultPage} - {totalPages}
         </div>
       </div>
     </section>
