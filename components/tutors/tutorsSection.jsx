@@ -29,9 +29,13 @@ export const GridTutors = ({ subject, level, min, max }) => {
   const [slicePagination, setSlicePagination] = useState({ start: 0, end: 5 });
   //saves the original data to not mutate dataApi with rating
   const [originalData, setOriginalData] = useState();
-  //saves the rating variable for the FilterTutors Component
+
+  /* ------------ First Class Free ------------ */
+  //first class free state
+  const [switchFirst, setSwitchFirst] = useState(true);
 
   /* ------------ RATING ------------ */
+  //saves the rating variable for the FilterTutors Component
   const [rating, setRating] = useState(1);
   /* ------------ LANGUAGE STATES ------------ */
 
@@ -86,11 +90,15 @@ export const GridTutors = ({ subject, level, min, max }) => {
 
   /* ------------ FILTERS EVENTS ------------ */
   useEffect(() => {
+    //if only first class free exist
     //if only rating exist
     if ((rating != 1) & (country === "") & (languages === "")) {
       let languagesToShow = [];
       const tutorsToShow = originalData.response.filter((tutor) => {
-        if (tutor.average_rating > rating - 0.6) {
+        if (
+          tutor.average_rating > rating - 0.6 &&
+          tutor.first_class === switchFirst
+        ) {
           languagesToShow.push(tutor);
         }
       });
@@ -104,7 +112,10 @@ export const GridTutors = ({ subject, level, min, max }) => {
     if ((rating === 1) & (country != "") & (languages === "")) {
       let languagesToShow = [];
       const tutorsToShow = originalData.response.filter((tutor) => {
-        if (tutor.country_name.toLowerCase() === country.toLowerCase()) {
+        if (
+          tutor.country_name.toLowerCase() === country.toLowerCase() &&
+          tutor.first_class === switchFirst
+        ) {
           languagesToShow.push(tutor);
         }
       });
@@ -122,7 +133,8 @@ export const GridTutors = ({ subject, level, min, max }) => {
         dataApi.language.filter((lang) => {
           if (
             lang.tu_id === tutor.tu_id &&
-            lang.language_names.includes(languages)
+            lang.language_names.includes(languages) &&
+            tutor.first_class === switchFirst
           ) {
             languagesToShow.push(tutor);
           }
@@ -142,7 +154,8 @@ export const GridTutors = ({ subject, level, min, max }) => {
           if (
             lang.tu_id === tutor.tu_id &&
             lang.language_names.includes(languages) &&
-            tutor.country_name.toLowerCase() === country.toLowerCase()
+            tutor.country_name.toLowerCase() === country.toLowerCase() &&
+            tutor.first_class === switchFirst
           ) {
             languagesToShow.push(tutor);
           }
@@ -161,7 +174,8 @@ export const GridTutors = ({ subject, level, min, max }) => {
       const tutorsToShow = originalData.response.filter((tutor) => {
         if (
           tutor.country_name.toLowerCase() === country.toLowerCase() &&
-          tutor.average_rating > rating - 0.6
+          tutor.average_rating > rating - 0.6 &&
+          tutor.first_class === switchFirst
         ) {
           languagesToShow.push(tutor);
         }
@@ -181,7 +195,8 @@ export const GridTutors = ({ subject, level, min, max }) => {
           if (
             lang.tu_id === tutor.tu_id &&
             lang.language_names.includes(languages) &&
-            tutor.average_rating > rating - 0.6
+            tutor.average_rating > rating - 0.6 &&
+            tutor.first_class === switchFirst
           ) {
             languagesToShow.push(tutor);
           }
@@ -202,7 +217,8 @@ export const GridTutors = ({ subject, level, min, max }) => {
             lang.tu_id === tutor.tu_id &&
             lang.language_names.includes(languages) &&
             tutor.country_name.toLowerCase() === country.toLowerCase() &&
-            tutor.average_rating > rating - 0.6
+            tutor.average_rating > rating - 0.6 &&
+            tutor.first_class === switchFirst
           ) {
             languagesToShow.push(tutor);
           }
@@ -215,10 +231,26 @@ export const GridTutors = ({ subject, level, min, max }) => {
       }
     }
     //if none of the variables exist
-    if (rating === 1 && country === "" && languages === "") {
-      setData(originalData);
+    // && tutor.first_class === switchFirst
+    if (
+      rating === 1 &&
+      country === "" &&
+      languages === "" &&
+      originalData?.response
+    ) {
+      let languagesToShow = [];
+      originalData.response.filter((tutor) => {
+        if (tutor.first_class === switchFirst) {
+          languagesToShow.push(tutor);
+        }
+      });
+      if (languagesToShow) {
+        setData((prev) => {
+          return { response: languagesToShow, language: prev.language };
+        });
+      }
     }
-  }, [rating, country, languages]);
+  }, [rating, country, languages, switchFirst]);
   //fire country && fire language if rating is changed
 
   //define the array of numbers
@@ -297,15 +329,53 @@ export const GridTutors = ({ subject, level, min, max }) => {
             countryList={countryList}
             listLanguajes={listLanguajes}
             setListLanguages={setListLanguages}
+            switchFirst={switchFirst}
+            setSwitchFirst={setSwitchFirst}
           ></FilterTutors>
         </div>
         <div
           id="tutors-cards"
-          className="flex flex-col items-center gap-5  w-[70%]"
+          className="flex flex-col gap-5  w-[70%]"
         >
-          {falseData && (
-            <p>We didn't find any tutor, but Here is some Nice Tutors!</p>
+          {dataApi?.response.length === 0 && (
+            <p className="flex-start text-2xl font-semibold text-blackNot">We didn't find any tutor, but Here is some Nice Tutors!</p>
           )}
+          {dataApi?.response.length === 0 &&
+            originalData.response
+              ?.slice(slice.start, slice.end)
+              .map((tutor, i) => {
+                const languages = dataApi.language.filter((lang) => {
+                  if (tutor.tu_id === lang.tu_id) {
+                    return lang;
+                  }
+                });
+                return (
+                  <Link
+                    className={`bg-white relative w-full h-[250px] rounded-xl shadow-lg`}
+                    href={`tutors/${tutor.tu_id}`}
+                    key={tutor.tu_name + tutor.tu_lastname}
+                  >
+                    <TutorsCards
+                      tutor={tutor}
+                      languages={
+                        languages[0]?.language_names || [
+                          {
+                            advertisements_level: "beginner",
+                            language_names: [
+                              "(Afan)/Oromoor/Oriya",
+                              "Afar",
+                              "English",
+                              "Latin",
+                            ],
+                            subject_name: "mathematics",
+                            tu_id: 1,
+                          },
+                        ]
+                      }
+                    ></TutorsCards>
+                  </Link>
+                );
+              })}
           {dataApi &&
             dataApi.response?.slice(slice.start, slice.end).map((tutor, i) => {
               const languages = dataApi.language.filter((lang) => {

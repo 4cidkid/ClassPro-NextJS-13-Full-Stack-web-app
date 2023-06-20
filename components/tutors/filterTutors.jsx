@@ -5,6 +5,9 @@ import StarFill from "@/public/reviews/starFill";
 import Star from "@/public/reviews/star";
 import { Star as ReactStar } from "react-feather";
 export const FilterTutors = (props) => {
+  //switch of first class free
+  const switchFirst = props.switchFirst
+  const setSwitchFirst = props.setSwitchFirst
   //get country variable from father
   const country = props.country;
   //get country setter from father
@@ -59,12 +62,12 @@ export const FilterTutors = (props) => {
   });
 
   return (
-    <div className="sticky top-[100px] bg-white rounded-xl shadow-lg h-[70vh]">
-      <div className="flex flex-col gap-3">
-        <p className="text-4xl mx-auto font-normal flex items-center w-full p-5 border-b justify-center border-[rgba(105, 105, 105, 0.21)]">
+    <div className="sticky top-[100px] bg-white rounded-xl shadow-lg h-fit pb-8">
+      <div className="flex flex-col child:py-6">
+        <p className="text-4xl mx-auto font-normal flex items-center w-full p-5 justify-center border-b border-[rgba(105, 105, 105, 0.21)]">
           Filters <Filter></Filter>
         </p>
-        <div className="flex flex-col gap-2 items-start px-5">
+        <div className="flex flex-col gap-2 items-start px-5 border-b border-[rgba(105, 105, 105, 0.21)]">
           <p className="text-xl text-blackNot font-semibold">
             In what Language?
           </p>
@@ -78,8 +81,8 @@ export const FilterTutors = (props) => {
                 setLanguages(e.target.value);
               }}
               onClick={() => {
-                setShowCount(false)
-                setShow(true)
+                setShowCount(false);
+                setShow(true);
               }}
               readOnly
             ></input>
@@ -91,23 +94,23 @@ export const FilterTutors = (props) => {
               } transition-transform border-2 border-main p-1 flex flex-col gap-1 left-0 top-[100%] z-[15] pl-2 text-xl absolute bg-main w-full max-h-[200px] overflow-y-scroll`}
             >
               {listLanguajes?.map((lang, i) => {
-                    return (
-                      <li
-                        className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
-                        key={lang}
-                        onClick={(e) => {
-                          setLanguages(e.target.innerText);
-                          setShow(false);
-                        }}
-                      >
-                        {lang}
-                      </li>
-                    );
-                  })}
+                return (
+                  <li
+                    className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
+                    key={lang}
+                    onClick={(e) => {
+                      setLanguages(e.target.innerText);
+                      setShow(false);
+                    }}
+                  >
+                    {lang}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
-        <div className="px-5">
+        <div className="px-5 border-b border-[rgba(105, 105, 105, 0.21)]">
           <div className="text-xl text-blackNot font-semibold">
             <p>Any specific Country?</p>
           </div>
@@ -121,8 +124,8 @@ export const FilterTutors = (props) => {
                 setCountry(e.target.value);
               }}
               onClick={() => {
-                setShowCount(true)
-                setShow(false)
+                setShowCount(true);
+                setShow(false);
               }}
               readOnly
             ></input>
@@ -134,30 +137,30 @@ export const FilterTutors = (props) => {
               } transition-transform border-2 border-main p-1 flex flex-col gap-1 left-0 top-[100%] z-[15] pl-2 text-xl absolute bg-main w-full max-h-[200px] overflow-y-scroll`}
             >
               {countryList?.map((coun, i) => {
-                    return (
-                      <li
-                        className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
-                        key={coun + "list"}
-                        onClick={(e) => {
-                          setCountry(e.target.innerText);
-                          setShowCount(false);
-                        }}
-                      >
-                        {coun}
-                      </li>
-                    );
-                  })}
+                return (
+                  <li
+                    className="text-white cursor-pointer hover:bg-white hover:text-main text-lg"
+                    key={coun + "list"}
+                    onClick={(e) => {
+                      setCountry(e.target.innerText);
+                      setShowCount(false);
+                    }}
+                  >
+                    {coun}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
-        <div className="flex flex-col gap-2 items-start px-5">
-          <div className="flex gap-2 items-center">
+        <div className="flex flex-col gap-2 items-start px-5 border-b border-[rgba(105, 105, 105, 0.21)]">
+          <div className="flex w-full justify-between items-center">
             <p className="text-xl text-blackNot font-semibold">
               Minimum Rating:
             </p>
             <div className="flex items-center">
-              <p className="text-3xl  font-semibold ">{props.rating}</p>
-              <ReactStar className=""></ReactStar>
+              <p className="text-3xl text-blackNot font-semibold ">{props.rating}</p>
+              <ReactStar className="text-blackNot"></ReactStar>
             </div>
           </div>
           <div className="relative flex child:w-full gap-7" id="range-rating">
@@ -194,6 +197,25 @@ export const FilterTutors = (props) => {
               }
               className="cursor-pointer select-none"
             ></ChevronRight>
+          </div>
+        </div>
+        <div className="flex items-center justify-between px-5">
+          <div>
+            <p className="text-xl text-blackNot font-semibold">
+              First Class Free?
+            </p>
+          </div>
+          <div
+            className="relative bg-main rounded-full w-[20%] h-[30px] shadow-lg"
+            onClick={() => {
+              setSwitchFirst((prev) => !prev);
+            }}
+          >
+            <div
+              className={`${
+                switchFirst ? "translate-x-[10%] bg-white" : "translate-x-[140%] bg-blackNot"
+              } absolute top-1/2 transform transition-all duration-300 -translate-y-1/2 w-[25px] h-[25px] rounded-full`}
+            ></div>
           </div>
         </div>
       </div>
