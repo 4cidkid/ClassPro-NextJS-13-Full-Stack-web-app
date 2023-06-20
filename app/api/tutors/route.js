@@ -5,7 +5,7 @@ import {
   selectAnyAdvertisements,
   selectTutorLanguages,
   selectTutorLanguagesFilter,
-  selectAdvertisementsAll,
+  selectAdvertisementsSubject,
   selectTutorLanguagesAll,
   selectTutorLanguageLevel,
   selectAdvertisementsLevel,
@@ -24,14 +24,14 @@ export async function GET(request) {
 //if subject && level && min && max are defined then send a query
   if (subject && level && min && max) {
     if (subject.toLowerCase() === "all" && level.toLowerCase() != "all") {
-      response = await pool.query(selectAdvertisementsAll(min, max, level));
+      response = await pool.query(selectAdvertisementsLevel(min, max, level));
       language = await pool.query(selectTutorLanguagesAll(min, max, level));
     } else if (
       level.toLowerCase() === "all" &&
       subject.toLowerCase() != "all"
     ) {
-      response = await pool.query(selectAdvertisementsLevel(subject, min, max));
-      language = await pool.query(selectTutorLanguageLevel(subject, min, max));
+      response = await pool.query(selectAdvertisementsSubject(subject, min, max));
+      language = await pool.query(selectAdvertisementsSubject(subject, min, max));
     } else if (
       level.toLowerCase() === "all" &&
       subject.toLowerCase() === "all"
