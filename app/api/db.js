@@ -1,5 +1,6 @@
 import { Pool } from 'pg';
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config({ path: 'app/api/.env' });
 
 //create pool to connect to PG DB
 const pool = new Pool({
