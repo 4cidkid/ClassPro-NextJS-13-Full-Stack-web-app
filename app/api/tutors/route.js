@@ -7,14 +7,37 @@ import {
   selectAdvertisementsSubject,
   selectAdvertisementsLevel,
   selectAdvertisementsMin,
+  getTutorinfo,
 } from "../querys";
 export async function GET(request) {
   const searchParams = request.nextUrl.searchParams;
-
+  const id = searchParams.get("id");
   const subject = searchParams.get("subject");
   const level = searchParams.get("level");
   const min = searchParams.get("min");
   const max = searchParams.get("max");
+
+  let response;
+  if (!id) {
+    response = await getUsersWithParams(subject, level, min, max);
+    return NextResponse.json({
+      response: response.response.rows,
+      language: response.language.rows,
+    });
+  } else {
+    response = await getSingleUser(id);
+    return NextResponse.json({
+      response: response.rows,
+    });
+  }
+}
+
+const getSingleUser = async (id) => {
+  const response = await pool.query(getTutorinfo(id));
+  return response;
+};
+
+const getUsersWithParams = async (subject, level, min, max) => {
   let response;
   let language;
   //if subject && level && min && max are defined then send a query
@@ -29,9 +52,7 @@ export async function GET(request) {
       response = await pool.query(
         selectAdvertisementsSubject(subject, min, max)
       );
-      language = await pool.query(
-        selectTutorLanguages(subject, min, max)
-      );
+      language = await pool.query(selectTutorLanguages(subject, min, max));
     } else if (
       level.toLowerCase() === "all" &&
       subject.toLowerCase() === "all"
@@ -51,9 +72,8 @@ export async function GET(request) {
     response = await pool.query(selectAnyAdvertisements());
     language = await pool.query(selectTutorLanguages());
   }
-  console.log(language.rows)
-  return NextResponse.json({
-    response: response.rows,
-    language: language.rows,
-  });
-}
+  return {
+    response,
+    language,
+  };
+};
