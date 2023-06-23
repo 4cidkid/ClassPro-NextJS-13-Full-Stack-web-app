@@ -232,3 +232,38 @@ GROUP BY tutors_language.tutor_id
 ORDER BY tutors_language.tutor_id;
   `;
 };
+
+//get tutor info by id
+export const getTutorinfo = (id) => {
+  return `
+  SELECT tutors.tutor_id AS tu_id,tutors.tutor_name AS tu_name,tutors.tutor_lastname AS tu_lastname,
+  tutors.tutor_hourly_wage AS hourly, tutors.tutor_skills AS tu_skills, tutors.tutor_description AS
+  tu_desc,ARRAY_AGG(languages.name) AS langs,country.iso AS c_iso,cl_date,
+  subject_levels,
+  subject_names
+  FROM tutors 
+  JOIN (
+  SELECT tutor_id, ARRAY_AGG(class_date) AS cl_date
+	  FROM private_class
+	  GROUP BY 1
+  ) priv_class ON tutors.tutor_id = priv_class.tutor_id
+  JOIN tutors_language ON tutors.tutor_id = tutors_language.tutor_id
+  JOIN languages ON tutors_language.language_id = languages.id
+  JOIN country ON tutors.country_id = country.id
+  JOIN (
+	  SELECT tutors_subjects.tutor_id,jsonb_agg(tutors_subjects.subject_level) AS subject_levels,
+	  jsonb_agg(subjects.subject_name) AS subject_names
+	  FROM tutors_subjects
+	  JOIN subjects ON tutors_subjects.subject_id = subjects.subject_id
+	  GROUP BY 1
+  ) tu_subj ON tutors.tutor_id = tu_subj.tutor_id
+  WHERE tutors.tutor_id =${id}
+  GROUP BY
+  tutors.tutor_id,
+  country.iso,
+  cl_date,
+  subject_levels,
+  subject_names
+
+  `;
+};
