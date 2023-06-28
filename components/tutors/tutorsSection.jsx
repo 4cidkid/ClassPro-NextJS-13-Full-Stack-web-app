@@ -13,6 +13,15 @@ import TutorsCards from "@/components/tutors/tutorsCard";
 import { Loader } from "@/components/common/loading";
 import { dummyData } from "@/app/tutors/dummyData";
 import Link from "next/link";
+import {
+  countryAndLanguage,
+  countryAndRating,
+  filterCountry,
+  filterLanguage,
+  filterRating,
+  filterTutorsByAll,
+  languageAndRating,
+} from "./helpers";
 
 export const GridTutors = ({ subject, level, min, max }) => {
   //data from the api
@@ -92,170 +101,105 @@ export const GridTutors = ({ subject, level, min, max }) => {
 
   /* ------------ FILTERS EVENTS ------------ */
   useEffect(() => {
+    setShouldLoad(true);
     //if only rating exist
-    if ((rating != 1) & (country === "") & (languages === "")) {
-      setShouldLoad(true);
-      let languagesToShow = [];
-      const tutorsToShow = originalData.response.filter((tutor) => {
-        if (
-          tutor.average_rating > rating - 0.6 &&
-          tutor.first_class === switchFirst
-        ) {
-          languagesToShow.push(tutor);
-        }
+    if ((rating !== 1) & (country === "") & (languages === "")) {
+      setData((prev) => {
+        return {
+          response: filterRating(rating, switchFirst, originalData),
+          language: prev.language,
+        };
       });
-      if (languagesToShow) {
-        setData((prev) => {
-          return { response: languagesToShow, language: prev.language };
-        });
-      }
-      setTimeout(() => setShouldLoad(false), 700);
     }
     //if only country exist
-    if ((rating === 1) & (country != "") & (languages === "")) {
-      setShouldLoad(true);
-      let languagesToShow = [];
-      const tutorsToShow = originalData.response.filter((tutor) => {
-        if (
-          tutor.country_name.toLowerCase() === country.toLowerCase() &&
-          tutor.first_class === switchFirst
-        ) {
-          languagesToShow.push(tutor);
-        }
+    if ((rating === 1) & (country !== "") & (languages === "")) {
+      setData((prev) => {
+        return {
+          response: filterCountry(country, switchFirst, originalData),
+          language: prev.language,
+        };
       });
-      if (languagesToShow) {
-        setData((prev) => {
-          return { response: languagesToShow, language: prev.language };
-        });
-      }
-      setTimeout(() => setShouldLoad(false), 700);
     }
 
     //if only language exist
-    if (country === "" && languages != "" && rating === 1) {
-      setShouldLoad(true);
-      let languagesToShow = [];
-      const tutorsToShow = originalData.response.filter((tutor) => {
-        dataApi.language.filter((lang) => {
-          if (
-            lang.tu_id === tutor.tu_id &&
-            lang.language_names.includes(languages) &&
-            tutor.first_class === switchFirst
-          ) {
-            languagesToShow.push(tutor);
-          }
-        });
+    if (country === "" && languages !== "" && rating === 1) {
+      setData((prev) => {
+        return {
+          response: filterLanguage(languages, switchFirst, originalData,dataApi),
+          language: prev.language,
+        };
       });
-      if (languagesToShow) {
-        setData((prev) => {
-          return { response: languagesToShow, language: prev.language };
-        });
-      }
-      setTimeout(() => setShouldLoad(false), 700);
     }
     //if country & language exist
-    if ((rating === 1) & (country != "") & (languages != "")) {
-      setShouldLoad(true);
-      let languagesToShow = [];
-      const tutorsToShow = originalData.response.filter((tutor) => {
-        dataApi.language.filter((lang) => {
-          if (
-            lang.tu_id === tutor.tu_id &&
-            lang.language_names.includes(languages) &&
-            tutor.country_name.toLowerCase() === country.toLowerCase() &&
-            tutor.first_class === switchFirst
-          ) {
-            languagesToShow.push(tutor);
-          }
-        });
+    if ((rating === 1) & (country !== "") & (languages !== "")) {
+      setData((prev) => {
+        return {
+          response: countryAndLanguage(
+            country,
+            languages,
+            switchFirst,
+            originalData,
+            dataApi
+          ),
+          language: prev.language,
+        };
       });
-      if (languagesToShow) {
-        setData((prev) => {
-          return { response: languagesToShow, language: prev.language };
-        });
-      }
-      setTimeout(() => setShouldLoad(false), 700);
     }
 
     //if country & rating exist
-    if ((rating != 1) & (country != "") & (languages === "")) {
-      setShouldLoad(true);
-      let languagesToShow = [];
-      const tutorsToShow = originalData.response.filter((tutor) => {
-        if (
-          tutor.country_name.toLowerCase() === country.toLowerCase() &&
-          tutor.average_rating > rating - 0.6 &&
-          tutor.first_class === switchFirst
-        ) {
-          languagesToShow.push(tutor);
-        }
+    if ((rating !== 1) & (country !== "") & (languages === "")) {
+      setData((prev) => {
+        return {
+          response: countryAndRating(
+            country,
+            rating,
+            switchFirst,
+            originalData
+          ),
+          language: prev.language,
+        };
       });
-      if (languagesToShow) {
-        setData((prev) => {
-          return { response: languagesToShow, language: prev.language };
-        });
-      }
-      setTimeout(() => setShouldLoad(false), 700);
     }
 
     //if languages & rating exist
-    if (country === "" && languages != "" && rating != 1) {
-      setShouldLoad(true);
-      let languagesToShow = [];
-      const tutorsToShow = originalData.response.filter((tutor) => {
-        dataApi.language.filter((lang) => {
-          if (
-            lang.tu_id === tutor.tu_id &&
-            lang.language_names.includes(languages) &&
-            tutor.average_rating > rating - 0.6 &&
-            tutor.first_class === switchFirst
-          ) {
-            languagesToShow.push(tutor);
-          }
-        });
+    if (country === "" && languages !== "" && rating !== 1) {
+      setData((prev) => {
+        return {
+          response: languageAndRating(
+            languages,
+            rating,
+            originalData,
+            switchFirst,
+            dataApi
+          ),
+          language: prev.language,
+        };
       });
-      if (languagesToShow) {
-        setData((prev) => {
-          return { response: languagesToShow, language: prev.language };
-        });
-      }
-      setTimeout(() => setShouldLoad(false), 700);
     }
     //if all variables exist
-    if ((rating != 1) & (country != "") & (languages != "")) {
-      setShouldLoad(true);
-
-      let languagesToShow = [];
-      const tutorsToShow = originalData.response.filter((tutor) => {
-        dataApi.language.filter((lang) => {
-          if (
-            lang.tu_id === tutor.tu_id &&
-            lang.language_names.includes(languages) &&
-            tutor.country_name.toLowerCase() === country.toLowerCase() &&
-            tutor.average_rating > rating - 0.6 &&
-            tutor.first_class === switchFirst
-          ) {
-            languagesToShow.push(tutor);
-          }
-        });
+    if ((rating !== 1) & (country !== "") & (languages !== "")) {
+      setData((prev) => {
+        return {
+          response: filterTutorsByAll(
+            rating,
+            country,
+            languages,
+            switchFirst,
+            originalData,
+            dataApi
+          ),
+          language: prev.language,
+        };
       });
-      if (languagesToShow) {
-        setData((prev) => {
-          return { response: languagesToShow, language: prev.language };
-        });
-      }
-      setTimeout(() => setShouldLoad(false), 700);
     }
-    //if none of the variables exist
-    // && tutor.first_class === switchFirst
+    /*if none of the variables exist
+    && tutor.first_class === switchFirst */
     if (
       rating === 1 &&
       country === "" &&
       languages === "" &&
       originalData?.response
     ) {
-      setShouldLoad(true);
-
       let languagesToShow = [];
       originalData.response.filter((tutor) => {
         if (tutor.first_class === switchFirst) {
@@ -267,16 +211,15 @@ export const GridTutors = ({ subject, level, min, max }) => {
           return { response: languagesToShow, language: prev.language };
         });
       }
-      setTimeout(() => setShouldLoad(false), 700);
     }
+    setTimeout(() => setShouldLoad(false), 700);
   }, [rating, country, languages, switchFirst]);
-  //fire country && fire language if rating is changed
 
   //define the array of numbers
   let mapMe = [];
 
   //define numbers of pages to map through array and return (i)
-  if (totalPages != 0) {
+  if (totalPages !== 0) {
     for (let i = 0; i <= totalPages - 1; i++) {
       mapMe.push(i);
     }
@@ -312,12 +255,10 @@ export const GridTutors = ({ subject, level, min, max }) => {
   useEffect(() => {
     async function fetchData() {
       if (!subject || !level || !min || !max) {
-
         const data = await searchAny();
         setFalseData(false);
         setData(data);
         setOriginalData(data);
-
       }
     }
     fetchData();
@@ -460,7 +401,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
         <div className="flex gap-x-12   justify-around items-center child:cursor-pointer">
           <ChevronLeft
             onClick={() => {
-              if (slicePagination.start != 0) {
+              if (slicePagination.start !== 0) {
                 setSlicePagination((prev) => {
                   return { start: prev.start - 1, end: prev.end - 1 };
                 });
@@ -474,7 +415,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
                   return { start: prev.start, end: prev.end };
                 }
               });
-              if (defaultPage != 1) {
+              if (defaultPage !== 1) {
                 setDefaultPage((prev) => prev - 1);
               }
             }}
@@ -495,7 +436,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
                     } else {
                       if (defaultPage < parseInt(e.target.innerText)) {
                         if (
-                          slicePagination.end != totalPages &&
+                          slicePagination.end !== totalPages &&
                           slicePagination.end < totalPages
                         ) {
                           setSlicePagination((prev) => {
@@ -511,7 +452,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
                         });
                         setDefaultPage(parseInt(e.target.innerText));
                       } else {
-                        if (slicePagination.start != 0) {
+                        if (slicePagination.start !== 0) {
                           setSlicePagination((prev) => {
                             return { start: prev.start - 1, end: prev.end - 1 };
                           });
@@ -540,7 +481,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
           <ChevronRight
             onClick={() => {
               if (
-                slicePagination.end != totalPages &&
+                slicePagination.end !== totalPages &&
                 slicePagination.end < totalPages
               ) {
                 setSlicePagination((prev) => {
@@ -556,7 +497,7 @@ export const GridTutors = ({ subject, level, min, max }) => {
                   return { start: prev.start, end: prev.end };
                 }
               });
-              if (defaultPage != totalPages) {
+              if (defaultPage !== totalPages) {
                 setDefaultPage((prev) => prev + 1);
               }
             }}
