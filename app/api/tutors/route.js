@@ -10,6 +10,7 @@ import {
   getTutorinfo,
 } from "../querys";
 export async function GET(request) {
+  //get params
   const searchParams = request.nextUrl.searchParams;
   const id = searchParams.get("id");
   const subject = searchParams.get("subject");
@@ -18,6 +19,7 @@ export async function GET(request) {
   const max = searchParams.get("max");
 
   let response;
+  //if not id then get all tutors
   if (!id) {
     response = await getUsersWithParams(subject, level, min, max);
     return NextResponse.json({
@@ -40,7 +42,7 @@ const getSingleUser = async (id) => {
 const getUsersWithParams = async (subject, level, min, max) => {
   let response;
   let language;
-  //if subject && level && min && max are defined then send a query
+  //if subject && level && min && max are defined then send a query with requested info
   if (subject && level && min && max) {
     if (subject.toLowerCase() === "all" && level.toLowerCase() != "all") {
       response = await pool.query(selectAdvertisementsLevel(min, max, level));
