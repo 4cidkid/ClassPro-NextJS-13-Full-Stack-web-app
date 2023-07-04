@@ -183,6 +183,39 @@ body {
   }
 }
 
+@keyframes appearError {
+  0%{
+    transform: translateY(200px);
+  }
+  20%{
+    transform: translateY(-20px);
+  }
+ 
+  80%{
+    transform: translateY(-20px);
+  }
+  100%{
+    transform: translateY(200px);
+  }
+}
+@keyframes loadingCircle{
+  from{
+    rotate: 0deg;
+  }
+  to{
+    rotate: 360deg;
+  }
+}
+
+@keyframes scaleTransition{
+  from{
+    scale: 0;
+  }
+  to{
+    scale: 1;
+  }
+}
+
 @layer utilities {
   .clip-path {
     clip-path: polygon(0 0, 59% 0, 35% 100%, 0 100%);
@@ -268,6 +301,18 @@ body {
   }
   .shake {
     animation: horizontal-shaking 1s ease;
+  }
+  .appearError{
+    animation: appearError 5s ease;
+  }
+  .loadingCircle{
+    animation: loadingCircle 3s;
+  }
+  .scaleTransition{
+    animation: scaleTransition 500ms ease;
+  }
+  .scaleTransitionOut{
+    animation: scaleTransition 500ms reverse;
   }
 }
 input[type="range"]::-webkit-slider-thumb {
