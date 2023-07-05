@@ -208,14 +208,30 @@ body {
 }
 
 @keyframes scaleTransition{
-  from{
+  0%{
     scale: 0;
   }
-  to{
+  70%{
     scale: 1;
   }
+  100%{
+    scale:1;
+  }
 }
-
+@keyframes float{
+  0%{
+    transform: translateY(0px);
+  }
+  30%{
+    transform: translateY(20px)
+  }
+  60%{
+    transform: translateY(-20px);
+  }
+  900%{
+    transform: translateY(0px)
+  }
+}
 @layer utilities {
   .clip-path {
     clip-path: polygon(0 0, 59% 0, 35% 100%, 0 100%);
@@ -309,10 +325,13 @@ body {
     animation: loadingCircle 3s;
   }
   .scaleTransition{
-    animation: scaleTransition 400ms ease;
+    animation: scaleTransition 1500ms ease;
   }
   .scaleTransitionOut{
     animation: scaleTransition 400ms reverse;
+  }
+  .float{
+    animation: float 5s infinite alternate;
   }
 }
 input[type="range"]::-webkit-slider-thumb {
