@@ -35,7 +35,7 @@ export async function GET(request) {
 }
 
 const getSingleUser = async (id) => {
-  const response = await pool.query(getTutorinfo(id));
+  const response = await pool.query(getTutorinfo,[id]);
   return response;
 };
 
@@ -45,35 +45,34 @@ const getUsersWithParams = async (subject, level, min, max) => {
   //if subject && level && min && max are defined then send a query with requested info
   if (subject && level && min && max) {
     if (subject.toLowerCase() === "all" && level.toLowerCase() != "all") {
-      response = await pool.query(selectAdvertisementsLevel(min, max, level));
-      language = await pool.query(selectTutorLanguages(min, max, level));
+      response = await pool.query(selectAdvertisementsLevel,[min, max, level.toLowerCase()]);
+      
     } else if (
       level.toLowerCase() === "all" &&
       subject.toLowerCase() != "all"
     ) {
       response = await pool.query(
-        selectAdvertisementsSubject(subject, min, max)
+        selectAdvertisementsSubject,[subject.toLowerCase(), min, max]
       );
-      language = await pool.query(selectTutorLanguages(subject, min, max));
     } else if (
       level.toLowerCase() === "all" &&
       subject.toLowerCase() === "all"
     ) {
-      response = await pool.query(selectAdvertisementsMin(min, max));
-      language = await pool.query(selectTutorLanguages(min, max));
+      response = await pool.query(selectAdvertisementsMin,[min, max]);
     } else {
       response = await pool.query(
-        selectAdvertisements(subject, min, max, level)
+        selectAdvertisements
+        ,[subject.toLowerCase(), min, max, level.toLowerCase()]
       );
       language = await pool.query(
-        selectTutorLanguages(subject, min, max, level)
+        selectTutorLanguages
       );
     }
   } else {
     //if none of the params are defined, then send a query to get all tutors
-    response = await pool.query(selectAnyAdvertisements());
-    language = await pool.query(selectTutorLanguages());
+    response = await pool.query(selectAnyAdvertisements);
   }
+  language = await pool.query(selectTutorLanguages);
   return {
     response,
     language,
