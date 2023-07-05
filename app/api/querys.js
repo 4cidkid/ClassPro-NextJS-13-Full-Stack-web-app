@@ -1,6 +1,5 @@
 //get tutors with specific params
-export const selectAdvertisements = (subject, min, max, level) => {
-  return `
+export const selectAdvertisements = `
   SELECT
   country.name as country_name,
   country.iso as country,
@@ -24,8 +23,8 @@ JOIN
 JOIN
   reviews ON reviews.tutor_id = tutors.tutor_id
 JOIN
-  subjects ON subjects.subject_id = tutors_subjects.subject_id AND subjects.subject_name = '${subject.toLowerCase()}'
-  WHERE tutors.tutor_hourly_wage BETWEEN ${min}::money AND ${max}::money
+  subjects ON subjects.subject_id = tutors_subjects.subject_id AND subjects.subject_name = $1
+  WHERE tutors.tutor_hourly_wage BETWEEN $2::money AND $3::money
 GROUP BY
   country.iso,
   tutors.tutor_description,
@@ -38,15 +37,13 @@ GROUP BY
   subjects.subject_name,
   country.name
   HAVING
-  '${level.toLowerCase()}' = ANY(ARRAY_AGG(tutors_subjects.subject_level))
+  $4 = ANY(ARRAY_AGG(tutors_subjects.subject_level))
 ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
-};
 //get tutors with min, max & level param
 
-export const selectAdvertisementsLevel = (min, max, level) => {
-  return `
+export const selectAdvertisementsLevel = `
   SELECT
   country.name as country_name,
   country.iso as country,
@@ -71,7 +68,7 @@ JOIN
   reviews ON reviews.tutor_id = tutors.tutor_id
 JOIN
   subjects ON subjects.subject_id = tutors_subjects.subject_id
-  WHERE tutors.tutor_hourly_wage BETWEEN ${min}::money AND ${max}::money
+  WHERE tutors.tutor_hourly_wage BETWEEN $1::money AND $2::money
 GROUP BY
   country.iso,
   tutors.tutor_description,
@@ -84,15 +81,13 @@ GROUP BY
   subjects.subject_name,
   country.name
   HAVING
-  '${level.toLowerCase()}' = ANY(ARRAY_AGG(tutors_subjects.subject_level))
+  $3 = ANY(ARRAY_AGG(tutors_subjects.subject_level))
 ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
-};
 //get tutors with subject,min, & max param
 
-export const selectAdvertisementsSubject = (subject, min, max) => {
-  return `
+export const selectAdvertisementsSubject = `
   SELECT
   country.name as country_name,
   country.iso as country,
@@ -116,8 +111,8 @@ JOIN
 JOIN
   reviews ON reviews.tutor_id = tutors.tutor_id
 JOIN
-  subjects ON subjects.subject_id = tutors_subjects.subject_id AND subjects.subject_name = '${subject.toLowerCase()}'
-  WHERE tutors.tutor_hourly_wage BETWEEN ${min}::money AND ${max}::money
+  subjects ON subjects.subject_id = tutors_subjects.subject_id AND subjects.subject_name = $1
+  WHERE tutors.tutor_hourly_wage BETWEEN $2::money AND $3::money
 GROUP BY
   country.iso,
   tutors.tutor_description,
@@ -133,11 +128,10 @@ GROUP BY
 ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
-};
+
 //get tutors with min & max param
 
-export const selectAdvertisementsMin = (min, max) => {
-  return `
+export const selectAdvertisementsMin = `
   SELECT
   country.name as country_name,
   country.iso as country,
@@ -162,7 +156,7 @@ JOIN
   reviews ON reviews.tutor_id = tutors.tutor_id
 JOIN
   subjects ON subjects.subject_id = tutors_subjects.subject_id
-  WHERE tutors.tutor_hourly_wage BETWEEN ${min}::money AND ${max}::money
+  WHERE tutors.tutor_hourly_wage BETWEEN $1::money AND $2::money
 GROUP BY
   country.iso,
   tutors.tutor_description,
@@ -177,11 +171,9 @@ GROUP BY
 ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
-};
 
 // select all tutors
-export const selectAnyAdvertisements = () => {
-  return `
+export const selectAnyAdvertisements = `
   SELECT
   country.name as country_name,
   country.iso as country,
@@ -219,23 +211,19 @@ GROUP BY
 ORDER BY
 AVG(reviews.review_rating) DESC;
   `;
-};
 
 //get tutorsLanguages
 
-export const selectTutorLanguages = () => {
-  return `
+export const selectTutorLanguages = `
   SELECT tutors_language.tutor_id as tu_id, array_agg(languages.name) AS language_names
 FROM tutors_language
 JOIN languages ON languages.id = tutors_language.language_id
 GROUP BY tutors_language.tutor_id
 ORDER BY tutors_language.tutor_id;
   `;
-};
 
 //get tutor info by id
-export const getTutorinfo = (id) => {
-  return `
+export const getTutorinfo = `
   SELECT tutors.tutor_id AS tu_id,tutors.tutor_name AS tu_name,tutors.tutor_lastname AS tu_lastname,
   tutors.tutor_hourly_wage AS hourly, tutors.tutor_skills AS tu_skills, tutors.tutor_description AS
   tu_desc,ARRAY_AGG(languages.name) AS langs,country.iso AS c_iso,cl_date,
@@ -257,7 +245,7 @@ export const getTutorinfo = (id) => {
 	  JOIN subjects ON tutors_subjects.subject_id = subjects.subject_id
 	  GROUP BY 1
   ) tu_subj ON tutors.tutor_id = tu_subj.tutor_id
-  WHERE tutors.tutor_id =${id}
+  WHERE tutors.tutor_id = $1
   GROUP BY
   tutors.tutor_id,
   country.iso,
@@ -266,4 +254,5 @@ export const getTutorinfo = (id) => {
   subject_names
 
   `;
-};
+
+
