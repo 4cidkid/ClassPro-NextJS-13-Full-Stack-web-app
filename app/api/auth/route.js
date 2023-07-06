@@ -4,6 +4,13 @@ import dotenv from "dotenv";
 dotenv.config({ path: "app/api/.env" });
 export async function POST(req, res) {
   /*encrypt user data to save it on the browser */
+  if (req.headers.get("co") === "cry" || req.headers.get("co") === "dec"){
+    return saveUserDataOnRegistration(req)
+  }else{
+
+  }
+}
+const saveUserDataOnRegistration = (req) => {
   let userEncrypt;
   let passwordEncrypt;
   if (req.headers.get("co") === "cry") {
