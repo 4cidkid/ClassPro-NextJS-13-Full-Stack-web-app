@@ -7,7 +7,7 @@ import {
   Filter,
   Search,
 } from "react-feather";
-import { searchFor, searchAny, getLanguages } from "@/app/tutors/search";
+import { searchFor, searchAny, getLanguages } from "@/app/tutors/tutors/search";
 import { useEffect, useState } from "react";
 import TutorsCards from "@/components/tutors/tutorsCard";
 import { Loader } from "@/components/common/loading";
