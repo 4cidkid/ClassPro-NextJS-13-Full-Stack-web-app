@@ -11,16 +11,28 @@ const SearchBar = ({ personalized }) => {
   const levelParam = searchParams.get("level");
   const min = parseInt(searchParams.get("min"));
   const max = parseInt(searchParams.get("max"));
+  //self explanatory, shows an error if user has not fill input correctly.
+  const [error, setError] = useState("");
+  //stop error from showing
+  useEffect(() => {
+    if (error !== "") {
+      setTimeout(() => setError(""), 4500);
+    }
+  }, [error]);
   /* get all subjects */
   const [localSubject, setLocalSubjects] = useState([]);
   useEffect(() => {
     const getSubjects = async () => {
       const data = await fetch("http://localhost:3000/api/subjects");
       const subjects = await data.json();
-      const newArray = subjects.subjects.map((sub) => {
-        return sub.subject_name.toLowerCase();
-      });
-      setLocalSubjects(newArray);
+      if (!data.ok) {
+        setError(subjects.msg)
+      } else {
+        const newArray = subjects.subjects.map((sub) => {
+          return sub.subject_name.toLowerCase();
+        });
+        setLocalSubjects(newArray);       
+      }
     };
     getSubjects();
   }, []);
@@ -98,7 +110,7 @@ const SearchBar = ({ personalized }) => {
     });
   };
   useEffect(() => {
-    const setError = () => setAnimationError(false);
+    var setError = () => setAnimationError(false);
     const timeout = setTimeout(setError, 1500);
     return () => clearTimeout(timeout, setError);
   }, [animationError]);
@@ -191,6 +203,7 @@ const SearchBar = ({ personalized }) => {
                 set={setSubject}
                 subjectSelect={setSelectSubject}
                 search={subject}
+                setError={setError}
               ></SearchCat>
             </ul>
           </div>
@@ -387,15 +400,20 @@ const SearchBar = ({ personalized }) => {
 const SearchCat = (props) => {
   const setSelectSubject = props.subjectSelect;
   const setSubject = props.set;
+  const setError = props.setError
   const [localSubject, setLocalSubjects] = useState([]);
   useEffect(() => {
     const getSubjects = async () => {
       const data = await fetch("http://localhost:3000/api/subjects");
       const subjects = await data.json();
-      const newArray = [{ subject_id: 0, subject_name: "All" }].concat(
-        subjects.subjects
-      );
-      setLocalSubjects(newArray);
+      if (subjects.status !== 500) {
+        const newArray = [{ subject_id: 0, subject_name: "All" }].concat(
+          subjects.subjects
+        );
+        setLocalSubjects(newArray);
+      } else {
+        setError(subjects.msg)
+      }
     };
     getSubjects();
   }, []);
