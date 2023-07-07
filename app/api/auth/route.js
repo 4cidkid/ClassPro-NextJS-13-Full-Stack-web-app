@@ -8,17 +8,52 @@ export async function POST(req, res) {
   if (req.headers.get("co") === "cry" || req.headers.get("co") === "dec") {
     return await saveUserDataOnRegistration(req);
   } else {
+    return await authUser(req);
   }
 }
+
+const authUser = async (req) => {
+  const searchedUser = JSON.parse(req.headers.get("userdata"));
+  let userExist;
+  try {
+    userExist = await pool.query(
+      "SELECT student_email,student_password FROM students WHERE LOWER(student_email) = $1",
+      [searchedUser.email.toLowerCase()]
+    );
+    if (userExist.rowCount === 0) {
+      return NextResponse.json({ msg: "user doesn't exist" }, { status: 404 });
+    } else {
+      console.log();
+      var decryptedBytesPassword = CryptoJS.AES.decrypt(
+        userExist.rows[0].student_password,
+        process.env.SECRET_KEY_PASSWORDS
+      );
+      var decryptedDataPassword = JSON.parse(
+        decryptedBytesPassword.toString(CryptoJS.enc.Utf8)
+      );
+      if (decryptedDataPassword === searchedUser.password) {
+        return NextResponse.json({ msg: "Login Success" }, { status: 200 });
+      } else {
+        return NextResponse.json(
+          { msg: "Incorrect Password" },
+          { status: 401 }
+        );
+      }
+    }
+  } catch (err) {
+    return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
+  }
+};
+
 const saveUserDataOnRegistration = async (req) => {
   let userExist;
   try {
-     userExist = await pool.query(
+    userExist = await pool.query(
       "SELECT student_id FROM students WHERE LOWER(student_email) = $1",
       [req.headers.get("user").toLowerCase()]
     );
   } catch (err) {
-    return NextResponse.json({ msg: "Server Internal Error" }, { status: 500 });
+    return NextResponse.json({ msg: "Internal Server Error" }, { status: 500 });
   }
   let userEncrypt;
   let passwordEncrypt;
