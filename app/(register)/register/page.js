@@ -448,7 +448,7 @@ export default function Register() {
                 </h2>
                 <div className="flex flex-col gap-5  align-start">
                   <input
-                    className="w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 "
+                    className="w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 rounded-lg"
                     type="text"
                     name="name"
                     placeholder="Name"
@@ -459,7 +459,7 @@ export default function Register() {
                     }
                   ></input>
                   <input
-                    className="w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 "
+                    className="w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 rounded-lg"
                     type="text"
                     name="lastname"
                     placeholder="Last Name"
@@ -473,7 +473,7 @@ export default function Register() {
                     required
                   ></input>
                   <input
-                    className="w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 "
+                    className="w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 rounded-lg"
                     type="text"
                     name="email"
                     placeholder="Last Name"
@@ -481,7 +481,7 @@ export default function Register() {
                     readOnly
                   ></input>
                   <input
-                    className="w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 "
+                    className="w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 rounded-lg"
                     type="number"
                     min={13}
                     max={120}
@@ -621,7 +621,7 @@ export default function Register() {
                     </div>
                     <input
                       style={{ paddingLeft: countryWidth + 20 + "px" }}
-                      className={` w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 `}
+                      className={` w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 rounded-lg`}
                       type="number"
                       max={9999999999}
                       name="phone"
@@ -636,7 +636,7 @@ export default function Register() {
                   </div>
                   <div className="flex gap-5 justify-center child:w-full">
                     <button
-                      className="cursor-pointer text-xl border border-[rgba(0,0,0,0.5)]"
+                      className="cursor-pointer text-xl border border-[rgba(0,0,0,0.5)] rounded-lg"
                       onClick={(e) => {
                         console.log("this switch");
                         e.preventDefault();
@@ -701,7 +701,7 @@ export default function Register() {
                         }));
                         setSendInfo(true);
                       }}
-                      className="text-2xl text-center bg-main p-2 text-white font-semibold "
+                      className="text-2xl text-center bg-main p-2 text-white font-semibold rounded-lg"
                     >
                       Send
                     </button>
@@ -723,9 +723,9 @@ export default function Register() {
             }}
           >
             <div className="flex flex-col self-center  pt-12 gap-5">
-              <h2 className="font-bold text-5xl text-center">
+              <h1 className="font-bold text-5xl text-center">
                 Reach Your Academics<br></br>Goals
-              </h2>
+              </h1>
               <form
                 className="flex flex-col gap-5  align-start"
                 onSubmit={(e) => {
@@ -761,33 +761,33 @@ export default function Register() {
               >
                 <div className="w-full relative">
                   <input
-                    className="w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 "
+                    className="w-full border-2 border-[rgba(0, 0, 0, 1)] text-xl p-2 rounded-lg"
                     placeholder="Email"
                     onChange={(e) =>
-                      setFormData(() => ({
-                        ...formData,
+                      setFormData((prev) => ({
+                        ...prev,
                         email: e.target.value,
                       }))
                     }
                     type="text"
                     name="email"
-                    onFocus={() => {
-                      setAnimations({
-                        ...animations,
+                    onFocus={(e) => {
+                      setAnimations((prev) => ({
+                        ...prev,
                         inputsFocus: {
-                          ...animations.inputsFocus,
+                          ...prev.inputsFocus,
                           email: true,
                         },
-                      });
+                      }));
                     }}
-                    onBlur={() => {
-                      setAnimations({
-                        ...animations,
+                    onBlur={(e) => {
+                      setAnimations((prev) => ({
+                        ...prev,
                         inputsFocus: {
-                          ...animations.inputsFocus,
+                          ...prev.inputsFocus,
                           email: false,
                         },
-                      });
+                      }));
                     }}
                     required
                   ></input>
@@ -801,7 +801,7 @@ export default function Register() {
                 </div>
                 <div className="w-full relative">
                   <input
-                    className="register-input w-full border-2  border-[rgba(0, 0, 0, 1)] text-xl p-2 "
+                    className="register-input w-full border-2  border-[rgba(0, 0, 0, 1)] text-xl p-2 rounded-lg"
                     placeholder="Password"
                     onChange={(e) => {
                       var passw = e.target.value;
@@ -817,8 +817,8 @@ export default function Register() {
                         haveNumber: containNumbers,
                       }));
 
-                      setFormData(() => ({
-                        ...formData,
+                      setFormData((prev) => ({
+                        ...prev,
                         password: e.target.value,
                       }));
                     }}
@@ -826,32 +826,38 @@ export default function Register() {
                     name="password"
                     required
                     onFocus={(e) => {
-                      setAnimations({
-                        ...animations,
+                      setAnimations((prev) => (({
+                        ...prev,
                         inputsFocus: {
-                          ...animations.inputsFocus,
+                          ...prev.inputsFocus,
                           password: true,
                         },
                         passwordRequeriments: true,
-                      });
+                      })));
                     }}
                     onBlur={(e) => {
-                      setAnimations({
-                        ...animations,
+                      setAnimations((prev) => ({
+                        ...prev,
                         inputsFocus: {
-                          ...animations.inputsFocus,
+                          ...prev.inputsFocus,
                           password: false,
                         },
                         passwordRequeriments: false,
-                      });
+                      }));
                     }}
                   ></input>
                   <div
                     onMouseDown={() => {
-                      setAnimations((prev) => ({ ...prev, locked: false }));
+                      setAnimations((prev) => ({ ...prev, locked: false,inputsFocus:{
+                        email: prev.inputsFocus.email,
+                        password:true
+                    } }));
                     }}
                     onMouseUp={() => {
-                      setAnimations((prev) => ({ ...prev, locked: true }));
+                      setAnimations((prev) => ({ ...prev, locked: true,inputsFocus:{
+                        email: prev.inputsFocus.email,
+                        password:false
+                    } }));
                     }}
                     className={`${
                       animations.inputsFocus.password || formData.password
@@ -904,7 +910,7 @@ export default function Register() {
                 )}
                 <button
                   type="submit"
-                  className={` text-2xl text-center bg-main p-2  text-white font-semibold`}
+                  className={` text-2xl text-center bg-main p-2  text-white font-semibold rounded-lg`}
                 >
                   Sign Up With Email
                 </button>
