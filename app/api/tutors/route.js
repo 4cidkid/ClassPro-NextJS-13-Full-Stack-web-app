@@ -21,16 +21,28 @@ export async function GET(request) {
   let response;
   //if not id then get all tutors
   if (!id) {
-    response = await getUsersWithParams(subject, level, min, max);
-    return NextResponse.json({
-      response: response.response.rows,
-      language: response.language.rows,
-    });
+    try{
+      response = await getUsersWithParams(subject, level, min, max);
+      return NextResponse.json({
+        response: response.response.rows,
+        language: response.language.rows,
+      },{status:200});
+    }catch(e){
+      if(e){
+        return NextResponse.json({msg:"The server Couldn't get The Users"},{status:500})
+      }
+    }
   } else {
-    response = await getSingleUser(id);
-    return NextResponse.json({
-      response: response.rows,
-    });
+    try{
+      response = await getSingleUser(id);
+      return NextResponse.json({
+        response: response.rows,
+      },{status:200});
+    }catch(e){
+      if(e){
+        return NextResponse.json({msg:"The server Couldn't get The User"},{status:500})
+      }
+    }
   }
 }
 

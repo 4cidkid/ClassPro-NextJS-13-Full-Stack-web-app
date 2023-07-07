@@ -22,9 +22,20 @@ const saveUserDataOnRegistration = (req) => {
       JSON.stringify(req.headers.get("password")),
       process.env.SECRET_KEY_C
     ).toString();
-    return NextResponse.json({ user: userEncrypt, pass: passwordEncrypt });
-  } else if (req.headers.get("co") === "dec") {
-    /*decrypt user data to retrieve in state */
+        return NextResponse.json(
+          { user: userEncrypt, pass: passwordEncrypt },
+          { status: 200 }
+        );
+      } catch (e) {
+        if (e) {
+          return NextResponse.json(
+            { msg: "Data couln't be encrypted" },
+            { status: 500 }
+          );
+        }
+      }
+    } else if (req.headers.get("co") === "dec") {
+      /*decrypt user data to retrieve in state */
     const decryptedBytes = CryptoJS.AES.decrypt(
       req.headers.get("user"),
       process.env.SECRET_KEY_C
@@ -43,5 +54,21 @@ const saveUserDataOnRegistration = (req) => {
       user: decryptedData,
       pass: decryptedDataPassword,
     });
+      } catch (e) {
+        if (e) {
+          return NextResponse.json(
+            { msg: "Data couln't be decrypted" },
+            { status: 500 }
+          );
   }
 }
+    }
+  } else {
+    return NextResponse.json(
+      {
+        msg: "Email Already Registered",
+      },
+      { status: 409 }
+    );
+  }
+};
