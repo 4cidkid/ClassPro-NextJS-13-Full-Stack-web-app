@@ -322,7 +322,10 @@ body {
     animation: appearError 5s ease;
   }
   .loadingCircle {
-    animation: loadingCircle 3s;
+    animation: loadingCircle 2s;
+  }
+  .loadingCircleInfinite{
+    animation: loadingCircle 1s infinite ease-in-out;
   }
   .scaleTransition {
     animation: scaleTransition 1500ms ease;
