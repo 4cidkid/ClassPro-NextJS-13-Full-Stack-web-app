@@ -209,14 +209,14 @@ body {
 
 @keyframes scaleTransition {
   0% {
-    scale: 0;
+    transform: scale(0);
+    
   }
   70% {
-    scale: 1;
+    transform: scale(1);
+    transform-origin: center;
   }
-  100% {
-    scale: 1;
-  }
+
 }
 @keyframes float {
   0% {
