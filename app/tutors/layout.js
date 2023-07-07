@@ -11,7 +11,7 @@ export default function Layout({ children }) {
         >
           <div className="flex items-center gap-5">
             <div id="logo">
-              <h1 className="text-4xl font-black">ClassPro</h1>
+            <Link href={'/'} className="text-4xl font-black">ClassPro</Link>
             </div>
             <nav>
               <ul className="flex before:content-['|'] text-xl gap-10">
