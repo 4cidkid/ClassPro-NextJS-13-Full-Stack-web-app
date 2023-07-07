@@ -7,11 +7,11 @@ import {
   Filter,
   Search,
 } from "react-feather";
-import { searchFor, searchAny, getLanguages } from "@/app/tutors/tutors/search";
+import { searchFor, searchAny, getLanguages } from "@/app/(tutors)/tutors/search";
 import { useEffect, useState } from "react";
 import TutorsCards from "@/components/tutors/tutorsCard";
 import { Loader } from "@/components/common/loading";
-import { dummyData } from "@/app/tutors/dummyData";
+import { dummyData } from "@/app/(tutors)/tutors/dummyData";
 import Link from "next/link";
 import {
   countryAndLanguage,
