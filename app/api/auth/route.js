@@ -3,7 +3,9 @@ import CryptoJS from "crypto-js";
 import dotenv from "dotenv";
 dotenv.config({ path: "app/api/.env" });
 import pool from "../db";
-export async function POST(req, res) {
+import { sign } from "jsonwebtoken";
+import { serialize } from "cookie";
+export async function POST(req) {
   /*encrypt user data to save it on the browser */
   if (req.headers.get("co") === "cry" || req.headers.get("co") === "dec") {
     return await saveUserDataOnRegistration(req);
@@ -15,6 +17,23 @@ export async function POST(req, res) {
 const authUser = async (req) => {
   const searchedUser = JSON.parse(req.headers.get("userdata"));
   let userExist;
+  const secret = process.env.JWT_SECRET;
+  const token = sign(
+    {
+      email: searchedUser.email,
+    },
+    secret,
+    {
+      expiresIn: 30 * 24 * 60 * 60,
+    }
+  );
+  const serialized = serialize("classpro", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 30 * 24 * 60 * 60,
+    path: "/",
+  });
   try {
     userExist = await pool.query(
       "SELECT student_email,student_password FROM students WHERE LOWER(student_email) = $1",
@@ -23,7 +42,6 @@ const authUser = async (req) => {
     if (userExist.rowCount === 0) {
       return NextResponse.json({ msg: "user doesn't exist" }, { status: 404 });
     } else {
-      console.log();
       var decryptedBytesPassword = CryptoJS.AES.decrypt(
         userExist.rows[0].student_password,
         process.env.SECRET_KEY_PASSWORDS
@@ -32,7 +50,10 @@ const authUser = async (req) => {
         decryptedBytesPassword.toString(CryptoJS.enc.Utf8)
       );
       if (decryptedDataPassword === searchedUser.password) {
-        return NextResponse.json({ msg: "Login Success" }, { status: 200 });
+        return new Response(JSON.stringify({ msg: "Login Success" }), {
+          status: 200,
+          headers: { "Set-Cookie": serialized },
+        });
       } else {
         return NextResponse.json(
           { msg: "Incorrect Password" },
